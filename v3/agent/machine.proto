@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "hyperqube.io/protobuf/v3/agent";
+
+message Machine {
+  string id = 1;
+  string name = 2;
+
+  enum PowerState {
+    UNKNOWN = 0;
+    POWERED_ON = 1;
+    POWERED_OFF = 2;
+    SUSPENDED = 3;
+  }
+  PowerState powerState = 3;
+}
+
+message GetMachinesRequest {
+  repeated string ids = 1;
+}
+
+message GetMachinesReply {
+  repeated Machine machines = 1;
+}
+
+service MachineService {
+  rpc GetAll (GetMachinesRequest) returns (GetMachinesReply) {}
+}

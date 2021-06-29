@@ -1,0 +1,5 @@
+{
+  "files.exclude": {
+    "**/*.pb.go": true
+  }
+}
