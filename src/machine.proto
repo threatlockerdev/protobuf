@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "hyperqube.io/protobuf/v3/agent";
+option go_package = "hyperqube-io/protobuf/agent";
 
 message Machine {
   string id = 1;

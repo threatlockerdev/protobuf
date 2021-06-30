@@ -1,5 +1,7 @@
 {
   "files.exclude": {
-    "**/*.pb.go": true
+    // "**/*.pb.go": true,
+    // "**/*_pb.d.ts": true,
+    // "**/*_pb.js": true
   }
 }
