@@ -3,7 +3,7 @@ syntax = "proto3";
 option go_package = "hyperqube-io/protobuf/agent";
 
 message Machine {
-  string id = 1;
+  uint32 id = 1;
   string name = 2;
 
   enum PowerState {
@@ -16,7 +16,7 @@ message Machine {
 }
 
 message GetMachinesRequest {
-  repeated string ids = 1;
+  repeated uint32 ids = 1;
 }
 
 message GetMachinesReply {
@@ -24,5 +24,5 @@ message GetMachinesReply {
 }
 
 service MachineService {
-  rpc GetAll (GetMachinesRequest) returns (GetMachinesReply) {}
+  rpc GetMany (GetMachinesRequest) returns (GetMachinesReply) {}
 }
