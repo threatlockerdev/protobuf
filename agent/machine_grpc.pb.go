@@ -19,6 +19,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MachineServiceClient interface {
 	GetMany(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error)
+	Start(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	Stop(ctx context.Context, in *StopMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
 type machineServiceClient struct {
@@ -38,11 +40,31 @@ func (c *machineServiceClient) GetMany(ctx context.Context, in *GetMachinesReque
 	return out, nil
 }
 
+func (c *machineServiceClient) Start(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/Start", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *machineServiceClient) Stop(ctx context.Context, in *StopMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/Stop", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MachineServiceServer is the server API for MachineService service.
 // All implementations must embed UnimplementedMachineServiceServer
 // for forward compatibility
 type MachineServiceServer interface {
 	GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error)
+	Start(context.Context, *GetMachinesRequest) (*ActionReply, error)
+	Stop(context.Context, *StopMachinesRequest) (*ActionReply, error)
 	mustEmbedUnimplementedMachineServiceServer()
 }
 
@@ -52,6 +74,12 @@ type UnimplementedMachineServiceServer struct {
 
 func (UnimplementedMachineServiceServer) GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMany not implemented")
+}
+func (UnimplementedMachineServiceServer) Start(context.Context, *GetMachinesRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Start not implemented")
+}
+func (UnimplementedMachineServiceServer) Stop(context.Context, *StopMachinesRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Stop not implemented")
 }
 func (UnimplementedMachineServiceServer) mustEmbedUnimplementedMachineServiceServer() {}
 
@@ -84,6 +112,42 @@ func _MachineService_GetMany_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MachineService_Start_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMachinesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).Start(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/Start",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).Start(ctx, req.(*GetMachinesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MachineService_Stop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StopMachinesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).Stop(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/Stop",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).Stop(ctx, req.(*StopMachinesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MachineService_ServiceDesc is the grpc.ServiceDesc for MachineService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -94,6 +158,14 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMany",
 			Handler:    _MachineService_GetMany_Handler,
+		},
+		{
+			MethodName: "Start",
+			Handler:    _MachineService_Start_Handler,
+		},
+		{
+			MethodName: "Stop",
+			Handler:    _MachineService_Stop_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

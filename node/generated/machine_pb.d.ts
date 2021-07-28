@@ -2,6 +2,7 @@
 // file: machine.proto
 
 import * as jspb from "google-protobuf";
+import * as util_pb from "./util_pb";
 
 export class Machine extends jspb.Message {
   getId(): number;
@@ -81,6 +82,32 @@ export class GetMachinesReply extends jspb.Message {
 export namespace GetMachinesReply {
   export type AsObject = {
     machinesList: Array<Machine.AsObject>,
+  }
+}
+
+export class StopMachinesRequest extends jspb.Message {
+  clearIdsList(): void;
+  getIdsList(): Array<number>;
+  setIdsList(value: Array<number>): void;
+  addIds(value: number, index?: number): number;
+
+  getForce(): boolean;
+  setForce(value: boolean): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): StopMachinesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: StopMachinesRequest): StopMachinesRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: StopMachinesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): StopMachinesRequest;
+  static deserializeBinaryFromReader(message: StopMachinesRequest, reader: jspb.BinaryReader): StopMachinesRequest;
+}
+
+export namespace StopMachinesRequest {
+  export type AsObject = {
+    idsList: Array<number>,
+    force: boolean,
   }
 }
 
