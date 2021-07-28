@@ -4,8 +4,8 @@
 import * as jspb from "google-protobuf";
 
 export class Machine extends jspb.Message {
-  getId(): string;
-  setId(value: string): void;
+  getId(): number;
+  setId(value: number): void;
 
   getName(): string;
   setName(value: string): void;
@@ -25,7 +25,7 @@ export class Machine extends jspb.Message {
 
 export namespace Machine {
   export type AsObject = {
-    id: string,
+    id: number,
     name: string,
     powerstate: Machine.PowerStateMap[keyof Machine.PowerStateMap],
   }
@@ -42,9 +42,9 @@ export namespace Machine {
 
 export class GetMachinesRequest extends jspb.Message {
   clearIdsList(): void;
-  getIdsList(): Array<string>;
-  setIdsList(value: Array<string>): void;
-  addIds(value: string, index?: number): string;
+  getIdsList(): Array<number>;
+  setIdsList(value: Array<number>): void;
+  addIds(value: number, index?: number): number;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetMachinesRequest.AsObject;
@@ -58,7 +58,7 @@ export class GetMachinesRequest extends jspb.Message {
 
 export namespace GetMachinesRequest {
   export type AsObject = {
-    idsList: Array<string>,
+    idsList: Array<number>,
   }
 }
 

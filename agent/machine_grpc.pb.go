@@ -18,7 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MachineServiceClient interface {
-	GetAll(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error)
+	GetMany(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error)
 }
 
 type machineServiceClient struct {
@@ -29,9 +29,9 @@ func NewMachineServiceClient(cc grpc.ClientConnInterface) MachineServiceClient {
 	return &machineServiceClient{cc}
 }
 
-func (c *machineServiceClient) GetAll(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error) {
+func (c *machineServiceClient) GetMany(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error) {
 	out := new(GetMachinesReply)
-	err := c.cc.Invoke(ctx, "/MachineService/GetAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/MachineService/GetMany", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (c *machineServiceClient) GetAll(ctx context.Context, in *GetMachinesReques
 // All implementations must embed UnimplementedMachineServiceServer
 // for forward compatibility
 type MachineServiceServer interface {
-	GetAll(context.Context, *GetMachinesRequest) (*GetMachinesReply, error)
+	GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error)
 	mustEmbedUnimplementedMachineServiceServer()
 }
 
@@ -50,8 +50,8 @@ type MachineServiceServer interface {
 type UnimplementedMachineServiceServer struct {
 }
 
-func (UnimplementedMachineServiceServer) GetAll(context.Context, *GetMachinesRequest) (*GetMachinesReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
+func (UnimplementedMachineServiceServer) GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMany not implemented")
 }
 func (UnimplementedMachineServiceServer) mustEmbedUnimplementedMachineServiceServer() {}
 
@@ -66,20 +66,20 @@ func RegisterMachineServiceServer(s grpc.ServiceRegistrar, srv MachineServiceSer
 	s.RegisterService(&MachineService_ServiceDesc, srv)
 }
 
-func _MachineService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MachineService_GetMany_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMachinesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MachineServiceServer).GetAll(ctx, in)
+		return srv.(MachineServiceServer).GetMany(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/MachineService/GetAll",
+		FullMethod: "/MachineService/GetMany",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MachineServiceServer).GetAll(ctx, req.(*GetMachinesRequest))
+		return srv.(MachineServiceServer).GetMany(ctx, req.(*GetMachinesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -92,8 +92,8 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*MachineServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetAll",
-			Handler:    _MachineService_GetAll_Handler,
+			MethodName: "GetMany",
+			Handler:    _MachineService_GetMany_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

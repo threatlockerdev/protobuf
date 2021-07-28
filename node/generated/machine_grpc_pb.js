@@ -28,8 +28,8 @@ function deserialize_GetMachinesRequest(buffer_arg) {
 
 
 var MachineServiceService = exports.MachineServiceService = {
-  getAll: {
-    path: '/MachineService/GetAll',
+  getMany: {
+    path: '/MachineService/GetMany',
     requestStream: false,
     responseStream: false,
     requestType: machine_pb.GetMachinesRequest,

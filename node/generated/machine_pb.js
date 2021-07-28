@@ -99,7 +99,7 @@ proto.Machine.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readUint32());
       msg.setId(value);
       break;
     case 2:
@@ -149,8 +149,8 @@ proto.Machine.prototype.serializeBinary = function() {
 proto.Machine.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getId();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeUint32(
       1,
       f
     );
@@ -182,15 +182,15 @@ proto.Machine.prototype.cloneMessage = function() {
 
 
 /**
- * optional string id = 1;
- * @return {string}
+ * optional uint32 id = 1;
+ * @return {number}
  */
 proto.Machine.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
 };
 
 
-/** @param {string} value  */
+/** @param {number} value  */
 proto.Machine.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -327,9 +327,8 @@ proto.GetMachinesRequest.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.getIdsList().push(value);
-      msg.setIdsList(msg.getIdsList());
+      var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
+      msg.setIdsList(value);
       break;
     default:
       reader.skipField();
@@ -371,7 +370,7 @@ proto.GetMachinesRequest.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getIdsList();
   if (f.length > 0) {
-    writer.writeRepeatedString(
+    writer.writePackedUint32(
       1,
       f
     );
@@ -389,17 +388,17 @@ proto.GetMachinesRequest.prototype.cloneMessage = function() {
 
 
 /**
- * repeated string ids = 1;
+ * repeated uint32 ids = 1;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<string>}
+ * @return {!Array.<number>}
  */
 proto.GetMachinesRequest.prototype.getIdsList = function() {
-  return /** @type {!Array.<string>} */ (jspb.Message.getField(this, 1));
+  return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 1));
 };
 
 
-/** @param {Array.<string>} value  */
+/** @param {Array.<number>} value  */
 proto.GetMachinesRequest.prototype.setIdsList = function(value) {
   jspb.Message.setField(this, 1, value || []);
 };
