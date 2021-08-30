@@ -31,7 +31,7 @@ message StopMachinesRequest {
 }
 
 service MachineService {
-  rpc GetMany (GetMachinesRequest) returns (GetMachinesReply) {}
-  rpc Start (GetMachinesRequest) returns (ActionReply) {}
-  rpc Stop (StopMachinesRequest) returns (ActionReply) {}
+  rpc GetMany (GetMachinesRequest)  returns (GetMachinesReply) {}
+  rpc Start   (GetMachinesRequest)  returns (ActionReply) {}
+  rpc Stop    (StopMachinesRequest) returns (ActionReply) {}
 }

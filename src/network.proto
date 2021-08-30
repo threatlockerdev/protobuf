@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "hyperqube-io/protobuf/agent";
+
+import "util.proto";
+
+message Network {
+  uint32 id = 1;
+  string name = 2;
+  repeated uint32 machineIds = 3;
+}
+
+message GetNetworksRequest {
+  repeated uint32 ids = 1;
+}
+
+message GetNetworksReply {
+  repeated Network networks = 1;
+}
+
+message CreateNetworkRequest {
+  string name = 1;
+}
+
+message CreateNetworkReply {
+  uint32 id = 1;
+}
+
+service NetworkService {
+  rpc GetMany (GetNetworksRequest)   returns (GetNetworksReply) {}
+  rpc Create  (CreateNetworkRequest) returns (CreateNetworkReply) {}
+  rpc Delete  (GetNetworksRequest)   returns (ActionReply) {}
+}
