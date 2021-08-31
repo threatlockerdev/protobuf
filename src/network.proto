@@ -5,13 +5,13 @@ option go_package = "hyperqube-io/protobuf/agent";
 import "util.proto";
 
 message Network {
-  uint32 id = 1;
+  string id = 1;
   string name = 2;
   repeated uint32 machineIds = 3;
 }
 
 message GetNetworksRequest {
-  repeated uint32 ids = 1;
+  repeated string ids = 1;
 }
 
 message GetNetworksReply {
@@ -23,7 +23,7 @@ message CreateNetworkRequest {
 }
 
 message CreateNetworkReply {
-  uint32 id = 1;
+  string id = 1;
 }
 
 service NetworkService {

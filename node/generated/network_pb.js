@@ -108,7 +108,7 @@ proto.Network.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setId(value);
       break;
     case 2:
@@ -158,8 +158,8 @@ proto.Network.prototype.serializeBinary = function() {
 proto.Network.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getId();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -191,15 +191,15 @@ proto.Network.prototype.cloneMessage = function() {
 
 
 /**
- * optional uint32 id = 1;
- * @return {number}
+ * optional string id = 1;
+ * @return {string}
  */
 proto.Network.prototype.getId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
-/** @param {number} value  */
+/** @param {string} value  */
 proto.Network.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -333,8 +333,9 @@ proto.GetNetworksRequest.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!Array.<number>} */ (reader.readPackedUint32());
-      msg.setIdsList(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.getIdsList().push(value);
+      msg.setIdsList(msg.getIdsList());
       break;
     default:
       reader.skipField();
@@ -376,7 +377,7 @@ proto.GetNetworksRequest.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getIdsList();
   if (f.length > 0) {
-    writer.writePackedUint32(
+    writer.writeRepeatedString(
       1,
       f
     );
@@ -394,17 +395,17 @@ proto.GetNetworksRequest.prototype.cloneMessage = function() {
 
 
 /**
- * repeated uint32 ids = 1;
+ * repeated string ids = 1;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<number>}
+ * @return {!Array.<string>}
  */
 proto.GetNetworksRequest.prototype.getIdsList = function() {
-  return /** @type {!Array.<number>} */ (jspb.Message.getField(this, 1));
+  return /** @type {!Array.<string>} */ (jspb.Message.getField(this, 1));
 };
 
 
-/** @param {Array.<number>} value  */
+/** @param {Array.<string>} value  */
 proto.GetNetworksRequest.prototype.setIdsList = function(value) {
   jspb.Message.setField(this, 1, value || []);
 };
@@ -836,7 +837,7 @@ proto.CreateNetworkReply.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setId(value);
       break;
     default:
@@ -878,8 +879,8 @@ proto.CreateNetworkReply.prototype.serializeBinary = function() {
 proto.CreateNetworkReply.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getId();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -897,15 +898,15 @@ proto.CreateNetworkReply.prototype.cloneMessage = function() {
 
 
 /**
- * optional uint32 id = 1;
- * @return {number}
+ * optional string id = 1;
+ * @return {string}
  */
 proto.CreateNetworkReply.prototype.getId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
 };
 
 
-/** @param {number} value  */
+/** @param {string} value  */
 proto.CreateNetworkReply.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };

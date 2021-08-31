@@ -5,8 +5,8 @@ import * as jspb from "google-protobuf";
 import * as util_pb from "./util_pb";
 
 export class Network extends jspb.Message {
-  getId(): number;
-  setId(value: number): void;
+  getId(): string;
+  setId(value: string): void;
 
   getName(): string;
   setName(value: string): void;
@@ -28,7 +28,7 @@ export class Network extends jspb.Message {
 
 export namespace Network {
   export type AsObject = {
-    id: number,
+    id: string,
     name: string,
     machineidsList: Array<number>,
   }
@@ -36,9 +36,9 @@ export namespace Network {
 
 export class GetNetworksRequest extends jspb.Message {
   clearIdsList(): void;
-  getIdsList(): Array<number>;
-  setIdsList(value: Array<number>): void;
-  addIds(value: number, index?: number): number;
+  getIdsList(): Array<string>;
+  setIdsList(value: Array<string>): void;
+  addIds(value: string, index?: number): string;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetNetworksRequest.AsObject;
@@ -52,7 +52,7 @@ export class GetNetworksRequest extends jspb.Message {
 
 export namespace GetNetworksRequest {
   export type AsObject = {
-    idsList: Array<number>,
+    idsList: Array<string>,
   }
 }
 
@@ -99,8 +99,8 @@ export namespace CreateNetworkRequest {
 }
 
 export class CreateNetworkReply extends jspb.Message {
-  getId(): number;
-  setId(value: number): void;
+  getId(): string;
+  setId(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateNetworkReply.AsObject;
@@ -114,7 +114,7 @@ export class CreateNetworkReply extends jspb.Message {
 
 export namespace CreateNetworkReply {
   export type AsObject = {
-    id: number,
+    id: string,
   }
 }
 
