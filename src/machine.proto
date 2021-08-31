@@ -5,7 +5,7 @@ option go_package = "hyperqube-io/protobuf/agent";
 import "util.proto";
 
 message Machine {
-  uint32 id = 1;
+  string id = 1;
   string name = 2;
 
   enum PowerState {
@@ -18,7 +18,7 @@ message Machine {
 }
 
 message GetMachinesRequest {
-  repeated uint32 ids = 1;
+  repeated string ids = 1;
 }
 
 message GetMachinesReply {
@@ -26,7 +26,7 @@ message GetMachinesReply {
 }
 
 message StopMachinesRequest {
-  repeated uint32 ids = 1;
+  repeated string ids = 1;
   bool force = 2;
 }
 

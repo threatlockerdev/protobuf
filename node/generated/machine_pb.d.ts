@@ -5,8 +5,8 @@ import * as jspb from "google-protobuf";
 import * as util_pb from "./util_pb";
 
 export class Machine extends jspb.Message {
-  getId(): number;
-  setId(value: number): void;
+  getId(): string;
+  setId(value: string): void;
 
   getName(): string;
   setName(value: string): void;
@@ -26,7 +26,7 @@ export class Machine extends jspb.Message {
 
 export namespace Machine {
   export type AsObject = {
-    id: number,
+    id: string,
     name: string,
     powerstate: Machine.PowerStateMap[keyof Machine.PowerStateMap],
   }
@@ -43,9 +43,9 @@ export namespace Machine {
 
 export class GetMachinesRequest extends jspb.Message {
   clearIdsList(): void;
-  getIdsList(): Array<number>;
-  setIdsList(value: Array<number>): void;
-  addIds(value: number, index?: number): number;
+  getIdsList(): Array<string>;
+  setIdsList(value: Array<string>): void;
+  addIds(value: string, index?: number): string;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetMachinesRequest.AsObject;
@@ -59,7 +59,7 @@ export class GetMachinesRequest extends jspb.Message {
 
 export namespace GetMachinesRequest {
   export type AsObject = {
-    idsList: Array<number>,
+    idsList: Array<string>,
   }
 }
 
@@ -87,9 +87,9 @@ export namespace GetMachinesReply {
 
 export class StopMachinesRequest extends jspb.Message {
   clearIdsList(): void;
-  getIdsList(): Array<number>;
-  setIdsList(value: Array<number>): void;
-  addIds(value: number, index?: number): number;
+  getIdsList(): Array<string>;
+  setIdsList(value: Array<string>): void;
+  addIds(value: string, index?: number): string;
 
   getForce(): boolean;
   setForce(value: boolean): void;
@@ -106,7 +106,7 @@ export class StopMachinesRequest extends jspb.Message {
 
 export namespace StopMachinesRequest {
   export type AsObject = {
-    idsList: Array<number>,
+    idsList: Array<string>,
     force: boolean,
   }
 }
