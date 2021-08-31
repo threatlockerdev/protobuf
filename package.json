@@ -9,7 +9,8 @@
     "build:docker:go": "docker build -t hyperqubeio/pb-go -f docker/go.Dockerfile .",
     "build:docker:node": "docker build -t hyperqubeio/pb-node -f docker/node.Dockerfile .",
     "generate:go": "docker run --rm -it -v $(pwd):/go/src/pb hyperqubeio/pb-go",
-    "generate:node": "docker run --rm -it -v $(pwd):/pb -v node_modules:/pb/node_modules hyperqubeio/pb-node"
+    "generate:node": "docker run --rm -it -v $(pwd):/pb -v node_modules:/pb/node_modules hyperqubeio/pb-node",
+    "prepublishOnly": "yarn build:node"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.3.4",
