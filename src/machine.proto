@@ -25,13 +25,26 @@ message GetMachinesReply {
   repeated Machine machines = 1;
 }
 
+message CreateMachineRequest {
+  string name = 1;
+  uint32 cpuCount = 2;
+  uint32 memory = 3;
+  string diskPath = 4;
+}
+
+message CreateMachineReply {
+  string id = 1;
+}
+
 message StopMachinesRequest {
   repeated string ids = 1;
   bool force = 2;
 }
 
 service MachineService {
-  rpc GetMany (GetMachinesRequest)  returns (GetMachinesReply) {}
-  rpc Start   (GetMachinesRequest)  returns (ActionReply) {}
-  rpc Stop    (StopMachinesRequest) returns (ActionReply) {}
+  rpc GetMany (GetMachinesRequest)   returns (GetMachinesReply) {}
+  rpc Create  (CreateMachineRequest) returns (CreateMachineReply) {}
+  rpc Delete  (GetMachinesRequest)   returns (ActionReply) {}
+  rpc Start   (GetMachinesRequest)   returns (ActionReply) {}
+  rpc Stop    (StopMachinesRequest)  returns (ActionReply) {}
 }

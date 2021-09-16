@@ -16,6 +16,28 @@ function deserialize_ActionReply(buffer_arg) {
   return util_pb.ActionReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_CreateMachineReply(arg) {
+  if (!(arg instanceof machine_pb.CreateMachineReply)) {
+    throw new Error('Expected argument of type CreateMachineReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_CreateMachineReply(buffer_arg) {
+  return machine_pb.CreateMachineReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_CreateMachineRequest(arg) {
+  if (!(arg instanceof machine_pb.CreateMachineRequest)) {
+    throw new Error('Expected argument of type CreateMachineRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_CreateMachineRequest(buffer_arg) {
+  return machine_pb.CreateMachineRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_GetMachinesReply(arg) {
   if (!(arg instanceof machine_pb.GetMachinesReply)) {
     throw new Error('Expected argument of type GetMachinesReply');
@@ -61,6 +83,28 @@ var MachineServiceService = exports.MachineServiceService = {
     requestDeserialize: deserialize_GetMachinesRequest,
     responseSerialize: serialize_GetMachinesReply,
     responseDeserialize: deserialize_GetMachinesReply,
+  },
+  create: {
+    path: '/MachineService/Create',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.CreateMachineRequest,
+    responseType: machine_pb.CreateMachineReply,
+    requestSerialize: serialize_CreateMachineRequest,
+    requestDeserialize: deserialize_CreateMachineRequest,
+    responseSerialize: serialize_CreateMachineReply,
+    responseDeserialize: deserialize_CreateMachineReply,
+  },
+  delete: {
+    path: '/MachineService/Delete',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.GetMachinesRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_GetMachinesRequest,
+    requestDeserialize: deserialize_GetMachinesRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
   },
   start: {
     path: '/MachineService/Start',

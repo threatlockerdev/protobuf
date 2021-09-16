@@ -19,6 +19,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MachineServiceClient interface {
 	GetMany(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error)
+	Create(ctx context.Context, in *CreateMachineRequest, opts ...grpc.CallOption) (*CreateMachineReply, error)
+	Delete(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	Start(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	Stop(ctx context.Context, in *StopMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
@@ -34,6 +36,24 @@ func NewMachineServiceClient(cc grpc.ClientConnInterface) MachineServiceClient {
 func (c *machineServiceClient) GetMany(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error) {
 	out := new(GetMachinesReply)
 	err := c.cc.Invoke(ctx, "/MachineService/GetMany", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *machineServiceClient) Create(ctx context.Context, in *CreateMachineRequest, opts ...grpc.CallOption) (*CreateMachineReply, error) {
+	out := new(CreateMachineReply)
+	err := c.cc.Invoke(ctx, "/MachineService/Create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *machineServiceClient) Delete(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -63,6 +83,8 @@ func (c *machineServiceClient) Stop(ctx context.Context, in *StopMachinesRequest
 // for forward compatibility
 type MachineServiceServer interface {
 	GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error)
+	Create(context.Context, *CreateMachineRequest) (*CreateMachineReply, error)
+	Delete(context.Context, *GetMachinesRequest) (*ActionReply, error)
 	Start(context.Context, *GetMachinesRequest) (*ActionReply, error)
 	Stop(context.Context, *StopMachinesRequest) (*ActionReply, error)
 	mustEmbedUnimplementedMachineServiceServer()
@@ -74,6 +96,12 @@ type UnimplementedMachineServiceServer struct {
 
 func (UnimplementedMachineServiceServer) GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMany not implemented")
+}
+func (UnimplementedMachineServiceServer) Create(context.Context, *CreateMachineRequest) (*CreateMachineReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (UnimplementedMachineServiceServer) Delete(context.Context, *GetMachinesRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedMachineServiceServer) Start(context.Context, *GetMachinesRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Start not implemented")
@@ -108,6 +136,42 @@ func _MachineService_GetMany_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MachineServiceServer).GetMany(ctx, req.(*GetMachinesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MachineService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMachineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/Create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).Create(ctx, req.(*CreateMachineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MachineService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMachinesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).Delete(ctx, req.(*GetMachinesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -158,6 +222,14 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMany",
 			Handler:    _MachineService_GetMany_Handler,
+		},
+		{
+			MethodName: "Create",
+			Handler:    _MachineService_Create_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _MachineService_Delete_Handler,
 		},
 		{
 			MethodName: "Start",
