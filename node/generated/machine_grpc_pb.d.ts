@@ -13,6 +13,8 @@ interface IMachineServiceService extends grpc.ServiceDefinition<grpc.UntypedServ
   delete: grpc.MethodDefinition<machine_pb.GetMachinesRequest, util_pb.ActionReply>;
   start: grpc.MethodDefinition<machine_pb.GetMachinesRequest, util_pb.ActionReply>;
   stop: grpc.MethodDefinition<machine_pb.StopMachinesRequest, util_pb.ActionReply>;
+  linkNetwork: grpc.MethodDefinition<machine_pb.MachineNetworkRequest, util_pb.ActionReply>;
+  unlinkNetwork: grpc.MethodDefinition<machine_pb.MachineNetworkRequest, util_pb.ActionReply>;
 }
 
 export const MachineServiceService: IMachineServiceService;
@@ -23,6 +25,8 @@ export interface IMachineServiceServer extends grpc.UntypedServiceImplementation
   delete: grpc.handleUnaryCall<machine_pb.GetMachinesRequest, util_pb.ActionReply>;
   start: grpc.handleUnaryCall<machine_pb.GetMachinesRequest, util_pb.ActionReply>;
   stop: grpc.handleUnaryCall<machine_pb.StopMachinesRequest, util_pb.ActionReply>;
+  linkNetwork: grpc.handleUnaryCall<machine_pb.MachineNetworkRequest, util_pb.ActionReply>;
+  unlinkNetwork: grpc.handleUnaryCall<machine_pb.MachineNetworkRequest, util_pb.ActionReply>;
 }
 
 export class MachineServiceClient extends grpc.Client {
@@ -42,4 +46,10 @@ export class MachineServiceClient extends grpc.Client {
   stop(argument: machine_pb.StopMachinesRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   stop(argument: machine_pb.StopMachinesRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   stop(argument: machine_pb.StopMachinesRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  linkNetwork(argument: machine_pb.MachineNetworkRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  linkNetwork(argument: machine_pb.MachineNetworkRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  linkNetwork(argument: machine_pb.MachineNetworkRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  unlinkNetwork(argument: machine_pb.MachineNetworkRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  unlinkNetwork(argument: machine_pb.MachineNetworkRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  unlinkNetwork(argument: machine_pb.MachineNetworkRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
 }

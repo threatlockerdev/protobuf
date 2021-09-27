@@ -60,6 +60,17 @@ function deserialize_GetMachinesRequest(buffer_arg) {
   return machine_pb.GetMachinesRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_MachineNetworkRequest(arg) {
+  if (!(arg instanceof machine_pb.MachineNetworkRequest)) {
+    throw new Error('Expected argument of type MachineNetworkRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_MachineNetworkRequest(buffer_arg) {
+  return machine_pb.MachineNetworkRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_StopMachinesRequest(arg) {
   if (!(arg instanceof machine_pb.StopMachinesRequest)) {
     throw new Error('Expected argument of type StopMachinesRequest');
@@ -125,6 +136,28 @@ var MachineServiceService = exports.MachineServiceService = {
     responseType: util_pb.ActionReply,
     requestSerialize: serialize_StopMachinesRequest,
     requestDeserialize: deserialize_StopMachinesRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  linkNetwork: {
+    path: '/MachineService/LinkNetwork',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.MachineNetworkRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_MachineNetworkRequest,
+    requestDeserialize: deserialize_MachineNetworkRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  unlinkNetwork: {
+    path: '/MachineService/UnlinkNetwork',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.MachineNetworkRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_MachineNetworkRequest,
+    requestDeserialize: deserialize_MachineNetworkRequest,
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },

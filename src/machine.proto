@@ -36,6 +36,11 @@ message CreateMachineReply {
   string id = 1;
 }
 
+message MachineNetworkRequest {
+  string machineId = 1;
+  string networkId = 2;
+}
+
 message StopMachinesRequest {
   repeated string ids = 1;
   bool force = 2;
@@ -47,4 +52,6 @@ service MachineService {
   rpc Delete  (GetMachinesRequest)   returns (ActionReply) {}
   rpc Start   (GetMachinesRequest)   returns (ActionReply) {}
   rpc Stop    (StopMachinesRequest)  returns (ActionReply) {}
+  rpc LinkNetwork (MachineNetworkRequest) returns (ActionReply) {}
+  rpc UnlinkNetwork (MachineNetworkRequest) returns (ActionReply) {}
 }

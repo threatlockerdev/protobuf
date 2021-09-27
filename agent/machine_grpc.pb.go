@@ -23,6 +23,8 @@ type MachineServiceClient interface {
 	Delete(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	Start(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	Stop(ctx context.Context, in *StopMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UnlinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
 type machineServiceClient struct {
@@ -78,6 +80,24 @@ func (c *machineServiceClient) Stop(ctx context.Context, in *StopMachinesRequest
 	return out, nil
 }
 
+func (c *machineServiceClient) LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/LinkNetwork", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *machineServiceClient) UnlinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/UnlinkNetwork", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MachineServiceServer is the server API for MachineService service.
 // All implementations must embed UnimplementedMachineServiceServer
 // for forward compatibility
@@ -87,6 +107,8 @@ type MachineServiceServer interface {
 	Delete(context.Context, *GetMachinesRequest) (*ActionReply, error)
 	Start(context.Context, *GetMachinesRequest) (*ActionReply, error)
 	Stop(context.Context, *StopMachinesRequest) (*ActionReply, error)
+	LinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
+	UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
 	mustEmbedUnimplementedMachineServiceServer()
 }
 
@@ -108,6 +130,12 @@ func (UnimplementedMachineServiceServer) Start(context.Context, *GetMachinesRequ
 }
 func (UnimplementedMachineServiceServer) Stop(context.Context, *StopMachinesRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Stop not implemented")
+}
+func (UnimplementedMachineServiceServer) LinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LinkNetwork not implemented")
+}
+func (UnimplementedMachineServiceServer) UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnlinkNetwork not implemented")
 }
 func (UnimplementedMachineServiceServer) mustEmbedUnimplementedMachineServiceServer() {}
 
@@ -212,6 +240,42 @@ func _MachineService_Stop_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MachineService_LinkNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MachineNetworkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).LinkNetwork(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/LinkNetwork",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).LinkNetwork(ctx, req.(*MachineNetworkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MachineService_UnlinkNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MachineNetworkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).UnlinkNetwork(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/UnlinkNetwork",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).UnlinkNetwork(ctx, req.(*MachineNetworkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MachineService_ServiceDesc is the grpc.ServiceDesc for MachineService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -238,6 +302,14 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Stop",
 			Handler:    _MachineService_Stop_Handler,
+		},
+		{
+			MethodName: "LinkNetwork",
+			Handler:    _MachineService_LinkNetwork_Handler,
+		},
+		{
+			MethodName: "UnlinkNetwork",
+			Handler:    _MachineService_UnlinkNetwork_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

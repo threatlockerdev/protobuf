@@ -137,6 +137,30 @@ export namespace CreateMachineReply {
   }
 }
 
+export class MachineNetworkRequest extends jspb.Message {
+  getMachineid(): string;
+  setMachineid(value: string): void;
+
+  getNetworkid(): string;
+  setNetworkid(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MachineNetworkRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: MachineNetworkRequest): MachineNetworkRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: MachineNetworkRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MachineNetworkRequest;
+  static deserializeBinaryFromReader(message: MachineNetworkRequest, reader: jspb.BinaryReader): MachineNetworkRequest;
+}
+
+export namespace MachineNetworkRequest {
+  export type AsObject = {
+    machineid: string,
+    networkid: string,
+  }
+}
+
 export class StopMachinesRequest extends jspb.Message {
   clearIdsList(): void;
   getIdsList(): Array<string>;
