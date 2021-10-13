@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "hyperqube-io/protobuf/agent";
+
+import "util.proto";
+
+message CopyFileRequest {
+  string from = 1;
+  string to = 2;
+}
+
+message FileRequest {
+  string path = 1;
+}
+
+service DiskService {
+  rpc CopyFile(CopyFileRequest) returns (ActionReply) {}
+  rpc DeleteFile(FileRequest) returns (ActionReply) {}
+  rpc GetFileSize(FileRequest) returns (ActionReply) {}
+}

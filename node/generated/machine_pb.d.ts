@@ -41,6 +41,46 @@ export namespace Machine {
   export const PowerState: PowerStateMap;
 }
 
+export class GetMachineRequest extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetMachineRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetMachineRequest): GetMachineRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetMachineRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetMachineRequest;
+  static deserializeBinaryFromReader(message: GetMachineRequest, reader: jspb.BinaryReader): GetMachineRequest;
+}
+
+export namespace GetMachineRequest {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class GetVncPortReply extends jspb.Message {
+  getPort(): number;
+  setPort(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetVncPortReply.AsObject;
+  static toObject(includeInstance: boolean, msg: GetVncPortReply): GetVncPortReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetVncPortReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetVncPortReply;
+  static deserializeBinaryFromReader(message: GetVncPortReply, reader: jspb.BinaryReader): GetVncPortReply;
+}
+
+export namespace GetVncPortReply {
+  export type AsObject = {
+    port: number,
+  }
+}
+
 export class GetMachinesRequest extends jspb.Message {
   clearIdsList(): void;
   getIdsList(): Array<string>;

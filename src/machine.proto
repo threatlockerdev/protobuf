@@ -17,6 +17,14 @@ message Machine {
   PowerState powerState = 3;
 }
 
+message GetMachineRequest {
+  string id = 1;
+}
+
+message GetVncPortReply {
+  uint32 port = 1;
+}
+
 message GetMachinesRequest {
   repeated string ids = 1;
 }
@@ -47,11 +55,12 @@ message StopMachinesRequest {
 }
 
 service MachineService {
-  rpc GetMany (GetMachinesRequest)   returns (GetMachinesReply) {}
-  rpc Create  (CreateMachineRequest) returns (CreateMachineReply) {}
-  rpc Delete  (GetMachinesRequest)   returns (ActionReply) {}
-  rpc Start   (GetMachinesRequest)   returns (ActionReply) {}
-  rpc Stop    (StopMachinesRequest)  returns (ActionReply) {}
-  rpc LinkNetwork (MachineNetworkRequest) returns (ActionReply) {}
+  rpc GetVncPort    (GetMachineRequest)     returns (GetVncPortReply) {}
+  rpc GetMany       (GetMachinesRequest)    returns (GetMachinesReply) {}
+  rpc Create        (CreateMachineRequest)  returns (CreateMachineReply) {}
+  rpc Delete        (GetMachinesRequest)    returns (ActionReply) {}
+  rpc Start         (GetMachinesRequest)    returns (ActionReply) {}
+  rpc Stop          (StopMachinesRequest)   returns (ActionReply) {}
+  rpc LinkNetwork   (MachineNetworkRequest) returns (ActionReply) {}
   rpc UnlinkNetwork (MachineNetworkRequest) returns (ActionReply) {}
 }

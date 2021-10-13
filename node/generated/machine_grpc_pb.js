@@ -38,6 +38,17 @@ function deserialize_CreateMachineRequest(buffer_arg) {
   return machine_pb.CreateMachineRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_GetMachineRequest(arg) {
+  if (!(arg instanceof machine_pb.GetMachineRequest)) {
+    throw new Error('Expected argument of type GetMachineRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_GetMachineRequest(buffer_arg) {
+  return machine_pb.GetMachineRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_GetMachinesReply(arg) {
   if (!(arg instanceof machine_pb.GetMachinesReply)) {
     throw new Error('Expected argument of type GetMachinesReply');
@@ -58,6 +69,17 @@ function serialize_GetMachinesRequest(arg) {
 
 function deserialize_GetMachinesRequest(buffer_arg) {
   return machine_pb.GetMachinesRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_GetVncPortReply(arg) {
+  if (!(arg instanceof machine_pb.GetVncPortReply)) {
+    throw new Error('Expected argument of type GetVncPortReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_GetVncPortReply(buffer_arg) {
+  return machine_pb.GetVncPortReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_MachineNetworkRequest(arg) {
@@ -84,6 +106,17 @@ function deserialize_StopMachinesRequest(buffer_arg) {
 
 
 var MachineServiceService = exports.MachineServiceService = {
+  getVncPort: {
+    path: '/MachineService/GetVncPort',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.GetMachineRequest,
+    responseType: machine_pb.GetVncPortReply,
+    requestSerialize: serialize_GetMachineRequest,
+    requestDeserialize: deserialize_GetMachineRequest,
+    responseSerialize: serialize_GetVncPortReply,
+    responseDeserialize: deserialize_GetVncPortReply,
+  },
   getMany: {
     path: '/MachineService/GetMany',
     requestStream: false,

@@ -8,6 +8,7 @@ import * as util_pb from "./util_pb";
 import * as grpc from "@grpc/grpc-js";
 
 interface IMachineServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+  getVncPort: grpc.MethodDefinition<machine_pb.GetMachineRequest, machine_pb.GetVncPortReply>;
   getMany: grpc.MethodDefinition<machine_pb.GetMachinesRequest, machine_pb.GetMachinesReply>;
   create: grpc.MethodDefinition<machine_pb.CreateMachineRequest, machine_pb.CreateMachineReply>;
   delete: grpc.MethodDefinition<machine_pb.GetMachinesRequest, util_pb.ActionReply>;
@@ -20,6 +21,7 @@ interface IMachineServiceService extends grpc.ServiceDefinition<grpc.UntypedServ
 export const MachineServiceService: IMachineServiceService;
 
 export interface IMachineServiceServer extends grpc.UntypedServiceImplementation {
+  getVncPort: grpc.handleUnaryCall<machine_pb.GetMachineRequest, machine_pb.GetVncPortReply>;
   getMany: grpc.handleUnaryCall<machine_pb.GetMachinesRequest, machine_pb.GetMachinesReply>;
   create: grpc.handleUnaryCall<machine_pb.CreateMachineRequest, machine_pb.CreateMachineReply>;
   delete: grpc.handleUnaryCall<machine_pb.GetMachinesRequest, util_pb.ActionReply>;
@@ -31,6 +33,9 @@ export interface IMachineServiceServer extends grpc.UntypedServiceImplementation
 
 export class MachineServiceClient extends grpc.Client {
   constructor(address: string, credentials: grpc.ChannelCredentials, options?: object);
+  getVncPort(argument: machine_pb.GetMachineRequest, callback: grpc.requestCallback<machine_pb.GetVncPortReply>): grpc.ClientUnaryCall;
+  getVncPort(argument: machine_pb.GetMachineRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<machine_pb.GetVncPortReply>): grpc.ClientUnaryCall;
+  getVncPort(argument: machine_pb.GetMachineRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<machine_pb.GetVncPortReply>): grpc.ClientUnaryCall;
   getMany(argument: machine_pb.GetMachinesRequest, callback: grpc.requestCallback<machine_pb.GetMachinesReply>): grpc.ClientUnaryCall;
   getMany(argument: machine_pb.GetMachinesRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<machine_pb.GetMachinesReply>): grpc.ClientUnaryCall;
   getMany(argument: machine_pb.GetMachinesRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<machine_pb.GetMachinesReply>): grpc.ClientUnaryCall;

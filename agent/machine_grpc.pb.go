@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MachineServiceClient interface {
+	GetVncPort(ctx context.Context, in *GetMachineRequest, opts ...grpc.CallOption) (*GetVncPortReply, error)
 	GetMany(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error)
 	Create(ctx context.Context, in *CreateMachineRequest, opts ...grpc.CallOption) (*CreateMachineReply, error)
 	Delete(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
@@ -33,6 +34,15 @@ type machineServiceClient struct {
 
 func NewMachineServiceClient(cc grpc.ClientConnInterface) MachineServiceClient {
 	return &machineServiceClient{cc}
+}
+
+func (c *machineServiceClient) GetVncPort(ctx context.Context, in *GetMachineRequest, opts ...grpc.CallOption) (*GetVncPortReply, error) {
+	out := new(GetVncPortReply)
+	err := c.cc.Invoke(ctx, "/MachineService/GetVncPort", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *machineServiceClient) GetMany(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*GetMachinesReply, error) {
@@ -102,6 +112,7 @@ func (c *machineServiceClient) UnlinkNetwork(ctx context.Context, in *MachineNet
 // All implementations must embed UnimplementedMachineServiceServer
 // for forward compatibility
 type MachineServiceServer interface {
+	GetVncPort(context.Context, *GetMachineRequest) (*GetVncPortReply, error)
 	GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error)
 	Create(context.Context, *CreateMachineRequest) (*CreateMachineReply, error)
 	Delete(context.Context, *GetMachinesRequest) (*ActionReply, error)
@@ -116,6 +127,9 @@ type MachineServiceServer interface {
 type UnimplementedMachineServiceServer struct {
 }
 
+func (UnimplementedMachineServiceServer) GetVncPort(context.Context, *GetMachineRequest) (*GetVncPortReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVncPort not implemented")
+}
 func (UnimplementedMachineServiceServer) GetMany(context.Context, *GetMachinesRequest) (*GetMachinesReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMany not implemented")
 }
@@ -148,6 +162,24 @@ type UnsafeMachineServiceServer interface {
 
 func RegisterMachineServiceServer(s grpc.ServiceRegistrar, srv MachineServiceServer) {
 	s.RegisterService(&MachineService_ServiceDesc, srv)
+}
+
+func _MachineService_GetVncPort_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMachineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).GetVncPort(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/GetVncPort",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).GetVncPort(ctx, req.(*GetMachineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _MachineService_GetMany_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -283,6 +315,10 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "MachineService",
 	HandlerType: (*MachineServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetVncPort",
+			Handler:    _MachineService_GetVncPort_Handler,
+		},
 		{
 			MethodName: "GetMany",
 			Handler:    _MachineService_GetMany_Handler,
