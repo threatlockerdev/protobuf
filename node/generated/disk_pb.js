@@ -442,7 +442,7 @@ proto.GetFileSizeReply.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setSize(value);
       break;
     default:
@@ -485,7 +485,7 @@ proto.GetFileSizeReply.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getSize();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeInt64(
       1,
       f
     );
@@ -503,7 +503,7 @@ proto.GetFileSizeReply.prototype.cloneMessage = function() {
 
 
 /**
- * optional uint32 size = 1;
+ * optional int64 size = 1;
  * @return {number}
  */
 proto.GetFileSizeReply.prototype.getSize = function() {
