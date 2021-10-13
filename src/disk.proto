@@ -13,8 +13,12 @@ message FileRequest {
   string path = 1;
 }
 
+message GetFileSizeReply {
+  uint32 size = 1;
+}
+
 service DiskService {
   rpc CopyFile(CopyFileRequest) returns (ActionReply) {}
   rpc DeleteFile(FileRequest) returns (ActionReply) {}
-  rpc GetFileSize(FileRequest) returns (ActionReply) {}
+  rpc GetFileSize(FileRequest) returns (GetFileSizeReply) {}
 }

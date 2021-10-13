@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type DiskServiceClient interface {
 	CopyFile(ctx context.Context, in *CopyFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	DeleteFile(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error)
-	GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileSizeReply, error)
 }
 
 type diskServiceClient struct {
@@ -49,8 +49,8 @@ func (c *diskServiceClient) DeleteFile(ctx context.Context, in *FileRequest, opt
 	return out, nil
 }
 
-func (c *diskServiceClient) GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error) {
-	out := new(ActionReply)
+func (c *diskServiceClient) GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileSizeReply, error) {
+	out := new(GetFileSizeReply)
 	err := c.cc.Invoke(ctx, "/DiskService/GetFileSize", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -64,7 +64,7 @@ func (c *diskServiceClient) GetFileSize(ctx context.Context, in *FileRequest, op
 type DiskServiceServer interface {
 	CopyFile(context.Context, *CopyFileRequest) (*ActionReply, error)
 	DeleteFile(context.Context, *FileRequest) (*ActionReply, error)
-	GetFileSize(context.Context, *FileRequest) (*ActionReply, error)
+	GetFileSize(context.Context, *FileRequest) (*GetFileSizeReply, error)
 	mustEmbedUnimplementedDiskServiceServer()
 }
 
@@ -78,7 +78,7 @@ func (UnimplementedDiskServiceServer) CopyFile(context.Context, *CopyFileRequest
 func (UnimplementedDiskServiceServer) DeleteFile(context.Context, *FileRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFile not implemented")
 }
-func (UnimplementedDiskServiceServer) GetFileSize(context.Context, *FileRequest) (*ActionReply, error) {
+func (UnimplementedDiskServiceServer) GetFileSize(context.Context, *FileRequest) (*GetFileSizeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFileSize not implemented")
 }
 func (UnimplementedDiskServiceServer) mustEmbedUnimplementedDiskServiceServer() {}

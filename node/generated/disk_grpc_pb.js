@@ -38,6 +38,17 @@ function deserialize_FileRequest(buffer_arg) {
   return disk_pb.FileRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_GetFileSizeReply(arg) {
+  if (!(arg instanceof disk_pb.GetFileSizeReply)) {
+    throw new Error('Expected argument of type GetFileSizeReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_GetFileSizeReply(buffer_arg) {
+  return disk_pb.GetFileSizeReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var DiskServiceService = exports.DiskServiceService = {
   copyFile: {
@@ -67,11 +78,11 @@ var DiskServiceService = exports.DiskServiceService = {
     requestStream: false,
     responseStream: false,
     requestType: disk_pb.FileRequest,
-    responseType: util_pb.ActionReply,
+    responseType: disk_pb.GetFileSizeReply,
     requestSerialize: serialize_FileRequest,
     requestDeserialize: deserialize_FileRequest,
-    responseSerialize: serialize_ActionReply,
-    responseDeserialize: deserialize_ActionReply,
+    responseSerialize: serialize_GetFileSizeReply,
+    responseDeserialize: deserialize_GetFileSizeReply,
   },
 };
 
