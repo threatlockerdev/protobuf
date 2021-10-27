@@ -2,7 +2,32 @@
 // file: machine.proto
 
 import * as jspb from "google-protobuf";
+import * as network_pb from "./network_pb";
 import * as util_pb from "./util_pb";
+
+export class MachineDisk extends jspb.Message {
+  getMounttarget(): string;
+  setMounttarget(value: string): void;
+
+  getSourcefile(): string;
+  setSourcefile(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MachineDisk.AsObject;
+  static toObject(includeInstance: boolean, msg: MachineDisk): MachineDisk.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: MachineDisk, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MachineDisk;
+  static deserializeBinaryFromReader(message: MachineDisk, reader: jspb.BinaryReader): MachineDisk;
+}
+
+export namespace MachineDisk {
+  export type AsObject = {
+    mounttarget: string,
+    sourcefile: string,
+  }
+}
 
 export class Machine extends jspb.Message {
   getId(): string;
@@ -13,6 +38,16 @@ export class Machine extends jspb.Message {
 
   getPowerstate(): Machine.PowerStateMap[keyof Machine.PowerStateMap];
   setPowerstate(value: Machine.PowerStateMap[keyof Machine.PowerStateMap]): void;
+
+  clearDisksList(): void;
+  getDisksList(): Array<MachineDisk>;
+  setDisksList(value: Array<MachineDisk>): void;
+  addDisks(value?: MachineDisk, index?: number): MachineDisk;
+
+  clearNetworksList(): void;
+  getNetworksList(): Array<network_pb.Network>;
+  setNetworksList(value: Array<network_pb.Network>): void;
+  addNetworks(value?: network_pb.Network, index?: number): network_pb.Network;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Machine.AsObject;
@@ -29,6 +64,8 @@ export namespace Machine {
     id: string,
     name: string,
     powerstate: Machine.PowerStateMap[keyof Machine.PowerStateMap],
+    disksList: Array<MachineDisk.AsObject>,
+    networksList: Array<network_pb.Network.AsObject>,
   }
 
   export interface PowerStateMap {

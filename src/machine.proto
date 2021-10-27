@@ -2,7 +2,13 @@ syntax = "proto3";
 
 option go_package = "hyperqube-io/protobuf/agent";
 
+import "network.proto";
 import "util.proto";
+
+message MachineDisk {
+  string MountTarget = 1;
+  string SourceFile = 2;
+}
 
 message Machine {
   string id = 1;
@@ -15,6 +21,9 @@ message Machine {
     SUSPENDED = 3;
   }
   PowerState powerState = 3;
+
+  repeated MachineDisk disks = 4;
+  repeated Network networks = 5;
 }
 
 message GetMachineRequest {

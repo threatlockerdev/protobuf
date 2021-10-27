@@ -9,6 +9,7 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
+var network_pb = require('./network_pb.js');
 var util_pb = require('./util_pb.js');
 goog.exportSymbol('proto.CreateMachineReply', null, global);
 goog.exportSymbol('proto.CreateMachineRequest', null, global);
@@ -18,6 +19,7 @@ goog.exportSymbol('proto.GetMachinesRequest', null, global);
 goog.exportSymbol('proto.GetVncPortReply', null, global);
 goog.exportSymbol('proto.Machine', null, global);
 goog.exportSymbol('proto.Machine.PowerState', null, global);
+goog.exportSymbol('proto.MachineDisk', null, global);
 goog.exportSymbol('proto.MachineNetworkRequest', null, global);
 goog.exportSymbol('proto.StopMachinesRequest', null, global);
 
@@ -31,13 +33,206 @@ goog.exportSymbol('proto.StopMachinesRequest', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.Machine = function(opt_data) {
+proto.MachineDisk = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.MachineDisk, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.MachineDisk.displayName = 'proto.MachineDisk';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.MachineDisk.prototype.toObject = function(opt_includeInstance) {
+  return proto.MachineDisk.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.MachineDisk} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.MachineDisk.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    mounttarget: msg.getMounttarget(),
+    sourcefile: msg.getSourcefile()
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.MachineDisk}
+ */
+proto.MachineDisk.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.MachineDisk;
+  return proto.MachineDisk.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.MachineDisk} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.MachineDisk}
+ */
+proto.MachineDisk.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setMounttarget(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSourcefile(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.MachineDisk} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.MachineDisk.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.MachineDisk.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.MachineDisk.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getMounttarget();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getSourcefile();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.MachineDisk} The clone.
+ */
+proto.MachineDisk.prototype.cloneMessage = function() {
+  return /** @type {!proto.MachineDisk} */ (jspb.Message.cloneMessage(this));
+};
+
+
+/**
+ * optional string MountTarget = 1;
+ * @return {string}
+ */
+proto.MachineDisk.prototype.getMounttarget = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
+};
+
+
+/** @param {string} value  */
+proto.MachineDisk.prototype.setMounttarget = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string SourceFile = 2;
+ * @return {string}
+ */
+proto.MachineDisk.prototype.getSourcefile = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+};
+
+
+/** @param {string} value  */
+proto.MachineDisk.prototype.setSourcefile = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.Machine = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.Machine.repeatedFields_, null);
 };
 goog.inherits(proto.Machine, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.Machine.displayName = 'proto.Machine';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.Machine.repeatedFields_ = [4,5];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -68,7 +263,11 @@ proto.Machine.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: msg.getId(),
     name: msg.getName(),
-    powerstate: msg.getPowerstate()
+    powerstate: msg.getPowerstate(),
+    disksList: jspb.Message.toObjectList(msg.getDisksList(),
+    proto.MachineDisk.toObject, includeInstance),
+    networksList: jspb.Message.toObjectList(msg.getNetworksList(),
+    network_pb.Network.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -116,6 +315,18 @@ proto.Machine.deserializeBinaryFromReader = function(msg, reader) {
     case 3:
       var value = /** @type {!proto.Machine.PowerState} */ (reader.readEnum());
       msg.setPowerstate(value);
+      break;
+    case 4:
+      var value = new proto.MachineDisk;
+      reader.readMessage(value,proto.MachineDisk.deserializeBinaryFromReader);
+      msg.getDisksList().push(value);
+      msg.setDisksList(msg.getDisksList());
+      break;
+    case 5:
+      var value = new network_pb.Network;
+      reader.readMessage(value,network_pb.Network.deserializeBinaryFromReader);
+      msg.getNetworksList().push(value);
+      msg.setNetworksList(msg.getNetworksList());
       break;
     default:
       reader.skipField();
@@ -176,6 +387,22 @@ proto.Machine.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
+  f = this.getDisksList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.MachineDisk.serializeBinaryToWriter
+    );
+  }
+  f = this.getNetworksList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      5,
+      f,
+      network_pb.Network.serializeBinaryToWriter
+    );
+  }
 };
 
 
@@ -230,6 +457,52 @@ proto.Machine.prototype.getPowerstate = function() {
 /** @param {!proto.Machine.PowerState} value  */
 proto.Machine.prototype.setPowerstate = function(value) {
   jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * repeated MachineDisk disks = 4;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.MachineDisk>}
+ */
+proto.Machine.prototype.getDisksList = function() {
+  return /** @type{!Array.<!proto.MachineDisk>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.MachineDisk, 4));
+};
+
+
+/** @param {Array.<!proto.MachineDisk>} value  */
+proto.Machine.prototype.setDisksList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+proto.Machine.prototype.clearDisksList = function() {
+  this.setDisksList([]);
+};
+
+
+/**
+ * repeated Network networks = 5;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.Network>}
+ */
+proto.Machine.prototype.getNetworksList = function() {
+  return /** @type{!Array.<!proto.Network>} */ (
+    jspb.Message.getRepeatedWrapperField(this, network_pb.Network, 5));
+};
+
+
+/** @param {Array.<!proto.Network>} value  */
+proto.Machine.prototype.setNetworksList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 5, value);
+};
+
+
+proto.Machine.prototype.clearNetworksList = function() {
+  this.setNetworksList([]);
 };
 
 

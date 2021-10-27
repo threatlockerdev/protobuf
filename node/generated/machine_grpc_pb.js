@@ -3,6 +3,7 @@
 'use strict';
 var grpc = require('@grpc/grpc-js');
 var machine_pb = require('./machine_pb.js');
+var network_pb = require('./network_pb.js');
 var util_pb = require('./util_pb.js');
 
 function serialize_ActionReply(arg) {
