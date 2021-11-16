@@ -48,6 +48,26 @@ export namespace FileRequest {
   }
 }
 
+export class GetFileContentsReply extends jspb.Message {
+  getData(): string;
+  setData(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetFileContentsReply.AsObject;
+  static toObject(includeInstance: boolean, msg: GetFileContentsReply): GetFileContentsReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetFileContentsReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetFileContentsReply;
+  static deserializeBinaryFromReader(message: GetFileContentsReply, reader: jspb.BinaryReader): GetFileContentsReply;
+}
+
+export namespace GetFileContentsReply {
+  export type AsObject = {
+    data: string,
+  }
+}
+
 export class GetFileSizeReply extends jspb.Message {
   getSize(): number;
   setSize(value: number): void;
@@ -65,6 +85,30 @@ export class GetFileSizeReply extends jspb.Message {
 export namespace GetFileSizeReply {
   export type AsObject = {
     size: number,
+  }
+}
+
+export class WriteFileRequest extends jspb.Message {
+  getPath(): string;
+  setPath(value: string): void;
+
+  getData(): string;
+  setData(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): WriteFileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: WriteFileRequest): WriteFileRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: WriteFileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WriteFileRequest;
+  static deserializeBinaryFromReader(message: WriteFileRequest, reader: jspb.BinaryReader): WriteFileRequest;
+}
+
+export namespace WriteFileRequest {
+  export type AsObject = {
+    path: string,
+    data: string,
   }
 }
 

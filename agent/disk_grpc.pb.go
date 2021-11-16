@@ -20,7 +20,9 @@ const _ = grpc.SupportPackageIsVersion7
 type DiskServiceClient interface {
 	CopyFile(ctx context.Context, in *CopyFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	DeleteFile(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	GetFileContents(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileContentsReply, error)
 	GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileSizeReply, error)
+	WriteFile(ctx context.Context, in *WriteFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
 type diskServiceClient struct {
@@ -49,9 +51,27 @@ func (c *diskServiceClient) DeleteFile(ctx context.Context, in *FileRequest, opt
 	return out, nil
 }
 
+func (c *diskServiceClient) GetFileContents(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileContentsReply, error) {
+	out := new(GetFileContentsReply)
+	err := c.cc.Invoke(ctx, "/DiskService/GetFileContents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *diskServiceClient) GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileSizeReply, error) {
 	out := new(GetFileSizeReply)
 	err := c.cc.Invoke(ctx, "/DiskService/GetFileSize", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *diskServiceClient) WriteFile(ctx context.Context, in *WriteFileRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/DiskService/WriteFile", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +84,9 @@ func (c *diskServiceClient) GetFileSize(ctx context.Context, in *FileRequest, op
 type DiskServiceServer interface {
 	CopyFile(context.Context, *CopyFileRequest) (*ActionReply, error)
 	DeleteFile(context.Context, *FileRequest) (*ActionReply, error)
+	GetFileContents(context.Context, *FileRequest) (*GetFileContentsReply, error)
 	GetFileSize(context.Context, *FileRequest) (*GetFileSizeReply, error)
+	WriteFile(context.Context, *WriteFileRequest) (*ActionReply, error)
 	mustEmbedUnimplementedDiskServiceServer()
 }
 
@@ -78,8 +100,14 @@ func (UnimplementedDiskServiceServer) CopyFile(context.Context, *CopyFileRequest
 func (UnimplementedDiskServiceServer) DeleteFile(context.Context, *FileRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFile not implemented")
 }
+func (UnimplementedDiskServiceServer) GetFileContents(context.Context, *FileRequest) (*GetFileContentsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFileContents not implemented")
+}
 func (UnimplementedDiskServiceServer) GetFileSize(context.Context, *FileRequest) (*GetFileSizeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFileSize not implemented")
+}
+func (UnimplementedDiskServiceServer) WriteFile(context.Context, *WriteFileRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WriteFile not implemented")
 }
 func (UnimplementedDiskServiceServer) mustEmbedUnimplementedDiskServiceServer() {}
 
@@ -130,6 +158,24 @@ func _DiskService_DeleteFile_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DiskService_GetFileContents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiskServiceServer).GetFileContents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DiskService/GetFileContents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiskServiceServer).GetFileContents(ctx, req.(*FileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DiskService_GetFileSize_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FileRequest)
 	if err := dec(in); err != nil {
@@ -144,6 +190,24 @@ func _DiskService_GetFileSize_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DiskServiceServer).GetFileSize(ctx, req.(*FileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DiskService_WriteFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WriteFileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiskServiceServer).WriteFile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DiskService/WriteFile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiskServiceServer).WriteFile(ctx, req.(*WriteFileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -164,8 +228,16 @@ var DiskService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DiskService_DeleteFile_Handler,
 		},
 		{
+			MethodName: "GetFileContents",
+			Handler:    _DiskService_GetFileContents_Handler,
+		},
+		{
 			MethodName: "GetFileSize",
 			Handler:    _DiskService_GetFileSize_Handler,
+		},
+		{
+			MethodName: "WriteFile",
+			Handler:    _DiskService_WriteFile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

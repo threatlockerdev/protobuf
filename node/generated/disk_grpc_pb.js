@@ -38,6 +38,17 @@ function deserialize_FileRequest(buffer_arg) {
   return disk_pb.FileRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_GetFileContentsReply(arg) {
+  if (!(arg instanceof disk_pb.GetFileContentsReply)) {
+    throw new Error('Expected argument of type GetFileContentsReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_GetFileContentsReply(buffer_arg) {
+  return disk_pb.GetFileContentsReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_GetFileSizeReply(arg) {
   if (!(arg instanceof disk_pb.GetFileSizeReply)) {
     throw new Error('Expected argument of type GetFileSizeReply');
@@ -47,6 +58,17 @@ function serialize_GetFileSizeReply(arg) {
 
 function deserialize_GetFileSizeReply(buffer_arg) {
   return disk_pb.GetFileSizeReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_WriteFileRequest(arg) {
+  if (!(arg instanceof disk_pb.WriteFileRequest)) {
+    throw new Error('Expected argument of type WriteFileRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_WriteFileRequest(buffer_arg) {
+  return disk_pb.WriteFileRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
@@ -73,6 +95,17 @@ var DiskServiceService = exports.DiskServiceService = {
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },
+  getFileContents: {
+    path: '/DiskService/GetFileContents',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.FileRequest,
+    responseType: disk_pb.GetFileContentsReply,
+    requestSerialize: serialize_FileRequest,
+    requestDeserialize: deserialize_FileRequest,
+    responseSerialize: serialize_GetFileContentsReply,
+    responseDeserialize: deserialize_GetFileContentsReply,
+  },
   getFileSize: {
     path: '/DiskService/GetFileSize',
     requestStream: false,
@@ -83,6 +116,17 @@ var DiskServiceService = exports.DiskServiceService = {
     requestDeserialize: deserialize_FileRequest,
     responseSerialize: serialize_GetFileSizeReply,
     responseDeserialize: deserialize_GetFileSizeReply,
+  },
+  writeFile: {
+    path: '/DiskService/WriteFile',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.WriteFileRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_WriteFileRequest,
+    requestDeserialize: deserialize_WriteFileRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
   },
 };
 
