@@ -17,6 +17,10 @@ message GetFileContentsReply {
   string data = 1;
 }
 
+message GetFileExistsReply {
+  bool exists = 1;
+}
+
 message GetFileSizeReply {
   int64 size = 1;
 }
@@ -30,6 +34,7 @@ service DiskService {
   rpc CopyFile(CopyFileRequest) returns (ActionReply) {}
   rpc DeleteFile(FileRequest) returns (ActionReply) {}
   rpc GetFileContents(FileRequest) returns (GetFileContentsReply) {}
+  rpc GetFileExists(FileRequest) returns (GetFileExistsReply) {}
   rpc GetFileSize(FileRequest) returns (GetFileSizeReply) {}
   rpc WriteFile(WriteFileRequest) returns (ActionReply) {}
 }

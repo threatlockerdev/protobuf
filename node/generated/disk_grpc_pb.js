@@ -49,6 +49,17 @@ function deserialize_GetFileContentsReply(buffer_arg) {
   return disk_pb.GetFileContentsReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_GetFileExistsReply(arg) {
+  if (!(arg instanceof disk_pb.GetFileExistsReply)) {
+    throw new Error('Expected argument of type GetFileExistsReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_GetFileExistsReply(buffer_arg) {
+  return disk_pb.GetFileExistsReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_GetFileSizeReply(arg) {
   if (!(arg instanceof disk_pb.GetFileSizeReply)) {
     throw new Error('Expected argument of type GetFileSizeReply');
@@ -105,6 +116,17 @@ var DiskServiceService = exports.DiskServiceService = {
     requestDeserialize: deserialize_FileRequest,
     responseSerialize: serialize_GetFileContentsReply,
     responseDeserialize: deserialize_GetFileContentsReply,
+  },
+  getFileExists: {
+    path: '/DiskService/GetFileExists',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.FileRequest,
+    responseType: disk_pb.GetFileExistsReply,
+    requestSerialize: serialize_FileRequest,
+    requestDeserialize: deserialize_FileRequest,
+    responseSerialize: serialize_GetFileExistsReply,
+    responseDeserialize: deserialize_GetFileExistsReply,
   },
   getFileSize: {
     path: '/DiskService/GetFileSize',

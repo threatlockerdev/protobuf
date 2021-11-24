@@ -11,6 +11,7 @@ interface IDiskServiceService extends grpc.ServiceDefinition<grpc.UntypedService
   copyFile: grpc.MethodDefinition<disk_pb.CopyFileRequest, util_pb.ActionReply>;
   deleteFile: grpc.MethodDefinition<disk_pb.FileRequest, util_pb.ActionReply>;
   getFileContents: grpc.MethodDefinition<disk_pb.FileRequest, disk_pb.GetFileContentsReply>;
+  getFileExists: grpc.MethodDefinition<disk_pb.FileRequest, disk_pb.GetFileExistsReply>;
   getFileSize: grpc.MethodDefinition<disk_pb.FileRequest, disk_pb.GetFileSizeReply>;
   writeFile: grpc.MethodDefinition<disk_pb.WriteFileRequest, util_pb.ActionReply>;
 }
@@ -21,6 +22,7 @@ export interface IDiskServiceServer extends grpc.UntypedServiceImplementation {
   copyFile: grpc.handleUnaryCall<disk_pb.CopyFileRequest, util_pb.ActionReply>;
   deleteFile: grpc.handleUnaryCall<disk_pb.FileRequest, util_pb.ActionReply>;
   getFileContents: grpc.handleUnaryCall<disk_pb.FileRequest, disk_pb.GetFileContentsReply>;
+  getFileExists: grpc.handleUnaryCall<disk_pb.FileRequest, disk_pb.GetFileExistsReply>;
   getFileSize: grpc.handleUnaryCall<disk_pb.FileRequest, disk_pb.GetFileSizeReply>;
   writeFile: grpc.handleUnaryCall<disk_pb.WriteFileRequest, util_pb.ActionReply>;
 }
@@ -36,6 +38,9 @@ export class DiskServiceClient extends grpc.Client {
   getFileContents(argument: disk_pb.FileRequest, callback: grpc.requestCallback<disk_pb.GetFileContentsReply>): grpc.ClientUnaryCall;
   getFileContents(argument: disk_pb.FileRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<disk_pb.GetFileContentsReply>): grpc.ClientUnaryCall;
   getFileContents(argument: disk_pb.FileRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<disk_pb.GetFileContentsReply>): grpc.ClientUnaryCall;
+  getFileExists(argument: disk_pb.FileRequest, callback: grpc.requestCallback<disk_pb.GetFileExistsReply>): grpc.ClientUnaryCall;
+  getFileExists(argument: disk_pb.FileRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<disk_pb.GetFileExistsReply>): grpc.ClientUnaryCall;
+  getFileExists(argument: disk_pb.FileRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<disk_pb.GetFileExistsReply>): grpc.ClientUnaryCall;
   getFileSize(argument: disk_pb.FileRequest, callback: grpc.requestCallback<disk_pb.GetFileSizeReply>): grpc.ClientUnaryCall;
   getFileSize(argument: disk_pb.FileRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<disk_pb.GetFileSizeReply>): grpc.ClientUnaryCall;
   getFileSize(argument: disk_pb.FileRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<disk_pb.GetFileSizeReply>): grpc.ClientUnaryCall;

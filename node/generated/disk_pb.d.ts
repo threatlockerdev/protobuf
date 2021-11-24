@@ -68,6 +68,26 @@ export namespace GetFileContentsReply {
   }
 }
 
+export class GetFileExistsReply extends jspb.Message {
+  getExists(): boolean;
+  setExists(value: boolean): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetFileExistsReply.AsObject;
+  static toObject(includeInstance: boolean, msg: GetFileExistsReply): GetFileExistsReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetFileExistsReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetFileExistsReply;
+  static deserializeBinaryFromReader(message: GetFileExistsReply, reader: jspb.BinaryReader): GetFileExistsReply;
+}
+
+export namespace GetFileExistsReply {
+  export type AsObject = {
+    exists: boolean,
+  }
+}
+
 export class GetFileSizeReply extends jspb.Message {
   getSize(): number;
   setSize(value: number): void;
