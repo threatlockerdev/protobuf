@@ -3,6 +3,7 @@
 'use strict';
 var grpc = require('@grpc/grpc-js');
 var disk_pb = require('./disk_pb.js');
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 var util_pb = require('./util_pb.js');
 
 function serialize_ActionReply(arg) {
@@ -58,6 +59,17 @@ function serialize_GetFileExistsReply(arg) {
 
 function deserialize_GetFileExistsReply(buffer_arg) {
   return disk_pb.GetFileExistsReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_GetFileInfoReply(arg) {
+  if (!(arg instanceof disk_pb.GetFileInfoReply)) {
+    throw new Error('Expected argument of type GetFileInfoReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_GetFileInfoReply(buffer_arg) {
+  return disk_pb.GetFileInfoReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_GetFileSizeReply(arg) {
@@ -127,6 +139,17 @@ var DiskServiceService = exports.DiskServiceService = {
     requestDeserialize: deserialize_FileRequest,
     responseSerialize: serialize_GetFileExistsReply,
     responseDeserialize: deserialize_GetFileExistsReply,
+  },
+  getFileInfo: {
+    path: '/DiskService/GetFileInfo',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.FileRequest,
+    responseType: disk_pb.GetFileInfoReply,
+    requestSerialize: serialize_FileRequest,
+    requestDeserialize: deserialize_FileRequest,
+    responseSerialize: serialize_GetFileInfoReply,
+    responseDeserialize: deserialize_GetFileInfoReply,
   },
   getFileSize: {
     path: '/DiskService/GetFileSize',

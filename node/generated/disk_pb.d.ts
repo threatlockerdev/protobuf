@@ -2,6 +2,7 @@
 // file: disk.proto
 
 import * as jspb from "google-protobuf";
+import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 import * as util_pb from "./util_pb";
 
 export class CopyFileRequest extends jspb.Message {
@@ -25,6 +26,40 @@ export namespace CopyFileRequest {
   export type AsObject = {
     from: string,
     to: string,
+  }
+}
+
+export class FileInfo extends jspb.Message {
+  hasModifiedat(): boolean;
+  clearModifiedat(): void;
+  getModifiedat(): google_protobuf_timestamp_pb.Timestamp | undefined;
+  setModifiedat(value?: google_protobuf_timestamp_pb.Timestamp): void;
+
+  getIsdirectory(): boolean;
+  setIsdirectory(value: boolean): void;
+
+  getSize(): number;
+  setSize(value: number): void;
+
+  getFlags(): number;
+  setFlags(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): FileInfo.AsObject;
+  static toObject(includeInstance: boolean, msg: FileInfo): FileInfo.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: FileInfo, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): FileInfo;
+  static deserializeBinaryFromReader(message: FileInfo, reader: jspb.BinaryReader): FileInfo;
+}
+
+export namespace FileInfo {
+  export type AsObject = {
+    modifiedat?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    isdirectory: boolean,
+    size: number,
+    flags: number,
   }
 }
 
@@ -85,6 +120,28 @@ export class GetFileExistsReply extends jspb.Message {
 export namespace GetFileExistsReply {
   export type AsObject = {
     exists: boolean,
+  }
+}
+
+export class GetFileInfoReply extends jspb.Message {
+  hasInfo(): boolean;
+  clearInfo(): void;
+  getInfo(): FileInfo | undefined;
+  setInfo(value?: FileInfo): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetFileInfoReply.AsObject;
+  static toObject(includeInstance: boolean, msg: GetFileInfoReply): GetFileInfoReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetFileInfoReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetFileInfoReply;
+  static deserializeBinaryFromReader(message: GetFileInfoReply, reader: jspb.BinaryReader): GetFileInfoReply;
+}
+
+export namespace GetFileInfoReply {
+  export type AsObject = {
+    info?: FileInfo.AsObject,
   }
 }
 

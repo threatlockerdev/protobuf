@@ -2,11 +2,19 @@ syntax = "proto3";
 
 option go_package = "hyperqube-io/protobuf/agent";
 
+import "google/protobuf/timestamp.proto";
 import "util.proto";
 
 message CopyFileRequest {
   string from = 1;
   string to = 2;
+}
+
+message FileInfo {
+  google.protobuf.Timestamp modifiedAt = 1;
+  bool isDirectory = 2;
+  int64 size = 3;
+  uint32 flags = 4;
 }
 
 message FileRequest {
@@ -19,6 +27,10 @@ message GetFileContentsReply {
 
 message GetFileExistsReply {
   bool exists = 1;
+}
+
+message GetFileInfoReply {
+  FileInfo info = 1;
 }
 
 message GetFileSizeReply {
@@ -35,6 +47,7 @@ service DiskService {
   rpc DeleteFile(FileRequest) returns (ActionReply) {}
   rpc GetFileContents(FileRequest) returns (GetFileContentsReply) {}
   rpc GetFileExists(FileRequest) returns (GetFileExistsReply) {}
+  rpc GetFileInfo(FileRequest) returns (GetFileInfoReply) {}
   rpc GetFileSize(FileRequest) returns (GetFileSizeReply) {}
   rpc WriteFile(WriteFileRequest) returns (ActionReply) {}
 }

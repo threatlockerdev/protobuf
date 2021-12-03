@@ -6,6 +6,7 @@ out_dir="../node/generated"
 
 cd src
 protoc \
+  -I/usr/local/include -I. \
   --plugin="protoc-gen-ts=$npm_dir/.bin/protoc-gen-ts" \
   --plugin="protoc-gen-grpc=$npm_dir/.bin/grpc_tools_node_protoc_plugin" \
   --js_out="import_style=commonjs,binary:$out_dir" \
