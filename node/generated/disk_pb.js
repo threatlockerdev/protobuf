@@ -1325,7 +1325,8 @@ proto.WriteFileRequest.prototype.toObject = function(opt_includeInstance) {
 proto.WriteFileRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     path: msg.getPath(),
-    data: msg.getData()
+    data: msg.getData(),
+    url: msg.getUrl()
   };
 
   if (includeInstance) {
@@ -1369,6 +1370,10 @@ proto.WriteFileRequest.deserializeBinaryFromReader = function(msg, reader) {
     case 2:
       var value = /** @type {string} */ (reader.readString());
       msg.setData(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUrl(value);
       break;
     default:
       reader.skipField();
@@ -1422,6 +1427,13 @@ proto.WriteFileRequest.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
+  f = this.getUrl();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -1461,6 +1473,21 @@ proto.WriteFileRequest.prototype.getData = function() {
 /** @param {string} value  */
 proto.WriteFileRequest.prototype.setData = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string url = 3;
+ * @return {string}
+ */
+proto.WriteFileRequest.prototype.getUrl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 3, ""));
+};
+
+
+/** @param {string} value  */
+proto.WriteFileRequest.prototype.setUrl = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 

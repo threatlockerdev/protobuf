@@ -172,6 +172,9 @@ export class WriteFileRequest extends jspb.Message {
   getData(): string;
   setData(value: string): void;
 
+  getUrl(): string;
+  setUrl(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): WriteFileRequest.AsObject;
   static toObject(includeInstance: boolean, msg: WriteFileRequest): WriteFileRequest.AsObject;
@@ -186,6 +189,7 @@ export namespace WriteFileRequest {
   export type AsObject = {
     path: string,
     data: string,
+    url: string,
   }
 }
 

@@ -40,6 +40,7 @@ message GetFileSizeReply {
 message WriteFileRequest {
   string path = 1;
   string data = 2;
+  string url = 3;
 }
 
 service DiskService {
