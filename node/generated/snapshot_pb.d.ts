@@ -85,6 +85,9 @@ export class GetSnapshotRequest extends jspb.Message {
   getName(): string;
   setName(value: string): void;
 
+  getMachineid(): string;
+  setMachineid(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetSnapshotRequest.AsObject;
   static toObject(includeInstance: boolean, msg: GetSnapshotRequest): GetSnapshotRequest.AsObject;
@@ -98,6 +101,7 @@ export class GetSnapshotRequest extends jspb.Message {
 export namespace GetSnapshotRequest {
   export type AsObject = {
     name: string,
+    machineid: string,
   }
 }
 

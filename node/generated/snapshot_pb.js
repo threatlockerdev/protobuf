@@ -656,7 +656,8 @@ proto.GetSnapshotRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.GetSnapshotRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    name: msg.getName()
+    name: msg.getName(),
+    machineid: msg.getMachineid()
   };
 
   if (includeInstance) {
@@ -696,6 +697,10 @@ proto.GetSnapshotRequest.deserializeBinaryFromReader = function(msg, reader) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setMachineid(value);
       break;
     default:
       reader.skipField();
@@ -742,6 +747,13 @@ proto.GetSnapshotRequest.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
+  f = this.getMachineid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -766,6 +778,21 @@ proto.GetSnapshotRequest.prototype.getName = function() {
 /** @param {string} value  */
 proto.GetSnapshotRequest.prototype.setName = function(value) {
   jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string machineId = 2;
+ * @return {string}
+ */
+proto.GetSnapshotRequest.prototype.getMachineid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+};
+
+
+/** @param {string} value  */
+proto.GetSnapshotRequest.prototype.setMachineid = function(value) {
+  jspb.Message.setField(this, 2, value);
 };
 
 
