@@ -16,4 +16,6 @@ __exportStar(require("./generated/machine_grpc_pb"), exports);
 __exportStar(require("./generated/machine_pb"), exports);
 __exportStar(require("./generated/network_grpc_pb"), exports);
 __exportStar(require("./generated/network_pb"), exports);
+__exportStar(require("./generated/snapshot_grpc_pb"), exports);
+__exportStar(require("./generated/snapshot_pb"), exports);
 __exportStar(require("./generated/util_pb"), exports);

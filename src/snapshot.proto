@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "hyperqube-io/protobuf/agent";
+
+import "google/protobuf/timestamp.proto";
+import "util.proto";
+
+message Snapshot {
+  string name = 1;
+  google.protobuf.Timestamp createdAt = 2;
+  string description = 3;
+  string parentName = 4;
+}
+
+message GetSnapshotsRequest {
+  string machineId = 1;
+}
+
+message GetSnapshotsReply {
+  repeated Snapshot snapshots = 1;
+}
+
+message GetSnapshotRequest {
+  string name = 1;
+}
+
+message CreateSnapshotRequest {
+  string machineId = 1;
+  string name = 2;
+  string description = 3;
+}
+
+service SnapshotService {
+  rpc GetMany(GetSnapshotsRequest) returns (GetSnapshotsReply) {}
+  rpc Create(CreateSnapshotRequest) returns (ActionReply) {}
+  rpc Delete(GetSnapshotRequest) returns (ActionReply) {}
+  rpc RevertTo(GetSnapshotRequest) returns (ActionReply) {}
+}
