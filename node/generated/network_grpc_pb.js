@@ -60,6 +60,17 @@ function deserialize_GetNetworksRequest(buffer_arg) {
   return network_pb.GetNetworksRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_UpdateNetworkFlagRequest(arg) {
+  if (!(arg instanceof network_pb.UpdateNetworkFlagRequest)) {
+    throw new Error('Expected argument of type UpdateNetworkFlagRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_UpdateNetworkFlagRequest(buffer_arg) {
+  return network_pb.UpdateNetworkFlagRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var NetworkServiceService = exports.NetworkServiceService = {
   getMany: {
@@ -92,6 +103,28 @@ var NetworkServiceService = exports.NetworkServiceService = {
     responseType: util_pb.ActionReply,
     requestSerialize: serialize_GetNetworksRequest,
     requestDeserialize: deserialize_GetNetworksRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  updateDHCP: {
+    path: '/NetworkService/UpdateDHCP',
+    requestStream: false,
+    responseStream: false,
+    requestType: network_pb.UpdateNetworkFlagRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateNetworkFlagRequest,
+    requestDeserialize: deserialize_UpdateNetworkFlagRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  updateInternet: {
+    path: '/NetworkService/UpdateInternet',
+    requestStream: false,
+    responseStream: false,
+    requestType: network_pb.UpdateNetworkFlagRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateNetworkFlagRequest,
+    requestDeserialize: deserialize_UpdateNetworkFlagRequest,
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },

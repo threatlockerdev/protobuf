@@ -16,6 +16,12 @@ export class Network extends jspb.Message {
   setMachineidsList(value: Array<number>): void;
   addMachineids(value: number, index?: number): number;
 
+  getDhcp(): boolean;
+  setDhcp(value: boolean): void;
+
+  getInternet(): boolean;
+  setInternet(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Network.AsObject;
   static toObject(includeInstance: boolean, msg: Network): Network.AsObject;
@@ -31,6 +37,8 @@ export namespace Network {
     id: string,
     name: string,
     machineidsList: Array<number>,
+    dhcp: boolean,
+    internet: boolean,
   }
 }
 
@@ -115,6 +123,30 @@ export class CreateNetworkReply extends jspb.Message {
 export namespace CreateNetworkReply {
   export type AsObject = {
     id: string,
+  }
+}
+
+export class UpdateNetworkFlagRequest extends jspb.Message {
+  getNetworkid(): string;
+  setNetworkid(value: string): void;
+
+  getValue(): boolean;
+  setValue(value: boolean): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateNetworkFlagRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateNetworkFlagRequest): UpdateNetworkFlagRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateNetworkFlagRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateNetworkFlagRequest;
+  static deserializeBinaryFromReader(message: UpdateNetworkFlagRequest, reader: jspb.BinaryReader): UpdateNetworkFlagRequest;
+}
+
+export namespace UpdateNetworkFlagRequest {
+  export type AsObject = {
+    networkid: string,
+    value: boolean,
   }
 }
 

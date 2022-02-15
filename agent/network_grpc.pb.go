@@ -21,6 +21,8 @@ type NetworkServiceClient interface {
 	GetMany(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*GetNetworksReply, error)
 	Create(ctx context.Context, in *CreateNetworkRequest, opts ...grpc.CallOption) (*CreateNetworkReply, error)
 	Delete(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdateInternet(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
 type networkServiceClient struct {
@@ -58,6 +60,24 @@ func (c *networkServiceClient) Delete(ctx context.Context, in *GetNetworksReques
 	return out, nil
 }
 
+func (c *networkServiceClient) UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/NetworkService/UpdateDHCP", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *networkServiceClient) UpdateInternet(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/NetworkService/UpdateInternet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NetworkServiceServer is the server API for NetworkService service.
 // All implementations must embed UnimplementedNetworkServiceServer
 // for forward compatibility
@@ -65,6 +85,8 @@ type NetworkServiceServer interface {
 	GetMany(context.Context, *GetNetworksRequest) (*GetNetworksReply, error)
 	Create(context.Context, *CreateNetworkRequest) (*CreateNetworkReply, error)
 	Delete(context.Context, *GetNetworksRequest) (*ActionReply, error)
+	UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
+	UpdateInternet(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	mustEmbedUnimplementedNetworkServiceServer()
 }
 
@@ -80,6 +102,12 @@ func (UnimplementedNetworkServiceServer) Create(context.Context, *CreateNetworkR
 }
 func (UnimplementedNetworkServiceServer) Delete(context.Context, *GetNetworksRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedNetworkServiceServer) UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDHCP not implemented")
+}
+func (UnimplementedNetworkServiceServer) UpdateInternet(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateInternet not implemented")
 }
 func (UnimplementedNetworkServiceServer) mustEmbedUnimplementedNetworkServiceServer() {}
 
@@ -148,6 +176,42 @@ func _NetworkService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NetworkService_UpdateDHCP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNetworkFlagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NetworkServiceServer).UpdateDHCP(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/NetworkService/UpdateDHCP",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NetworkServiceServer).UpdateDHCP(ctx, req.(*UpdateNetworkFlagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NetworkService_UpdateInternet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNetworkFlagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NetworkServiceServer).UpdateInternet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/NetworkService/UpdateInternet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NetworkServiceServer).UpdateInternet(ctx, req.(*UpdateNetworkFlagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NetworkService_ServiceDesc is the grpc.ServiceDesc for NetworkService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,6 +230,14 @@ var NetworkService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _NetworkService_Delete_Handler,
+		},
+		{
+			MethodName: "UpdateDHCP",
+			Handler:    _NetworkService_UpdateDHCP_Handler,
+		},
+		{
+			MethodName: "UpdateInternet",
+			Handler:    _NetworkService_UpdateInternet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

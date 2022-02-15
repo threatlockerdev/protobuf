@@ -8,6 +8,8 @@ message Network {
   string id = 1;
   string name = 2;
   repeated uint32 machineIds = 3;
+  bool dhcp = 4;
+  bool internet = 5;
 }
 
 message GetNetworksRequest {
@@ -26,8 +28,15 @@ message CreateNetworkReply {
   string id = 1;
 }
 
+message UpdateNetworkFlagRequest {
+  string networkId = 1;
+  bool value = 2;
+}
+
 service NetworkService {
   rpc GetMany (GetNetworksRequest)   returns (GetNetworksReply) {}
   rpc Create  (CreateNetworkRequest) returns (CreateNetworkReply) {}
   rpc Delete  (GetNetworksRequest)   returns (ActionReply) {}
+  rpc UpdateDHCP(UpdateNetworkFlagRequest) returns (ActionReply) {}
+  rpc UpdateInternet(UpdateNetworkFlagRequest) returns (ActionReply) {}
 }
