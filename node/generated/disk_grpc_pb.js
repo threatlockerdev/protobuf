@@ -107,6 +107,17 @@ var DiskServiceService = exports.DiskServiceService = {
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },
+  createLinkedDisk: {
+    path: '/DiskService/CreateLinkedDisk',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.CopyFileRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_CopyFileRequest,
+    requestDeserialize: deserialize_CopyFileRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
   deleteFile: {
     path: '/DiskService/DeleteFile',
     requestStream: false,

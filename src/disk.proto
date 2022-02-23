@@ -45,6 +45,7 @@ message WriteFileRequest {
 
 service DiskService {
   rpc CopyFile(CopyFileRequest) returns (ActionReply) {}
+  rpc CreateLinkedDisk(CopyFileRequest) returns (ActionReply) {}
   rpc DeleteFile(FileRequest) returns (ActionReply) {}
   rpc GetFileContents(FileRequest) returns (GetFileContentsReply) {}
   rpc GetFileExists(FileRequest) returns (GetFileExistsReply) {}

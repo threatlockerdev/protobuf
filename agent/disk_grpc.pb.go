@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DiskServiceClient interface {
 	CopyFile(ctx context.Context, in *CopyFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	CreateLinkedDisk(ctx context.Context, in *CopyFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	DeleteFile(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	GetFileContents(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileContentsReply, error)
 	GetFileExists(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileExistsReply, error)
@@ -38,6 +39,15 @@ func NewDiskServiceClient(cc grpc.ClientConnInterface) DiskServiceClient {
 func (c *diskServiceClient) CopyFile(ctx context.Context, in *CopyFileRequest, opts ...grpc.CallOption) (*ActionReply, error) {
 	out := new(ActionReply)
 	err := c.cc.Invoke(ctx, "/DiskService/CopyFile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *diskServiceClient) CreateLinkedDisk(ctx context.Context, in *CopyFileRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/DiskService/CreateLinkedDisk", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,6 +113,7 @@ func (c *diskServiceClient) WriteFile(ctx context.Context, in *WriteFileRequest,
 // for forward compatibility
 type DiskServiceServer interface {
 	CopyFile(context.Context, *CopyFileRequest) (*ActionReply, error)
+	CreateLinkedDisk(context.Context, *CopyFileRequest) (*ActionReply, error)
 	DeleteFile(context.Context, *FileRequest) (*ActionReply, error)
 	GetFileContents(context.Context, *FileRequest) (*GetFileContentsReply, error)
 	GetFileExists(context.Context, *FileRequest) (*GetFileExistsReply, error)
@@ -118,6 +129,9 @@ type UnimplementedDiskServiceServer struct {
 
 func (UnimplementedDiskServiceServer) CopyFile(context.Context, *CopyFileRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CopyFile not implemented")
+}
+func (UnimplementedDiskServiceServer) CreateLinkedDisk(context.Context, *CopyFileRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLinkedDisk not implemented")
 }
 func (UnimplementedDiskServiceServer) DeleteFile(context.Context, *FileRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFile not implemented")
@@ -164,6 +178,24 @@ func _DiskService_CopyFile_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DiskServiceServer).CopyFile(ctx, req.(*CopyFileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DiskService_CreateLinkedDisk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CopyFileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiskServiceServer).CreateLinkedDisk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DiskService/CreateLinkedDisk",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiskServiceServer).CreateLinkedDisk(ctx, req.(*CopyFileRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -286,6 +318,10 @@ var DiskService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CopyFile",
 			Handler:    _DiskService_CopyFile_Handler,
+		},
+		{
+			MethodName: "CreateLinkedDisk",
+			Handler:    _DiskService_CreateLinkedDisk_Handler,
 		},
 		{
 			MethodName: "DeleteFile",
