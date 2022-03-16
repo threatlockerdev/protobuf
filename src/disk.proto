@@ -10,6 +10,16 @@ message CopyFileRequest {
   string to = 2;
 }
 
+message MoveFileRequest {
+  string from = 1;
+  string to = 2;
+}
+
+message UpdateDiskBackingRequest {
+  string diskPath = 1;
+  string backingPath = 2;
+}
+
 message FileInfo {
   google.protobuf.Timestamp modifiedAt = 1;
   bool isDirectory = 2;
@@ -51,5 +61,8 @@ service DiskService {
   rpc GetFileExists(FileRequest) returns (GetFileExistsReply) {}
   rpc GetFileInfo(FileRequest) returns (GetFileInfoReply) {}
   rpc GetFileSize(FileRequest) returns (GetFileSizeReply) {}
+  rpc CommitDisk(FileRequest) returns (ActionReply) {}
+  rpc MoveFile(MoveFileRequest) returns (ActionReply) {}
+  rpc UpdateDiskBacking(UpdateDiskBackingRequest) returns (ActionReply) {}
   rpc WriteFile(WriteFileRequest) returns (ActionReply) {}
 }

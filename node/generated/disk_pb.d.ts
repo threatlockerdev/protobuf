@@ -29,6 +29,54 @@ export namespace CopyFileRequest {
   }
 }
 
+export class MoveFileRequest extends jspb.Message {
+  getFrom(): string;
+  setFrom(value: string): void;
+
+  getTo(): string;
+  setTo(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MoveFileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: MoveFileRequest): MoveFileRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: MoveFileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MoveFileRequest;
+  static deserializeBinaryFromReader(message: MoveFileRequest, reader: jspb.BinaryReader): MoveFileRequest;
+}
+
+export namespace MoveFileRequest {
+  export type AsObject = {
+    from: string,
+    to: string,
+  }
+}
+
+export class UpdateDiskBackingRequest extends jspb.Message {
+  getDiskpath(): string;
+  setDiskpath(value: string): void;
+
+  getBackingpath(): string;
+  setBackingpath(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateDiskBackingRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateDiskBackingRequest): UpdateDiskBackingRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateDiskBackingRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateDiskBackingRequest;
+  static deserializeBinaryFromReader(message: UpdateDiskBackingRequest, reader: jspb.BinaryReader): UpdateDiskBackingRequest;
+}
+
+export namespace UpdateDiskBackingRequest {
+  export type AsObject = {
+    diskpath: string,
+    backingpath: string,
+  }
+}
+
 export class FileInfo extends jspb.Message {
   hasModifiedat(): boolean;
   clearModifiedat(): void;

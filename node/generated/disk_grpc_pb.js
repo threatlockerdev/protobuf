@@ -83,6 +83,28 @@ function deserialize_GetFileSizeReply(buffer_arg) {
   return disk_pb.GetFileSizeReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_MoveFileRequest(arg) {
+  if (!(arg instanceof disk_pb.MoveFileRequest)) {
+    throw new Error('Expected argument of type MoveFileRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_MoveFileRequest(buffer_arg) {
+  return disk_pb.MoveFileRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_UpdateDiskBackingRequest(arg) {
+  if (!(arg instanceof disk_pb.UpdateDiskBackingRequest)) {
+    throw new Error('Expected argument of type UpdateDiskBackingRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_UpdateDiskBackingRequest(buffer_arg) {
+  return disk_pb.UpdateDiskBackingRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_WriteFileRequest(arg) {
   if (!(arg instanceof disk_pb.WriteFileRequest)) {
     throw new Error('Expected argument of type WriteFileRequest');
@@ -172,6 +194,39 @@ var DiskServiceService = exports.DiskServiceService = {
     requestDeserialize: deserialize_FileRequest,
     responseSerialize: serialize_GetFileSizeReply,
     responseDeserialize: deserialize_GetFileSizeReply,
+  },
+  commitDisk: {
+    path: '/DiskService/CommitDisk',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.FileRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_FileRequest,
+    requestDeserialize: deserialize_FileRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  moveFile: {
+    path: '/DiskService/MoveFile',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.MoveFileRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_MoveFileRequest,
+    requestDeserialize: deserialize_MoveFileRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  updateDiskBacking: {
+    path: '/DiskService/UpdateDiskBacking',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.UpdateDiskBackingRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateDiskBackingRequest,
+    requestDeserialize: deserialize_UpdateDiskBackingRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
   },
   writeFile: {
     path: '/DiskService/WriteFile',

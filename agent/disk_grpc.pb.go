@@ -25,6 +25,9 @@ type DiskServiceClient interface {
 	GetFileExists(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileExistsReply, error)
 	GetFileInfo(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileInfoReply, error)
 	GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileSizeReply, error)
+	CommitDisk(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	MoveFile(ctx context.Context, in *MoveFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdateDiskBacking(ctx context.Context, in *UpdateDiskBackingRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	WriteFile(ctx context.Context, in *WriteFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
@@ -99,6 +102,33 @@ func (c *diskServiceClient) GetFileSize(ctx context.Context, in *FileRequest, op
 	return out, nil
 }
 
+func (c *diskServiceClient) CommitDisk(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/DiskService/CommitDisk", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *diskServiceClient) MoveFile(ctx context.Context, in *MoveFileRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/DiskService/MoveFile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *diskServiceClient) UpdateDiskBacking(ctx context.Context, in *UpdateDiskBackingRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/DiskService/UpdateDiskBacking", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *diskServiceClient) WriteFile(ctx context.Context, in *WriteFileRequest, opts ...grpc.CallOption) (*ActionReply, error) {
 	out := new(ActionReply)
 	err := c.cc.Invoke(ctx, "/DiskService/WriteFile", in, out, opts...)
@@ -119,6 +149,9 @@ type DiskServiceServer interface {
 	GetFileExists(context.Context, *FileRequest) (*GetFileExistsReply, error)
 	GetFileInfo(context.Context, *FileRequest) (*GetFileInfoReply, error)
 	GetFileSize(context.Context, *FileRequest) (*GetFileSizeReply, error)
+	CommitDisk(context.Context, *FileRequest) (*ActionReply, error)
+	MoveFile(context.Context, *MoveFileRequest) (*ActionReply, error)
+	UpdateDiskBacking(context.Context, *UpdateDiskBackingRequest) (*ActionReply, error)
 	WriteFile(context.Context, *WriteFileRequest) (*ActionReply, error)
 	mustEmbedUnimplementedDiskServiceServer()
 }
@@ -147,6 +180,15 @@ func (UnimplementedDiskServiceServer) GetFileInfo(context.Context, *FileRequest)
 }
 func (UnimplementedDiskServiceServer) GetFileSize(context.Context, *FileRequest) (*GetFileSizeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFileSize not implemented")
+}
+func (UnimplementedDiskServiceServer) CommitDisk(context.Context, *FileRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CommitDisk not implemented")
+}
+func (UnimplementedDiskServiceServer) MoveFile(context.Context, *MoveFileRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MoveFile not implemented")
+}
+func (UnimplementedDiskServiceServer) UpdateDiskBacking(context.Context, *UpdateDiskBackingRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDiskBacking not implemented")
 }
 func (UnimplementedDiskServiceServer) WriteFile(context.Context, *WriteFileRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WriteFile not implemented")
@@ -290,6 +332,60 @@ func _DiskService_GetFileSize_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DiskService_CommitDisk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiskServiceServer).CommitDisk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DiskService/CommitDisk",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiskServiceServer).CommitDisk(ctx, req.(*FileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DiskService_MoveFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MoveFileRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiskServiceServer).MoveFile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DiskService/MoveFile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiskServiceServer).MoveFile(ctx, req.(*MoveFileRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DiskService_UpdateDiskBacking_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDiskBackingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiskServiceServer).UpdateDiskBacking(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DiskService/UpdateDiskBacking",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiskServiceServer).UpdateDiskBacking(ctx, req.(*UpdateDiskBackingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DiskService_WriteFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(WriteFileRequest)
 	if err := dec(in); err != nil {
@@ -342,6 +438,18 @@ var DiskService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFileSize",
 			Handler:    _DiskService_GetFileSize_Handler,
+		},
+		{
+			MethodName: "CommitDisk",
+			Handler:    _DiskService_CommitDisk_Handler,
+		},
+		{
+			MethodName: "MoveFile",
+			Handler:    _DiskService_MoveFile_Handler,
+		},
+		{
+			MethodName: "UpdateDiskBacking",
+			Handler:    _DiskService_UpdateDiskBacking_Handler,
 		},
 		{
 			MethodName: "WriteFile",
