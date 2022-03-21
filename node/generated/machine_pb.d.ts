@@ -175,6 +175,9 @@ export class CreateMachineRequest extends jspb.Message {
   getDiskpath(): string;
   setDiskpath(value: string): void;
 
+  getXml(): string;
+  setXml(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateMachineRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateMachineRequest): CreateMachineRequest.AsObject;
@@ -191,6 +194,7 @@ export namespace CreateMachineRequest {
     cpucount: number,
     memory: number,
     diskpath: string,
+    xml: string,
   }
 }
 

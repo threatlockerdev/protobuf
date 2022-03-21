@@ -699,7 +699,8 @@ proto.CreateNetworkRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.CreateNetworkRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    name: msg.getName()
+    name: msg.getName(),
+    xml: msg.getXml()
   };
 
   if (includeInstance) {
@@ -739,6 +740,10 @@ proto.CreateNetworkRequest.deserializeBinaryFromReader = function(msg, reader) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setXml(value);
       break;
     default:
       reader.skipField();
@@ -785,6 +790,13 @@ proto.CreateNetworkRequest.prototype.serializeBinaryToWriter = function (writer)
       f
     );
   }
+  f = this.getXml();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -809,6 +821,21 @@ proto.CreateNetworkRequest.prototype.getName = function() {
 /** @param {string} value  */
 proto.CreateNetworkRequest.prototype.setName = function(value) {
   jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string xml = 2;
+ * @return {string}
+ */
+proto.CreateNetworkRequest.prototype.getXml = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+};
+
+
+/** @param {string} value  */
+proto.CreateNetworkRequest.prototype.setXml = function(value) {
+  jspb.Message.setField(this, 2, value);
 };
 
 

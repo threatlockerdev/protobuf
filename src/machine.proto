@@ -47,6 +47,7 @@ message CreateMachineRequest {
   uint32 cpuCount = 2;
   uint32 memory = 3;
   string diskPath = 4;
+  string xml = 5;
 }
 
 message CreateMachineReply {

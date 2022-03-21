@@ -1235,7 +1235,8 @@ proto.CreateMachineRequest.toObject = function(includeInstance, msg) {
     name: msg.getName(),
     cpucount: msg.getCpucount(),
     memory: msg.getMemory(),
-    diskpath: msg.getDiskpath()
+    diskpath: msg.getDiskpath(),
+    xml: msg.getXml()
   };
 
   if (includeInstance) {
@@ -1287,6 +1288,10 @@ proto.CreateMachineRequest.deserializeBinaryFromReader = function(msg, reader) {
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setDiskpath(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setXml(value);
       break;
     default:
       reader.skipField();
@@ -1351,6 +1356,13 @@ proto.CreateMachineRequest.prototype.serializeBinaryToWriter = function (writer)
   if (f.length > 0) {
     writer.writeString(
       4,
+      f
+    );
+  }
+  f = this.getXml();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -1423,6 +1435,21 @@ proto.CreateMachineRequest.prototype.getDiskpath = function() {
 /** @param {string} value  */
 proto.CreateMachineRequest.prototype.setDiskpath = function(value) {
   jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional string xml = 5;
+ * @return {string}
+ */
+proto.CreateMachineRequest.prototype.getXml = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 5, ""));
+};
+
+
+/** @param {string} value  */
+proto.CreateMachineRequest.prototype.setXml = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 

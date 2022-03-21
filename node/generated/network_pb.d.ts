@@ -90,6 +90,9 @@ export class CreateNetworkRequest extends jspb.Message {
   getName(): string;
   setName(value: string): void;
 
+  getXml(): string;
+  setXml(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateNetworkRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateNetworkRequest): CreateNetworkRequest.AsObject;
@@ -103,6 +106,7 @@ export class CreateNetworkRequest extends jspb.Message {
 export namespace CreateNetworkRequest {
   export type AsObject = {
     name: string,
+    xml: string,
   }
 }
 
