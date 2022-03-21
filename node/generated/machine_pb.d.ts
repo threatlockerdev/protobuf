@@ -49,6 +49,9 @@ export class Machine extends jspb.Message {
   setNetworksList(value: Array<network_pb.Network>): void;
   addNetworks(value?: network_pb.Network, index?: number): network_pb.Network;
 
+  getXml(): string;
+  setXml(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Machine.AsObject;
   static toObject(includeInstance: boolean, msg: Machine): Machine.AsObject;
@@ -66,6 +69,7 @@ export namespace Machine {
     powerstate: Machine.PowerStateMap[keyof Machine.PowerStateMap],
     disksList: Array<MachineDisk.AsObject>,
     networksList: Array<network_pb.Network.AsObject>,
+    xml: string,
   }
 
   export interface PowerStateMap {

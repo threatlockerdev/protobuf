@@ -22,6 +22,9 @@ export class Network extends jspb.Message {
   getInternet(): boolean;
   setInternet(value: boolean): void;
 
+  getXml(): string;
+  setXml(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Network.AsObject;
   static toObject(includeInstance: boolean, msg: Network): Network.AsObject;
@@ -39,6 +42,7 @@ export namespace Network {
     machineidsList: Array<number>,
     dhcp: boolean,
     internet: boolean,
+    xml: string,
   }
 }
 

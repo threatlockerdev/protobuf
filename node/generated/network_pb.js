@@ -73,7 +73,8 @@ proto.Network.toObject = function(includeInstance, msg) {
     name: msg.getName(),
     machineidsList: jspb.Message.getField(msg, 3),
     dhcp: msg.getDhcp(),
-    internet: msg.getInternet()
+    internet: msg.getInternet(),
+    xml: msg.getXml()
   };
 
   if (includeInstance) {
@@ -129,6 +130,10 @@ proto.Network.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setInternet(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setXml(value);
       break;
     default:
       reader.skipField();
@@ -200,6 +205,13 @@ proto.Network.prototype.serializeBinaryToWriter = function (writer) {
   if (f) {
     writer.writeBool(
       5,
+      f
+    );
+  }
+  f = this.getXml();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
       f
     );
   }
@@ -298,6 +310,21 @@ proto.Network.prototype.getInternet = function() {
 /** @param {boolean} value  */
 proto.Network.prototype.setInternet = function(value) {
   jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional string xml = 6;
+ * @return {string}
+ */
+proto.Network.prototype.getXml = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
+};
+
+
+/** @param {string} value  */
+proto.Network.prototype.setXml = function(value) {
+  jspb.Message.setField(this, 6, value);
 };
 
 

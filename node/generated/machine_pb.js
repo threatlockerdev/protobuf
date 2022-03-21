@@ -267,7 +267,8 @@ proto.Machine.toObject = function(includeInstance, msg) {
     disksList: jspb.Message.toObjectList(msg.getDisksList(),
     proto.MachineDisk.toObject, includeInstance),
     networksList: jspb.Message.toObjectList(msg.getNetworksList(),
-    network_pb.Network.toObject, includeInstance)
+    network_pb.Network.toObject, includeInstance),
+    xml: msg.getXml()
   };
 
   if (includeInstance) {
@@ -327,6 +328,10 @@ proto.Machine.deserializeBinaryFromReader = function(msg, reader) {
       reader.readMessage(value,network_pb.Network.deserializeBinaryFromReader);
       msg.getNetworksList().push(value);
       msg.setNetworksList(msg.getNetworksList());
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setXml(value);
       break;
     default:
       reader.skipField();
@@ -401,6 +406,13 @@ proto.Machine.prototype.serializeBinaryToWriter = function (writer) {
       5,
       f,
       network_pb.Network.serializeBinaryToWriter
+    );
+  }
+  f = this.getXml();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
     );
   }
 };
@@ -503,6 +515,21 @@ proto.Machine.prototype.setNetworksList = function(value) {
 
 proto.Machine.prototype.clearNetworksList = function() {
   this.setNetworksList([]);
+};
+
+
+/**
+ * optional string xml = 6;
+ * @return {string}
+ */
+proto.Machine.prototype.getXml = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 6, ""));
+};
+
+
+/** @param {string} value  */
+proto.Machine.prototype.setXml = function(value) {
+  jspb.Message.setField(this, 6, value);
 };
 
 

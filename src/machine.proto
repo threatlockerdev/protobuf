@@ -24,6 +24,8 @@ message Machine {
 
   repeated MachineDisk disks = 4;
   repeated Network networks = 5;
+
+  string xml = 6;
 }
 
 message GetMachineRequest {

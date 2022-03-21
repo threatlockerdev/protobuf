@@ -10,6 +10,7 @@ message Network {
   repeated uint32 machineIds = 3;
   bool dhcp = 4;
   bool internet = 5;
+  string xml = 6;
 }
 
 message GetNetworksRequest {
