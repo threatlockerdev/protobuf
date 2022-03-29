@@ -12,6 +12,9 @@
     "generate:node": "docker run --rm -it -v $(pwd):/pb -v node_modules:/pb/node_modules hyperqubeio/pb-node",
     "prepublishOnly": "yarn build:node"
   },
+  "peerDependencies": {
+    "@grpc/grpc-js": "^1.5.10"
+  },
   "dependencies": {
     "@grpc/grpc-js": "^1.5.10",
     "@types/google-protobuf": "^3.15.5",
