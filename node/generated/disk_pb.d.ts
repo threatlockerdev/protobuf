@@ -213,6 +213,30 @@ export namespace GetFileSizeReply {
   }
 }
 
+export class ResizeDiskRequest extends jspb.Message {
+  getPath(): string;
+  setPath(value: string): void;
+
+  getSize(): number;
+  setSize(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ResizeDiskRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: ResizeDiskRequest): ResizeDiskRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ResizeDiskRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ResizeDiskRequest;
+  static deserializeBinaryFromReader(message: ResizeDiskRequest, reader: jspb.BinaryReader): ResizeDiskRequest;
+}
+
+export namespace ResizeDiskRequest {
+  export type AsObject = {
+    path: string,
+    size: number,
+  }
+}
+
 export class WriteFileRequest extends jspb.Message {
   getPath(): string;
   setPath(value: string): void;

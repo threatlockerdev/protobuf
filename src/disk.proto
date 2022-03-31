@@ -47,6 +47,11 @@ message GetFileSizeReply {
   int64 size = 1;
 }
 
+message ResizeDiskRequest {
+  string path = 1;
+  int64 size = 2;
+}
+
 message WriteFileRequest {
   string path = 1;
   string data = 2;
@@ -63,6 +68,7 @@ service DiskService {
   rpc GetFileSize(FileRequest) returns (GetFileSizeReply) {}
   rpc CommitDisk(FileRequest) returns (ActionReply) {}
   rpc MoveFile(MoveFileRequest) returns (ActionReply) {}
+  rpc ResizeDisk(ResizeDiskRequest) returns (ActionReply) {}
   rpc UpdateDiskBacking(UpdateDiskBackingRequest) returns (ActionReply) {}
   rpc WriteFile(WriteFileRequest) returns (ActionReply) {}
 }

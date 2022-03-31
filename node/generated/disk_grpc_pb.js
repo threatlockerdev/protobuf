@@ -94,6 +94,17 @@ function deserialize_MoveFileRequest(buffer_arg) {
   return disk_pb.MoveFileRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_ResizeDiskRequest(arg) {
+  if (!(arg instanceof disk_pb.ResizeDiskRequest)) {
+    throw new Error('Expected argument of type ResizeDiskRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_ResizeDiskRequest(buffer_arg) {
+  return disk_pb.ResizeDiskRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_UpdateDiskBackingRequest(arg) {
   if (!(arg instanceof disk_pb.UpdateDiskBackingRequest)) {
     throw new Error('Expected argument of type UpdateDiskBackingRequest');
@@ -214,6 +225,17 @@ var DiskServiceService = exports.DiskServiceService = {
     responseType: util_pb.ActionReply,
     requestSerialize: serialize_MoveFileRequest,
     requestDeserialize: deserialize_MoveFileRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  resizeDisk: {
+    path: '/DiskService/ResizeDisk',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.ResizeDiskRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_ResizeDiskRequest,
+    requestDeserialize: deserialize_ResizeDiskRequest,
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },

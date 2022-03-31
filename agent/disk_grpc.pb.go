@@ -27,6 +27,7 @@ type DiskServiceClient interface {
 	GetFileSize(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*GetFileSizeReply, error)
 	CommitDisk(ctx context.Context, in *FileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	MoveFile(ctx context.Context, in *MoveFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	ResizeDisk(ctx context.Context, in *ResizeDiskRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateDiskBacking(ctx context.Context, in *UpdateDiskBackingRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	WriteFile(ctx context.Context, in *WriteFileRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
@@ -120,6 +121,15 @@ func (c *diskServiceClient) MoveFile(ctx context.Context, in *MoveFileRequest, o
 	return out, nil
 }
 
+func (c *diskServiceClient) ResizeDisk(ctx context.Context, in *ResizeDiskRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/DiskService/ResizeDisk", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *diskServiceClient) UpdateDiskBacking(ctx context.Context, in *UpdateDiskBackingRequest, opts ...grpc.CallOption) (*ActionReply, error) {
 	out := new(ActionReply)
 	err := c.cc.Invoke(ctx, "/DiskService/UpdateDiskBacking", in, out, opts...)
@@ -151,6 +161,7 @@ type DiskServiceServer interface {
 	GetFileSize(context.Context, *FileRequest) (*GetFileSizeReply, error)
 	CommitDisk(context.Context, *FileRequest) (*ActionReply, error)
 	MoveFile(context.Context, *MoveFileRequest) (*ActionReply, error)
+	ResizeDisk(context.Context, *ResizeDiskRequest) (*ActionReply, error)
 	UpdateDiskBacking(context.Context, *UpdateDiskBackingRequest) (*ActionReply, error)
 	WriteFile(context.Context, *WriteFileRequest) (*ActionReply, error)
 	mustEmbedUnimplementedDiskServiceServer()
@@ -186,6 +197,9 @@ func (UnimplementedDiskServiceServer) CommitDisk(context.Context, *FileRequest) 
 }
 func (UnimplementedDiskServiceServer) MoveFile(context.Context, *MoveFileRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MoveFile not implemented")
+}
+func (UnimplementedDiskServiceServer) ResizeDisk(context.Context, *ResizeDiskRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResizeDisk not implemented")
 }
 func (UnimplementedDiskServiceServer) UpdateDiskBacking(context.Context, *UpdateDiskBackingRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDiskBacking not implemented")
@@ -368,6 +382,24 @@ func _DiskService_MoveFile_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DiskService_ResizeDisk_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResizeDiskRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiskServiceServer).ResizeDisk(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/DiskService/ResizeDisk",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiskServiceServer).ResizeDisk(ctx, req.(*ResizeDiskRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DiskService_UpdateDiskBacking_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateDiskBackingRequest)
 	if err := dec(in); err != nil {
@@ -446,6 +478,10 @@ var DiskService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MoveFile",
 			Handler:    _DiskService_MoveFile_Handler,
+		},
+		{
+			MethodName: "ResizeDisk",
+			Handler:    _DiskService_ResizeDisk_Handler,
 		},
 		{
 			MethodName: "UpdateDiskBacking",

@@ -17,6 +17,7 @@ interface IDiskServiceService extends grpc.ServiceDefinition<grpc.UntypedService
   getFileSize: grpc.MethodDefinition<disk_pb.FileRequest, disk_pb.GetFileSizeReply>;
   commitDisk: grpc.MethodDefinition<disk_pb.FileRequest, util_pb.ActionReply>;
   moveFile: grpc.MethodDefinition<disk_pb.MoveFileRequest, util_pb.ActionReply>;
+  resizeDisk: grpc.MethodDefinition<disk_pb.ResizeDiskRequest, util_pb.ActionReply>;
   updateDiskBacking: grpc.MethodDefinition<disk_pb.UpdateDiskBackingRequest, util_pb.ActionReply>;
   writeFile: grpc.MethodDefinition<disk_pb.WriteFileRequest, util_pb.ActionReply>;
 }
@@ -33,6 +34,7 @@ export interface IDiskServiceServer extends grpc.UntypedServiceImplementation {
   getFileSize: grpc.handleUnaryCall<disk_pb.FileRequest, disk_pb.GetFileSizeReply>;
   commitDisk: grpc.handleUnaryCall<disk_pb.FileRequest, util_pb.ActionReply>;
   moveFile: grpc.handleUnaryCall<disk_pb.MoveFileRequest, util_pb.ActionReply>;
+  resizeDisk: grpc.handleUnaryCall<disk_pb.ResizeDiskRequest, util_pb.ActionReply>;
   updateDiskBacking: grpc.handleUnaryCall<disk_pb.UpdateDiskBackingRequest, util_pb.ActionReply>;
   writeFile: grpc.handleUnaryCall<disk_pb.WriteFileRequest, util_pb.ActionReply>;
 }
@@ -66,6 +68,9 @@ export class DiskServiceClient extends grpc.Client {
   moveFile(argument: disk_pb.MoveFileRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   moveFile(argument: disk_pb.MoveFileRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   moveFile(argument: disk_pb.MoveFileRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  resizeDisk(argument: disk_pb.ResizeDiskRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  resizeDisk(argument: disk_pb.ResizeDiskRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  resizeDisk(argument: disk_pb.ResizeDiskRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateDiskBacking(argument: disk_pb.UpdateDiskBackingRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateDiskBacking(argument: disk_pb.UpdateDiskBackingRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateDiskBacking(argument: disk_pb.UpdateDiskBackingRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
