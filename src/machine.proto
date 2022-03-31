@@ -38,6 +38,7 @@ message GetVncPortReply {
 
 message GetMachinesRequest {
   repeated string ids = 1;
+  repeated string fields = 2;
 }
 
 message GetMachinesReply {

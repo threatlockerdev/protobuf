@@ -884,7 +884,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.GetMachinesRequest.repeatedFields_ = [1];
+proto.GetMachinesRequest.repeatedFields_ = [1,2];
 
 
 
@@ -914,7 +914,8 @@ proto.GetMachinesRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.GetMachinesRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    idsList: jspb.Message.getField(msg, 1)
+    idsList: jspb.Message.getField(msg, 1),
+    fieldsList: jspb.Message.getField(msg, 2)
   };
 
   if (includeInstance) {
@@ -955,6 +956,11 @@ proto.GetMachinesRequest.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.getIdsList().push(value);
       msg.setIdsList(msg.getIdsList());
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.getFieldsList().push(value);
+      msg.setFieldsList(msg.getFieldsList());
       break;
     default:
       reader.skipField();
@@ -1001,6 +1007,13 @@ proto.GetMachinesRequest.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
+  f = this.getFieldsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -1032,6 +1045,28 @@ proto.GetMachinesRequest.prototype.setIdsList = function(value) {
 
 proto.GetMachinesRequest.prototype.clearIdsList = function() {
   jspb.Message.setField(this, 1, []);
+};
+
+
+/**
+ * repeated string fields = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<string>}
+ */
+proto.GetMachinesRequest.prototype.getFieldsList = function() {
+  return /** @type {!Array.<string>} */ (jspb.Message.getField(this, 2));
+};
+
+
+/** @param {Array.<string>} value  */
+proto.GetMachinesRequest.prototype.setFieldsList = function(value) {
+  jspb.Message.setField(this, 2, value || []);
+};
+
+
+proto.GetMachinesRequest.prototype.clearFieldsList = function() {
+  jspb.Message.setField(this, 2, []);
 };
 
 

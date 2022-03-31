@@ -128,6 +128,11 @@ export class GetMachinesRequest extends jspb.Message {
   setIdsList(value: Array<string>): void;
   addIds(value: string, index?: number): string;
 
+  clearFieldsList(): void;
+  getFieldsList(): Array<string>;
+  setFieldsList(value: Array<string>): void;
+  addFields(value: string, index?: number): string;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetMachinesRequest.AsObject;
   static toObject(includeInstance: boolean, msg: GetMachinesRequest): GetMachinesRequest.AsObject;
@@ -141,6 +146,7 @@ export class GetMachinesRequest extends jspb.Message {
 export namespace GetMachinesRequest {
   export type AsObject = {
     idsList: Array<string>,
+    fieldsList: Array<string>,
   }
 }
 
