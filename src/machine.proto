@@ -6,8 +6,9 @@ import "network.proto";
 import "util.proto";
 
 message MachineDisk {
-  string MountTarget = 1;
-  string SourceFile = 2;
+  string mountTarget = 1;
+  string sourceFile = 2;
+  int64 size = 3;
 }
 
 message Machine {
