@@ -39,6 +39,17 @@ function deserialize_FileRequest(buffer_arg) {
   return disk_pb.FileRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_GetDiskInfoReply(arg) {
+  if (!(arg instanceof disk_pb.GetDiskInfoReply)) {
+    throw new Error('Expected argument of type GetDiskInfoReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_GetDiskInfoReply(buffer_arg) {
+  return disk_pb.GetDiskInfoReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_GetFileContentsReply(arg) {
   if (!(arg instanceof disk_pb.GetFileContentsReply)) {
     throw new Error('Expected argument of type GetFileContentsReply');
@@ -222,11 +233,11 @@ var DiskServiceService = exports.DiskServiceService = {
     requestStream: false,
     responseStream: false,
     requestType: disk_pb.FileRequest,
-    responseType: util_pb.ActionReply,
+    responseType: disk_pb.GetDiskInfoReply,
     requestSerialize: serialize_FileRequest,
     requestDeserialize: deserialize_FileRequest,
-    responseSerialize: serialize_ActionReply,
-    responseDeserialize: deserialize_ActionReply,
+    responseSerialize: serialize_GetDiskInfoReply,
+    responseDeserialize: deserialize_GetDiskInfoReply,
   },
   moveFile: {
     path: '/DiskService/MoveFile',
