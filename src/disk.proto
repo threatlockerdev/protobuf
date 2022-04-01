@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/hyperqube-io/protobuf/v2";
+option go_package = "hyperqube-io/protobuf/agent";
 
 import "google/protobuf/timestamp.proto";
 import "util.proto";
