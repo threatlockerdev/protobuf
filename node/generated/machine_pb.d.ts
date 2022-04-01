@@ -12,8 +12,8 @@ export class MachineDisk extends jspb.Message {
   getSourcefile(): string;
   setSourcefile(value: string): void;
 
-  getSize(): number;
-  setSize(value: number): void;
+  getVirtualsize(): number;
+  setVirtualsize(value: number): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): MachineDisk.AsObject;
@@ -29,7 +29,7 @@ export namespace MachineDisk {
   export type AsObject = {
     mounttarget: string,
     sourcefile: string,
-    size: number,
+    virtualsize: number,
   }
 }
 

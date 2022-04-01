@@ -8,7 +8,7 @@ import "util.proto";
 message MachineDisk {
   string mountTarget = 1;
   string sourceFile = 2;
-  int64 size = 3;
+  int64 virtualSize = 3;
 }
 
 message Machine {

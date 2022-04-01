@@ -70,7 +70,7 @@ proto.MachineDisk.toObject = function(includeInstance, msg) {
   var f, obj = {
     mounttarget: msg.getMounttarget(),
     sourcefile: msg.getSourcefile(),
-    size: msg.getSize()
+    virtualsize: msg.getVirtualsize()
   };
 
   if (includeInstance) {
@@ -117,7 +117,7 @@ proto.MachineDisk.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 3:
       var value = /** @type {number} */ (reader.readInt64());
-      msg.setSize(value);
+      msg.setVirtualsize(value);
       break;
     default:
       reader.skipField();
@@ -171,7 +171,7 @@ proto.MachineDisk.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
-  f = this.getSize();
+  f = this.getVirtualsize();
   if (f !== 0) {
     writer.writeInt64(
       3,
@@ -221,16 +221,16 @@ proto.MachineDisk.prototype.setSourcefile = function(value) {
 
 
 /**
- * optional int64 size = 3;
+ * optional int64 virtualSize = 3;
  * @return {number}
  */
-proto.MachineDisk.prototype.getSize = function() {
+proto.MachineDisk.prototype.getVirtualsize = function() {
   return /** @type {number} */ (jspb.Message.getFieldProto3(this, 3, 0));
 };
 
 
 /** @param {number} value  */
-proto.MachineDisk.prototype.setSize = function(value) {
+proto.MachineDisk.prototype.setVirtualsize = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 

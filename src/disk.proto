@@ -27,6 +27,11 @@ message FileInfo {
   uint32 flags = 4;
 }
 
+message DiskInfo {
+  int64 virtualSize = 1;
+  int64 fileSize = 2;
+}
+
 message FileRequest {
   string path = 1;
 }
@@ -48,13 +53,12 @@ message GetFileSizeReply {
 }
 
 message GetDiskInfoReply {
-  int64 size = 1;
-  int64 actualSize = 2;
+  DiskInfo info = 1;
 }
 
 message ResizeDiskRequest {
   string path = 1;
-  int64 size = 2;
+  int64 virtualSize = 2;
 }
 
 message WriteFileRequest {

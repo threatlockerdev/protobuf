@@ -111,6 +111,30 @@ export namespace FileInfo {
   }
 }
 
+export class DiskInfo extends jspb.Message {
+  getVirtualsize(): number;
+  setVirtualsize(value: number): void;
+
+  getFilesize(): number;
+  setFilesize(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DiskInfo.AsObject;
+  static toObject(includeInstance: boolean, msg: DiskInfo): DiskInfo.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: DiskInfo, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DiskInfo;
+  static deserializeBinaryFromReader(message: DiskInfo, reader: jspb.BinaryReader): DiskInfo;
+}
+
+export namespace DiskInfo {
+  export type AsObject = {
+    virtualsize: number,
+    filesize: number,
+  }
+}
+
 export class FileRequest extends jspb.Message {
   getPath(): string;
   setPath(value: string): void;
@@ -214,11 +238,10 @@ export namespace GetFileSizeReply {
 }
 
 export class GetDiskInfoReply extends jspb.Message {
-  getSize(): number;
-  setSize(value: number): void;
-
-  getActualsize(): number;
-  setActualsize(value: number): void;
+  hasInfo(): boolean;
+  clearInfo(): void;
+  getInfo(): DiskInfo | undefined;
+  setInfo(value?: DiskInfo): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetDiskInfoReply.AsObject;
@@ -232,8 +255,7 @@ export class GetDiskInfoReply extends jspb.Message {
 
 export namespace GetDiskInfoReply {
   export type AsObject = {
-    size: number,
-    actualsize: number,
+    info?: DiskInfo.AsObject,
   }
 }
 
@@ -241,8 +263,8 @@ export class ResizeDiskRequest extends jspb.Message {
   getPath(): string;
   setPath(value: string): void;
 
-  getSize(): number;
-  setSize(value: number): void;
+  getVirtualsize(): number;
+  setVirtualsize(value: number): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ResizeDiskRequest.AsObject;
@@ -257,7 +279,7 @@ export class ResizeDiskRequest extends jspb.Message {
 export namespace ResizeDiskRequest {
   export type AsObject = {
     path: string,
-    size: number,
+    virtualsize: number,
   }
 }
 
