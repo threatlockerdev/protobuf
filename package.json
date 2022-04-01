@@ -1,6 +1,6 @@
 {
   "name": "@hyperqube/v3-agent-protobuf",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "node/index.js",
   "types": "node/index.d.ts",
