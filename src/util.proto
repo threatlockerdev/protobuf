@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "hyperqube-io/protobuf/agent";
+option go_package = "github.com/hyperqube-io/protobuf/v2";
 
 message ActionReply {
   bool ok = 1;
