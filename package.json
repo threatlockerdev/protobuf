@@ -5,6 +5,7 @@
   "main": "node/index.js",
   "types": "node/index.d.ts",
   "scripts": {
+    "generate": "bash -c \"yarn generate:go\"; bash -c \"yarn generate:node\"; yarn build:node",
     "build:node": "tsc",
     "build:docker:go": "docker build -t hyperqubeio/pb-go -f docker/go.Dockerfile .",
     "build:docker:node": "docker build -t hyperqubeio/pb-node -f docker/node.Dockerfile .",

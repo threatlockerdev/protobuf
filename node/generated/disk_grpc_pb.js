@@ -217,6 +217,17 @@ var DiskServiceService = exports.DiskServiceService = {
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },
+  getDiskInfo: {
+    path: '/DiskService/GetDiskInfo',
+    requestStream: false,
+    responseStream: false,
+    requestType: disk_pb.FileRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_FileRequest,
+    requestDeserialize: deserialize_FileRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
   moveFile: {
     path: '/DiskService/MoveFile',
     requestStream: false,

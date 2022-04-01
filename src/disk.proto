@@ -67,6 +67,7 @@ service DiskService {
   rpc GetFileInfo(FileRequest) returns (GetFileInfoReply) {}
   rpc GetFileSize(FileRequest) returns (GetFileSizeReply) {}
   rpc CommitDisk(FileRequest) returns (ActionReply) {}
+  rpc GetDiskInfo(FileRequest) returns (ActionReply) {}
   rpc MoveFile(MoveFileRequest) returns (ActionReply) {}
   rpc ResizeDisk(ResizeDiskRequest) returns (ActionReply) {}
   rpc UpdateDiskBacking(UpdateDiskBackingRequest) returns (ActionReply) {}
