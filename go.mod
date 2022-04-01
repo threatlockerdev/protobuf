@@ -1,4 +1,4 @@
-module github.com/hyperqube-io/protobuf/agent
+module github.com/hyperqube-io/protobuf/agent/v2
 
 go 1.16
 
