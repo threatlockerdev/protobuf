@@ -1362,7 +1362,8 @@ proto.CreateMachineRequest.toObject = function(includeInstance, msg) {
     cpucount: msg.getCpucount(),
     memory: msg.getMemory(),
     diskpath: msg.getDiskpath(),
-    xml: msg.getXml()
+    xml: msg.getXml(),
+    boottype: msg.getBoottype()
   };
 
   if (includeInstance) {
@@ -1418,6 +1419,10 @@ proto.CreateMachineRequest.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setXml(value);
+      break;
+    case 6:
+      var value = /** @type {!proto.Machine.BootType} */ (reader.readEnum());
+      msg.setBoottype(value);
       break;
     default:
       reader.skipField();
@@ -1489,6 +1494,13 @@ proto.CreateMachineRequest.prototype.serializeBinaryToWriter = function (writer)
   if (f.length > 0) {
     writer.writeString(
       5,
+      f
+    );
+  }
+  f = this.getBoottype();
+  if (f !== 0.0) {
+    writer.writeEnum(
+      6,
       f
     );
   }
@@ -1576,6 +1588,21 @@ proto.CreateMachineRequest.prototype.getXml = function() {
 /** @param {string} value  */
 proto.CreateMachineRequest.prototype.setXml = function(value) {
   jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional Machine.BootType bootType = 6;
+ * @return {!proto.Machine.BootType}
+ */
+proto.CreateMachineRequest.prototype.getBoottype = function() {
+  return /** @type {!proto.Machine.BootType} */ (jspb.Message.getFieldProto3(this, 6, 0));
+};
+
+
+/** @param {!proto.Machine.BootType} value  */
+proto.CreateMachineRequest.prototype.setBoottype = function(value) {
+  jspb.Message.setField(this, 6, value);
 };
 
 

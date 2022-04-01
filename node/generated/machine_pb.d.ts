@@ -203,6 +203,9 @@ export class CreateMachineRequest extends jspb.Message {
   getXml(): string;
   setXml(value: string): void;
 
+  getBoottype(): Machine.BootTypeMap[keyof Machine.BootTypeMap];
+  setBoottype(value: Machine.BootTypeMap[keyof Machine.BootTypeMap]): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateMachineRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateMachineRequest): CreateMachineRequest.AsObject;
@@ -220,6 +223,7 @@ export namespace CreateMachineRequest {
     memory: number,
     diskpath: string,
     xml: string,
+    boottype: Machine.BootTypeMap[keyof Machine.BootTypeMap],
   }
 }
 

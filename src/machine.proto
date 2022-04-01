@@ -58,6 +58,7 @@ message CreateMachineRequest {
   uint32 memory = 3;
   string diskPath = 4;
   string xml = 5;
+  Machine.BootType bootType = 6;
 }
 
 message CreateMachineReply {
