@@ -56,6 +56,9 @@ export class Machine extends jspb.Message {
   getXml(): string;
   setXml(value: string): void;
 
+  getBoottype(): Machine.BootTypeMap[keyof Machine.BootTypeMap];
+  setBoottype(value: Machine.BootTypeMap[keyof Machine.BootTypeMap]): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Machine.AsObject;
   static toObject(includeInstance: boolean, msg: Machine): Machine.AsObject;
@@ -74,6 +77,7 @@ export namespace Machine {
     disksList: Array<MachineDisk.AsObject>,
     networksList: Array<network_pb.Network.AsObject>,
     xml: string,
+    boottype: Machine.BootTypeMap[keyof Machine.BootTypeMap],
   }
 
   export interface PowerStateMap {
@@ -84,6 +88,13 @@ export namespace Machine {
   }
 
   export const PowerState: PowerStateMap;
+
+  export interface BootTypeMap {
+    BIOS: 0;
+    UEFI: 1;
+  }
+
+  export const BootType: BootTypeMap;
 }
 
 export class GetMachineRequest extends jspb.Message {
@@ -279,6 +290,30 @@ export namespace StopMachinesRequest {
   export type AsObject = {
     idsList: Array<string>,
     force: boolean,
+  }
+}
+
+export class UpdateMachineBootTypeRequest extends jspb.Message {
+  getMachineid(): string;
+  setMachineid(value: string): void;
+
+  getBoottype(): Machine.BootTypeMap[keyof Machine.BootTypeMap];
+  setBoottype(value: Machine.BootTypeMap[keyof Machine.BootTypeMap]): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateMachineBootTypeRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateMachineBootTypeRequest): UpdateMachineBootTypeRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateMachineBootTypeRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateMachineBootTypeRequest;
+  static deserializeBinaryFromReader(message: UpdateMachineBootTypeRequest, reader: jspb.BinaryReader): UpdateMachineBootTypeRequest;
+}
+
+export namespace UpdateMachineBootTypeRequest {
+  export type AsObject = {
+    machineid: string,
+    boottype: Machine.BootTypeMap[keyof Machine.BootTypeMap],
   }
 }
 

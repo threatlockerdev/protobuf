@@ -105,6 +105,17 @@ function deserialize_StopMachinesRequest(buffer_arg) {
   return machine_pb.StopMachinesRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_UpdateMachineBootTypeRequest(arg) {
+  if (!(arg instanceof machine_pb.UpdateMachineBootTypeRequest)) {
+    throw new Error('Expected argument of type UpdateMachineBootTypeRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_UpdateMachineBootTypeRequest(buffer_arg) {
+  return machine_pb.UpdateMachineBootTypeRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var MachineServiceService = exports.MachineServiceService = {
   getVncPort: {
@@ -192,6 +203,17 @@ var MachineServiceService = exports.MachineServiceService = {
     responseType: util_pb.ActionReply,
     requestSerialize: serialize_MachineNetworkRequest,
     requestDeserialize: deserialize_MachineNetworkRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  updateBootType: {
+    path: '/MachineService/UpdateBootType',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.UpdateMachineBootTypeRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateMachineBootTypeRequest,
+    requestDeserialize: deserialize_UpdateMachineBootTypeRequest,
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },

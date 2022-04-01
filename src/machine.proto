@@ -27,6 +27,12 @@ message Machine {
   repeated Network networks = 5;
 
   string xml = 6;
+
+  enum BootType {
+    BIOS = 0;
+    UEFI = 1;
+  }
+  BootType bootType = 7;
 }
 
 message GetMachineRequest {
@@ -68,6 +74,11 @@ message StopMachinesRequest {
   bool force = 2;
 }
 
+message UpdateMachineBootTypeRequest {
+  string machineId = 1;
+  Machine.BootType bootType = 2;
+}
+
 service MachineService {
   rpc GetVncPort    (GetMachineRequest)     returns (GetVncPortReply) {}
   rpc GetMany       (GetMachinesRequest)    returns (GetMachinesReply) {}
@@ -77,4 +88,5 @@ service MachineService {
   rpc Stop          (StopMachinesRequest)   returns (ActionReply) {}
   rpc LinkNetwork   (MachineNetworkRequest) returns (ActionReply) {}
   rpc UnlinkNetwork (MachineNetworkRequest) returns (ActionReply) {}
+  rpc UpdateBootType (UpdateMachineBootTypeRequest) returns (ActionReply) {}
 }

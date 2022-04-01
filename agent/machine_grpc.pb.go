@@ -26,6 +26,7 @@ type MachineServiceClient interface {
 	Stop(ctx context.Context, in *StopMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UnlinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdateBootType(ctx context.Context, in *UpdateMachineBootTypeRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
 type machineServiceClient struct {
@@ -108,6 +109,15 @@ func (c *machineServiceClient) UnlinkNetwork(ctx context.Context, in *MachineNet
 	return out, nil
 }
 
+func (c *machineServiceClient) UpdateBootType(ctx context.Context, in *UpdateMachineBootTypeRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/UpdateBootType", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MachineServiceServer is the server API for MachineService service.
 // All implementations must embed UnimplementedMachineServiceServer
 // for forward compatibility
@@ -120,6 +130,7 @@ type MachineServiceServer interface {
 	Stop(context.Context, *StopMachinesRequest) (*ActionReply, error)
 	LinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
 	UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
+	UpdateBootType(context.Context, *UpdateMachineBootTypeRequest) (*ActionReply, error)
 	mustEmbedUnimplementedMachineServiceServer()
 }
 
@@ -150,6 +161,9 @@ func (UnimplementedMachineServiceServer) LinkNetwork(context.Context, *MachineNe
 }
 func (UnimplementedMachineServiceServer) UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnlinkNetwork not implemented")
+}
+func (UnimplementedMachineServiceServer) UpdateBootType(context.Context, *UpdateMachineBootTypeRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBootType not implemented")
 }
 func (UnimplementedMachineServiceServer) mustEmbedUnimplementedMachineServiceServer() {}
 
@@ -308,6 +322,24 @@ func _MachineService_UnlinkNetwork_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MachineService_UpdateBootType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMachineBootTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).UpdateBootType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/UpdateBootType",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).UpdateBootType(ctx, req.(*UpdateMachineBootTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MachineService_ServiceDesc is the grpc.ServiceDesc for MachineService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -346,6 +378,10 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UnlinkNetwork",
 			Handler:    _MachineService_UnlinkNetwork_Handler,
+		},
+		{
+			MethodName: "UpdateBootType",
+			Handler:    _MachineService_UpdateBootType_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
