@@ -27,6 +27,8 @@ type MachineServiceClient interface {
 	LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UnlinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateBootType(ctx context.Context, in *UpdateMachineBootTypeRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdateCpus(ctx context.Context, in *UpdateMachineCpusRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdateMemory(ctx context.Context, in *UpdateMachineMemoryRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
 type machineServiceClient struct {
@@ -118,6 +120,24 @@ func (c *machineServiceClient) UpdateBootType(ctx context.Context, in *UpdateMac
 	return out, nil
 }
 
+func (c *machineServiceClient) UpdateCpus(ctx context.Context, in *UpdateMachineCpusRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/UpdateCpus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *machineServiceClient) UpdateMemory(ctx context.Context, in *UpdateMachineMemoryRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/UpdateMemory", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MachineServiceServer is the server API for MachineService service.
 // All implementations must embed UnimplementedMachineServiceServer
 // for forward compatibility
@@ -131,6 +151,8 @@ type MachineServiceServer interface {
 	LinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
 	UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
 	UpdateBootType(context.Context, *UpdateMachineBootTypeRequest) (*ActionReply, error)
+	UpdateCpus(context.Context, *UpdateMachineCpusRequest) (*ActionReply, error)
+	UpdateMemory(context.Context, *UpdateMachineMemoryRequest) (*ActionReply, error)
 	mustEmbedUnimplementedMachineServiceServer()
 }
 
@@ -164,6 +186,12 @@ func (UnimplementedMachineServiceServer) UnlinkNetwork(context.Context, *Machine
 }
 func (UnimplementedMachineServiceServer) UpdateBootType(context.Context, *UpdateMachineBootTypeRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBootType not implemented")
+}
+func (UnimplementedMachineServiceServer) UpdateCpus(context.Context, *UpdateMachineCpusRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCpus not implemented")
+}
+func (UnimplementedMachineServiceServer) UpdateMemory(context.Context, *UpdateMachineMemoryRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemory not implemented")
 }
 func (UnimplementedMachineServiceServer) mustEmbedUnimplementedMachineServiceServer() {}
 
@@ -340,6 +368,42 @@ func _MachineService_UpdateBootType_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MachineService_UpdateCpus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMachineCpusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).UpdateCpus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/UpdateCpus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).UpdateCpus(ctx, req.(*UpdateMachineCpusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MachineService_UpdateMemory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMachineMemoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).UpdateMemory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/UpdateMemory",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).UpdateMemory(ctx, req.(*UpdateMachineMemoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MachineService_ServiceDesc is the grpc.ServiceDesc for MachineService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -382,6 +446,14 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateBootType",
 			Handler:    _MachineService_UpdateBootType_Handler,
+		},
+		{
+			MethodName: "UpdateCpus",
+			Handler:    _MachineService_UpdateCpus_Handler,
+		},
+		{
+			MethodName: "UpdateMemory",
+			Handler:    _MachineService_UpdateMemory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

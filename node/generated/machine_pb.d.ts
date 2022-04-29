@@ -59,6 +59,12 @@ export class Machine extends jspb.Message {
   getBoottype(): Machine.BootTypeMap[keyof Machine.BootTypeMap];
   setBoottype(value: Machine.BootTypeMap[keyof Machine.BootTypeMap]): void;
 
+  getCpus(): number;
+  setCpus(value: number): void;
+
+  getMemory(): number;
+  setMemory(value: number): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Machine.AsObject;
   static toObject(includeInstance: boolean, msg: Machine): Machine.AsObject;
@@ -78,6 +84,8 @@ export namespace Machine {
     networksList: Array<network_pb.Network.AsObject>,
     xml: string,
     boottype: Machine.BootTypeMap[keyof Machine.BootTypeMap],
+    cpus: number,
+    memory: number,
   }
 
   export interface PowerStateMap {
@@ -318,6 +326,54 @@ export namespace UpdateMachineBootTypeRequest {
   export type AsObject = {
     machineid: string,
     boottype: Machine.BootTypeMap[keyof Machine.BootTypeMap],
+  }
+}
+
+export class UpdateMachineCpusRequest extends jspb.Message {
+  getMachineid(): string;
+  setMachineid(value: string): void;
+
+  getCpus(): number;
+  setCpus(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateMachineCpusRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateMachineCpusRequest): UpdateMachineCpusRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateMachineCpusRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateMachineCpusRequest;
+  static deserializeBinaryFromReader(message: UpdateMachineCpusRequest, reader: jspb.BinaryReader): UpdateMachineCpusRequest;
+}
+
+export namespace UpdateMachineCpusRequest {
+  export type AsObject = {
+    machineid: string,
+    cpus: number,
+  }
+}
+
+export class UpdateMachineMemoryRequest extends jspb.Message {
+  getMachineid(): string;
+  setMachineid(value: string): void;
+
+  getMemory(): number;
+  setMemory(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateMachineMemoryRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateMachineMemoryRequest): UpdateMachineMemoryRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateMachineMemoryRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateMachineMemoryRequest;
+  static deserializeBinaryFromReader(message: UpdateMachineMemoryRequest, reader: jspb.BinaryReader): UpdateMachineMemoryRequest;
+}
+
+export namespace UpdateMachineMemoryRequest {
+  export type AsObject = {
+    machineid: string,
+    memory: number,
   }
 }
 

@@ -116,6 +116,28 @@ function deserialize_UpdateMachineBootTypeRequest(buffer_arg) {
   return machine_pb.UpdateMachineBootTypeRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_UpdateMachineCpusRequest(arg) {
+  if (!(arg instanceof machine_pb.UpdateMachineCpusRequest)) {
+    throw new Error('Expected argument of type UpdateMachineCpusRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_UpdateMachineCpusRequest(buffer_arg) {
+  return machine_pb.UpdateMachineCpusRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_UpdateMachineMemoryRequest(arg) {
+  if (!(arg instanceof machine_pb.UpdateMachineMemoryRequest)) {
+    throw new Error('Expected argument of type UpdateMachineMemoryRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_UpdateMachineMemoryRequest(buffer_arg) {
+  return machine_pb.UpdateMachineMemoryRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var MachineServiceService = exports.MachineServiceService = {
   getVncPort: {
@@ -214,6 +236,28 @@ var MachineServiceService = exports.MachineServiceService = {
     responseType: util_pb.ActionReply,
     requestSerialize: serialize_UpdateMachineBootTypeRequest,
     requestDeserialize: deserialize_UpdateMachineBootTypeRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  updateCpus: {
+    path: '/MachineService/UpdateCpus',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.UpdateMachineCpusRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateMachineCpusRequest,
+    requestDeserialize: deserialize_UpdateMachineCpusRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  updateMemory: {
+    path: '/MachineService/UpdateMemory',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.UpdateMachineMemoryRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateMachineMemoryRequest,
+    requestDeserialize: deserialize_UpdateMachineMemoryRequest,
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },
