@@ -24,7 +24,7 @@ type MachineServiceClient interface {
 	Delete(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	Start(ctx context.Context, in *GetMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	Stop(ctx context.Context, in *StopMachinesRequest, opts ...grpc.CallOption) (*ActionReply, error)
-	LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*LinkNetworkReply, error)
 	UnlinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateBootType(ctx context.Context, in *UpdateMachineBootTypeRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateCpus(ctx context.Context, in *UpdateMachineCpusRequest, opts ...grpc.CallOption) (*ActionReply, error)
@@ -93,8 +93,8 @@ func (c *machineServiceClient) Stop(ctx context.Context, in *StopMachinesRequest
 	return out, nil
 }
 
-func (c *machineServiceClient) LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error) {
-	out := new(ActionReply)
+func (c *machineServiceClient) LinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*LinkNetworkReply, error) {
+	out := new(LinkNetworkReply)
 	err := c.cc.Invoke(ctx, "/MachineService/LinkNetwork", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -148,7 +148,7 @@ type MachineServiceServer interface {
 	Delete(context.Context, *GetMachinesRequest) (*ActionReply, error)
 	Start(context.Context, *GetMachinesRequest) (*ActionReply, error)
 	Stop(context.Context, *StopMachinesRequest) (*ActionReply, error)
-	LinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
+	LinkNetwork(context.Context, *MachineNetworkRequest) (*LinkNetworkReply, error)
 	UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
 	UpdateBootType(context.Context, *UpdateMachineBootTypeRequest) (*ActionReply, error)
 	UpdateCpus(context.Context, *UpdateMachineCpusRequest) (*ActionReply, error)
@@ -178,7 +178,7 @@ func (UnimplementedMachineServiceServer) Start(context.Context, *GetMachinesRequ
 func (UnimplementedMachineServiceServer) Stop(context.Context, *StopMachinesRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Stop not implemented")
 }
-func (UnimplementedMachineServiceServer) LinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error) {
+func (UnimplementedMachineServiceServer) LinkNetwork(context.Context, *MachineNetworkRequest) (*LinkNetworkReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LinkNetwork not implemented")
 }
 func (UnimplementedMachineServiceServer) UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error) {

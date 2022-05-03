@@ -17,10 +17,12 @@ goog.exportSymbol('proto.GetMachineRequest', null, global);
 goog.exportSymbol('proto.GetMachinesReply', null, global);
 goog.exportSymbol('proto.GetMachinesRequest', null, global);
 goog.exportSymbol('proto.GetVncPortReply', null, global);
+goog.exportSymbol('proto.LinkNetworkReply', null, global);
 goog.exportSymbol('proto.Machine', null, global);
 goog.exportSymbol('proto.Machine.BootType', null, global);
 goog.exportSymbol('proto.Machine.PowerState', null, global);
 goog.exportSymbol('proto.MachineDisk', null, global);
+goog.exportSymbol('proto.MachineInterface', null, global);
 goog.exportSymbol('proto.MachineNetworkRequest', null, global);
 goog.exportSymbol('proto.StopMachinesRequest', null, global);
 goog.exportSymbol('proto.UpdateMachineBootTypeRequest', null, global);
@@ -250,6 +252,192 @@ proto.MachineDisk.prototype.setVirtualsize = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
+proto.MachineInterface = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.MachineInterface, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.MachineInterface.displayName = 'proto.MachineInterface';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.MachineInterface.prototype.toObject = function(opt_includeInstance) {
+  return proto.MachineInterface.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.MachineInterface} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.MachineInterface.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    networkid: msg.getNetworkid(),
+    macaddress: msg.getMacaddress()
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.MachineInterface}
+ */
+proto.MachineInterface.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.MachineInterface;
+  return proto.MachineInterface.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.MachineInterface} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.MachineInterface}
+ */
+proto.MachineInterface.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNetworkid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setMacaddress(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.MachineInterface} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.MachineInterface.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.MachineInterface.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.MachineInterface.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getNetworkid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getMacaddress();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.MachineInterface} The clone.
+ */
+proto.MachineInterface.prototype.cloneMessage = function() {
+  return /** @type {!proto.MachineInterface} */ (jspb.Message.cloneMessage(this));
+};
+
+
+/**
+ * optional string networkId = 1;
+ * @return {string}
+ */
+proto.MachineInterface.prototype.getNetworkid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
+};
+
+
+/** @param {string} value  */
+proto.MachineInterface.prototype.setNetworkid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string macAddress = 2;
+ * @return {string}
+ */
+proto.MachineInterface.prototype.getMacaddress = function() {
+  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 2, ""));
+};
+
+
+/** @param {string} value  */
+proto.MachineInterface.prototype.setMacaddress = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
 proto.Machine = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, proto.Machine.repeatedFields_, null);
 };
@@ -262,7 +450,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.Machine.repeatedFields_ = [4,5];
+proto.Machine.repeatedFields_ = [4,5,10];
 
 
 
@@ -302,7 +490,9 @@ proto.Machine.toObject = function(includeInstance, msg) {
     xml: msg.getXml(),
     boottype: msg.getBoottype(),
     cpus: msg.getCpus(),
-    memory: msg.getMemory()
+    memory: msg.getMemory(),
+    interfacesList: jspb.Message.toObjectList(msg.getInterfacesList(),
+    proto.MachineInterface.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -378,6 +568,12 @@ proto.Machine.deserializeBinaryFromReader = function(msg, reader) {
     case 9:
       var value = /** @type {number} */ (reader.readInt64());
       msg.setMemory(value);
+      break;
+    case 10:
+      var value = new proto.MachineInterface;
+      reader.readMessage(value,proto.MachineInterface.deserializeBinaryFromReader);
+      msg.getInterfacesList().push(value);
+      msg.setInterfacesList(msg.getInterfacesList());
       break;
     default:
       reader.skipField();
@@ -480,6 +676,14 @@ proto.Machine.prototype.serializeBinaryToWriter = function (writer) {
     writer.writeInt64(
       9,
       f
+    );
+  }
+  f = this.getInterfacesList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      10,
+      f,
+      proto.MachineInterface.serializeBinaryToWriter
     );
   }
 };
@@ -642,6 +846,29 @@ proto.Machine.prototype.getMemory = function() {
 /** @param {number} value  */
 proto.Machine.prototype.setMemory = function(value) {
   jspb.Message.setField(this, 9, value);
+};
+
+
+/**
+ * repeated MachineInterface interfaces = 10;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.MachineInterface>}
+ */
+proto.Machine.prototype.getInterfacesList = function() {
+  return /** @type{!Array.<!proto.MachineInterface>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.MachineInterface, 10));
+};
+
+
+/** @param {Array.<!proto.MachineInterface>} value  */
+proto.Machine.prototype.setInterfacesList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 10, value);
+};
+
+
+proto.Machine.prototype.clearInterfacesList = function() {
+  this.setInterfacesList([]);
 };
 
 
@@ -2004,6 +2231,182 @@ proto.MachineNetworkRequest.prototype.getNetworkid = function() {
 /** @param {string} value  */
 proto.MachineNetworkRequest.prototype.setNetworkid = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.LinkNetworkReply = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.LinkNetworkReply, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.LinkNetworkReply.displayName = 'proto.LinkNetworkReply';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.LinkNetworkReply.prototype.toObject = function(opt_includeInstance) {
+  return proto.LinkNetworkReply.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.LinkNetworkReply} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.LinkNetworkReply.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    pb_interface: (f = msg.getInterface()) && proto.MachineInterface.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.LinkNetworkReply}
+ */
+proto.LinkNetworkReply.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.LinkNetworkReply;
+  return proto.LinkNetworkReply.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.LinkNetworkReply} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.LinkNetworkReply}
+ */
+proto.LinkNetworkReply.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.MachineInterface;
+      reader.readMessage(value,proto.MachineInterface.deserializeBinaryFromReader);
+      msg.setInterface(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.LinkNetworkReply} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.LinkNetworkReply.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.LinkNetworkReply.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.LinkNetworkReply.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getInterface();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.MachineInterface.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.LinkNetworkReply} The clone.
+ */
+proto.LinkNetworkReply.prototype.cloneMessage = function() {
+  return /** @type {!proto.LinkNetworkReply} */ (jspb.Message.cloneMessage(this));
+};
+
+
+/**
+ * optional MachineInterface interface = 1;
+ * @return {proto.MachineInterface}
+ */
+proto.LinkNetworkReply.prototype.getInterface = function() {
+  return /** @type{proto.MachineInterface} */ (
+    jspb.Message.getWrapperField(this, proto.MachineInterface, 1));
+};
+
+
+/** @param {proto.MachineInterface|undefined} value  */
+proto.LinkNetworkReply.prototype.setInterface = function(value) {
+  jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+proto.LinkNetworkReply.prototype.clearInterface = function() {
+  this.setInterface(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return{!boolean}
+ */
+proto.LinkNetworkReply.prototype.hasInterface = function() {
+  return jspb.Message.getField(this, 1) != null;
 };
 
 

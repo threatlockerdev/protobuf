@@ -33,6 +33,30 @@ export namespace MachineDisk {
   }
 }
 
+export class MachineInterface extends jspb.Message {
+  getNetworkid(): string;
+  setNetworkid(value: string): void;
+
+  getMacaddress(): string;
+  setMacaddress(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MachineInterface.AsObject;
+  static toObject(includeInstance: boolean, msg: MachineInterface): MachineInterface.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: MachineInterface, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MachineInterface;
+  static deserializeBinaryFromReader(message: MachineInterface, reader: jspb.BinaryReader): MachineInterface;
+}
+
+export namespace MachineInterface {
+  export type AsObject = {
+    networkid: string,
+    macaddress: string,
+  }
+}
+
 export class Machine extends jspb.Message {
   getId(): string;
   setId(value: string): void;
@@ -65,6 +89,11 @@ export class Machine extends jspb.Message {
   getMemory(): number;
   setMemory(value: number): void;
 
+  clearInterfacesList(): void;
+  getInterfacesList(): Array<MachineInterface>;
+  setInterfacesList(value: Array<MachineInterface>): void;
+  addInterfaces(value?: MachineInterface, index?: number): MachineInterface;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Machine.AsObject;
   static toObject(includeInstance: boolean, msg: Machine): Machine.AsObject;
@@ -86,6 +115,7 @@ export namespace Machine {
     boottype: Machine.BootTypeMap[keyof Machine.BootTypeMap],
     cpus: number,
     memory: number,
+    interfacesList: Array<MachineInterface.AsObject>,
   }
 
   export interface PowerStateMap {
@@ -276,6 +306,28 @@ export namespace MachineNetworkRequest {
   export type AsObject = {
     machineid: string,
     networkid: string,
+  }
+}
+
+export class LinkNetworkReply extends jspb.Message {
+  hasInterface(): boolean;
+  clearInterface(): void;
+  getInterface(): MachineInterface | undefined;
+  setInterface(value?: MachineInterface): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): LinkNetworkReply.AsObject;
+  static toObject(includeInstance: boolean, msg: LinkNetworkReply): LinkNetworkReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: LinkNetworkReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): LinkNetworkReply;
+  static deserializeBinaryFromReader(message: LinkNetworkReply, reader: jspb.BinaryReader): LinkNetworkReply;
+}
+
+export namespace LinkNetworkReply {
+  export type AsObject = {
+    pb_interface?: MachineInterface.AsObject,
   }
 }
 

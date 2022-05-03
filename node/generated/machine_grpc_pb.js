@@ -83,6 +83,17 @@ function deserialize_GetVncPortReply(buffer_arg) {
   return machine_pb.GetVncPortReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_LinkNetworkReply(arg) {
+  if (!(arg instanceof machine_pb.LinkNetworkReply)) {
+    throw new Error('Expected argument of type LinkNetworkReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_LinkNetworkReply(buffer_arg) {
+  return machine_pb.LinkNetworkReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_MachineNetworkRequest(arg) {
   if (!(arg instanceof machine_pb.MachineNetworkRequest)) {
     throw new Error('Expected argument of type MachineNetworkRequest');
@@ -211,11 +222,11 @@ var MachineServiceService = exports.MachineServiceService = {
     requestStream: false,
     responseStream: false,
     requestType: machine_pb.MachineNetworkRequest,
-    responseType: util_pb.ActionReply,
+    responseType: machine_pb.LinkNetworkReply,
     requestSerialize: serialize_MachineNetworkRequest,
     requestDeserialize: deserialize_MachineNetworkRequest,
-    responseSerialize: serialize_ActionReply,
-    responseDeserialize: deserialize_ActionReply,
+    responseSerialize: serialize_LinkNetworkReply,
+    responseDeserialize: deserialize_LinkNetworkReply,
   },
   unlinkNetwork: {
     path: '/MachineService/UnlinkNetwork',

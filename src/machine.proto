@@ -11,6 +11,11 @@ message MachineDisk {
   int64 virtualSize = 3;
 }
 
+message MachineInterface {
+  string networkId = 1;
+  string macAddress = 2;
+}
+
 message Machine {
   string id = 1;
   string name = 2;
@@ -35,6 +40,8 @@ message Machine {
   BootType bootType = 7;
   uint32 cpus = 8;
   int64 memory = 9;
+
+  repeated MachineInterface interfaces = 10;
 }
 
 message GetMachineRequest {
@@ -72,6 +79,10 @@ message MachineNetworkRequest {
   string networkId = 2;
 }
 
+message LinkNetworkReply {
+  MachineInterface interface = 1;
+}
+
 message StopMachinesRequest {
   repeated string ids = 1;
   bool force = 2;
@@ -99,7 +110,7 @@ service MachineService {
   rpc Delete         (GetMachinesRequest)           returns (ActionReply) {}
   rpc Start          (GetMachinesRequest)           returns (ActionReply) {}
   rpc Stop           (StopMachinesRequest)          returns (ActionReply) {}
-  rpc LinkNetwork    (MachineNetworkRequest)        returns (ActionReply) {}
+  rpc LinkNetwork    (MachineNetworkRequest)        returns (LinkNetworkReply) {}
   rpc UnlinkNetwork  (MachineNetworkRequest)        returns (ActionReply) {}
   rpc UpdateBootType (UpdateMachineBootTypeRequest) returns (ActionReply) {}
   rpc UpdateCpus     (UpdateMachineCpusRequest)     returns (ActionReply) {}
