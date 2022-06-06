@@ -68,7 +68,9 @@ message CreateMachineRequest {
   string diskPath = 4;
   string xml = 5;
   Machine.BootType bootType = 6;
+  string templateXml = 7;
 }
+
 
 message CreateMachineReply {
   string id = 1;
