@@ -409,6 +409,56 @@ export namespace UpdateMachineCpusRequest {
   }
 }
 
+export class MachineDiskInput extends jspb.Message {
+  getMounttarget(): string;
+  setMounttarget(value: string): void;
+
+  getSourcefile(): string;
+  setSourcefile(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): MachineDiskInput.AsObject;
+  static toObject(includeInstance: boolean, msg: MachineDiskInput): MachineDiskInput.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: MachineDiskInput, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): MachineDiskInput;
+  static deserializeBinaryFromReader(message: MachineDiskInput, reader: jspb.BinaryReader): MachineDiskInput;
+}
+
+export namespace MachineDiskInput {
+  export type AsObject = {
+    mounttarget: string,
+    sourcefile: string,
+  }
+}
+
+export class UpdateMachineDisksRequest extends jspb.Message {
+  getMachineid(): string;
+  setMachineid(value: string): void;
+
+  clearDisksList(): void;
+  getDisksList(): Array<MachineDiskInput>;
+  setDisksList(value: Array<MachineDiskInput>): void;
+  addDisks(value?: MachineDiskInput, index?: number): MachineDiskInput;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateMachineDisksRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateMachineDisksRequest): UpdateMachineDisksRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateMachineDisksRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateMachineDisksRequest;
+  static deserializeBinaryFromReader(message: UpdateMachineDisksRequest, reader: jspb.BinaryReader): UpdateMachineDisksRequest;
+}
+
+export namespace UpdateMachineDisksRequest {
+  export type AsObject = {
+    machineid: string,
+    disksList: Array<MachineDiskInput.AsObject>,
+  }
+}
+
 export class UpdateMachineMemoryRequest extends jspb.Message {
   getMachineid(): string;
   setMachineid(value: string): void;

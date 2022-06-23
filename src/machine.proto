@@ -100,6 +100,16 @@ message UpdateMachineCpusRequest {
   uint32 cpus = 2;
 }
 
+message MachineDiskInput {
+  string mountTarget = 1;
+  string sourceFile = 2;
+}
+
+message UpdateMachineDisksRequest {
+  string machineId = 1;
+  repeated MachineDiskInput disks = 2;
+}
+
 message UpdateMachineMemoryRequest {
   string machineId = 1;
   int64 memory = 2;
@@ -116,5 +126,6 @@ service MachineService {
   rpc UnlinkNetwork  (MachineNetworkRequest)        returns (ActionReply) {}
   rpc UpdateBootType (UpdateMachineBootTypeRequest) returns (ActionReply) {}
   rpc UpdateCpus     (UpdateMachineCpusRequest)     returns (ActionReply) {}
+  rpc UpdateDisks    (UpdateMachineDisksRequest)    returns (ActionReply) {}
   rpc UpdateMemory   (UpdateMachineMemoryRequest)   returns (ActionReply) {}
 }

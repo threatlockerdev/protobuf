@@ -18,6 +18,7 @@ interface IMachineServiceService extends grpc.ServiceDefinition<grpc.UntypedServ
   unlinkNetwork: grpc.MethodDefinition<machine_pb.MachineNetworkRequest, util_pb.ActionReply>;
   updateBootType: grpc.MethodDefinition<machine_pb.UpdateMachineBootTypeRequest, util_pb.ActionReply>;
   updateCpus: grpc.MethodDefinition<machine_pb.UpdateMachineCpusRequest, util_pb.ActionReply>;
+  updateDisks: grpc.MethodDefinition<machine_pb.UpdateMachineDisksRequest, util_pb.ActionReply>;
   updateMemory: grpc.MethodDefinition<machine_pb.UpdateMachineMemoryRequest, util_pb.ActionReply>;
 }
 
@@ -34,6 +35,7 @@ export interface IMachineServiceServer extends grpc.UntypedServiceImplementation
   unlinkNetwork: grpc.handleUnaryCall<machine_pb.MachineNetworkRequest, util_pb.ActionReply>;
   updateBootType: grpc.handleUnaryCall<machine_pb.UpdateMachineBootTypeRequest, util_pb.ActionReply>;
   updateCpus: grpc.handleUnaryCall<machine_pb.UpdateMachineCpusRequest, util_pb.ActionReply>;
+  updateDisks: grpc.handleUnaryCall<machine_pb.UpdateMachineDisksRequest, util_pb.ActionReply>;
   updateMemory: grpc.handleUnaryCall<machine_pb.UpdateMachineMemoryRequest, util_pb.ActionReply>;
 }
 
@@ -69,6 +71,9 @@ export class MachineServiceClient extends grpc.Client {
   updateCpus(argument: machine_pb.UpdateMachineCpusRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateCpus(argument: machine_pb.UpdateMachineCpusRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateCpus(argument: machine_pb.UpdateMachineCpusRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  updateDisks(argument: machine_pb.UpdateMachineDisksRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  updateDisks(argument: machine_pb.UpdateMachineDisksRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  updateDisks(argument: machine_pb.UpdateMachineDisksRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateMemory(argument: machine_pb.UpdateMachineMemoryRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateMemory(argument: machine_pb.UpdateMachineMemoryRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateMemory(argument: machine_pb.UpdateMachineMemoryRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;

@@ -138,6 +138,17 @@ function deserialize_UpdateMachineCpusRequest(buffer_arg) {
   return machine_pb.UpdateMachineCpusRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_UpdateMachineDisksRequest(arg) {
+  if (!(arg instanceof machine_pb.UpdateMachineDisksRequest)) {
+    throw new Error('Expected argument of type UpdateMachineDisksRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_UpdateMachineDisksRequest(buffer_arg) {
+  return machine_pb.UpdateMachineDisksRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_UpdateMachineMemoryRequest(arg) {
   if (!(arg instanceof machine_pb.UpdateMachineMemoryRequest)) {
     throw new Error('Expected argument of type UpdateMachineMemoryRequest');
@@ -258,6 +269,17 @@ var MachineServiceService = exports.MachineServiceService = {
     responseType: util_pb.ActionReply,
     requestSerialize: serialize_UpdateMachineCpusRequest,
     requestDeserialize: deserialize_UpdateMachineCpusRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
+  updateDisks: {
+    path: '/MachineService/UpdateDisks',
+    requestStream: false,
+    responseStream: false,
+    requestType: machine_pb.UpdateMachineDisksRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateMachineDisksRequest,
+    requestDeserialize: deserialize_UpdateMachineDisksRequest,
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },

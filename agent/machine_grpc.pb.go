@@ -28,6 +28,7 @@ type MachineServiceClient interface {
 	UnlinkNetwork(ctx context.Context, in *MachineNetworkRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateBootType(ctx context.Context, in *UpdateMachineBootTypeRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateCpus(ctx context.Context, in *UpdateMachineCpusRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdateDisks(ctx context.Context, in *UpdateMachineDisksRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateMemory(ctx context.Context, in *UpdateMachineMemoryRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
@@ -129,6 +130,15 @@ func (c *machineServiceClient) UpdateCpus(ctx context.Context, in *UpdateMachine
 	return out, nil
 }
 
+func (c *machineServiceClient) UpdateDisks(ctx context.Context, in *UpdateMachineDisksRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/MachineService/UpdateDisks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *machineServiceClient) UpdateMemory(ctx context.Context, in *UpdateMachineMemoryRequest, opts ...grpc.CallOption) (*ActionReply, error) {
 	out := new(ActionReply)
 	err := c.cc.Invoke(ctx, "/MachineService/UpdateMemory", in, out, opts...)
@@ -152,6 +162,7 @@ type MachineServiceServer interface {
 	UnlinkNetwork(context.Context, *MachineNetworkRequest) (*ActionReply, error)
 	UpdateBootType(context.Context, *UpdateMachineBootTypeRequest) (*ActionReply, error)
 	UpdateCpus(context.Context, *UpdateMachineCpusRequest) (*ActionReply, error)
+	UpdateDisks(context.Context, *UpdateMachineDisksRequest) (*ActionReply, error)
 	UpdateMemory(context.Context, *UpdateMachineMemoryRequest) (*ActionReply, error)
 	mustEmbedUnimplementedMachineServiceServer()
 }
@@ -189,6 +200,9 @@ func (UnimplementedMachineServiceServer) UpdateBootType(context.Context, *Update
 }
 func (UnimplementedMachineServiceServer) UpdateCpus(context.Context, *UpdateMachineCpusRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCpus not implemented")
+}
+func (UnimplementedMachineServiceServer) UpdateDisks(context.Context, *UpdateMachineDisksRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDisks not implemented")
 }
 func (UnimplementedMachineServiceServer) UpdateMemory(context.Context, *UpdateMachineMemoryRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMemory not implemented")
@@ -386,6 +400,24 @@ func _MachineService_UpdateCpus_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MachineService_UpdateDisks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMachineDisksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MachineServiceServer).UpdateDisks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/MachineService/UpdateDisks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MachineServiceServer).UpdateDisks(ctx, req.(*UpdateMachineDisksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _MachineService_UpdateMemory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateMachineMemoryRequest)
 	if err := dec(in); err != nil {
@@ -450,6 +482,10 @@ var MachineService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateCpus",
 			Handler:    _MachineService_UpdateCpus_Handler,
+		},
+		{
+			MethodName: "UpdateDisks",
+			Handler:    _MachineService_UpdateDisks_Handler,
 		},
 		{
 			MethodName: "UpdateMemory",
