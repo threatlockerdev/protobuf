@@ -247,6 +247,11 @@ export class CreateMachineRequest extends jspb.Message {
   getTemplatexml(): string;
   setTemplatexml(value: string): void;
 
+  clearDisksList(): void;
+  getDisksList(): Array<MachineDiskInput>;
+  setDisksList(value: Array<MachineDiskInput>): void;
+  addDisks(value?: MachineDiskInput, index?: number): MachineDiskInput;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateMachineRequest.AsObject;
   static toObject(includeInstance: boolean, msg: CreateMachineRequest): CreateMachineRequest.AsObject;
@@ -266,6 +271,7 @@ export namespace CreateMachineRequest {
     xml: string,
     boottype: Machine.BootTypeMap[keyof Machine.BootTypeMap],
     templatexml: string,
+    disksList: Array<MachineDiskInput.AsObject>,
   }
 }
 

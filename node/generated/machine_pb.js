@@ -1609,12 +1609,19 @@ proto.GetMachinesReply.prototype.clearMachinesList = function() {
  * @constructor
  */
 proto.CreateMachineRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.CreateMachineRequest.repeatedFields_, null);
 };
 goog.inherits(proto.CreateMachineRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.CreateMachineRequest.displayName = 'proto.CreateMachineRequest';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.CreateMachineRequest.repeatedFields_ = [8];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -1649,7 +1656,9 @@ proto.CreateMachineRequest.toObject = function(includeInstance, msg) {
     diskpath: msg.getDiskpath(),
     xml: msg.getXml(),
     boottype: msg.getBoottype(),
-    templatexml: msg.getTemplatexml()
+    templatexml: msg.getTemplatexml(),
+    disksList: jspb.Message.toObjectList(msg.getDisksList(),
+    proto.MachineDiskInput.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1713,6 +1722,12 @@ proto.CreateMachineRequest.deserializeBinaryFromReader = function(msg, reader) {
     case 7:
       var value = /** @type {string} */ (reader.readString());
       msg.setTemplatexml(value);
+      break;
+    case 8:
+      var value = new proto.MachineDiskInput;
+      reader.readMessage(value,proto.MachineDiskInput.deserializeBinaryFromReader);
+      msg.getDisksList().push(value);
+      msg.setDisksList(msg.getDisksList());
       break;
     default:
       reader.skipField();
@@ -1799,6 +1814,14 @@ proto.CreateMachineRequest.prototype.serializeBinaryToWriter = function (writer)
     writer.writeString(
       7,
       f
+    );
+  }
+  f = this.getDisksList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      8,
+      f,
+      proto.MachineDiskInput.serializeBinaryToWriter
     );
   }
 };
@@ -1915,6 +1938,29 @@ proto.CreateMachineRequest.prototype.getTemplatexml = function() {
 /** @param {string} value  */
 proto.CreateMachineRequest.prototype.setTemplatexml = function(value) {
   jspb.Message.setField(this, 7, value);
+};
+
+
+/**
+ * repeated MachineDiskInput disks = 8;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.MachineDiskInput>}
+ */
+proto.CreateMachineRequest.prototype.getDisksList = function() {
+  return /** @type{!Array.<!proto.MachineDiskInput>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.MachineDiskInput, 8));
+};
+
+
+/** @param {Array.<!proto.MachineDiskInput>} value  */
+proto.CreateMachineRequest.prototype.setDisksList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 8, value);
+};
+
+
+proto.CreateMachineRequest.prototype.clearDisksList = function() {
+  this.setDisksList([]);
 };
 
 

@@ -65,10 +65,11 @@ message CreateMachineRequest {
   string name = 1;
   uint32 cpuCount = 2;
   uint32 memory = 3;
-  string diskPath = 4;
+  string diskPath = 4 [deprecated=true];
   string xml = 5;
   Machine.BootType bootType = 6;
   string templateXml = 7;
+  repeated MachineDiskInput disks = 8;
 }
 
 
