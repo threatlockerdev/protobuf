@@ -11,6 +11,7 @@ message Network {
   bool dhcp = 4;
   bool internet = 5;
   string xml = 6;
+  bool promiscuous = 7;
 }
 
 message GetNetworksRequest {
@@ -41,4 +42,5 @@ service NetworkService {
   rpc Delete  (GetNetworksRequest)   returns (ActionReply) {}
   rpc UpdateDHCP(UpdateNetworkFlagRequest) returns (ActionReply) {}
   rpc UpdateInternet(UpdateNetworkFlagRequest) returns (ActionReply) {}
+  rpc UpdatePromiscuous(UpdateNetworkFlagRequest) returns (ActionReply) {}
 }
