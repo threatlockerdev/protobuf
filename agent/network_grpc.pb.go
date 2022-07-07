@@ -23,6 +23,7 @@ type NetworkServiceClient interface {
 	Delete(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateInternet(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	UpdatePromiscuous(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 }
 
 type networkServiceClient struct {
@@ -78,6 +79,15 @@ func (c *networkServiceClient) UpdateInternet(ctx context.Context, in *UpdateNet
 	return out, nil
 }
 
+func (c *networkServiceClient) UpdatePromiscuous(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error) {
+	out := new(ActionReply)
+	err := c.cc.Invoke(ctx, "/NetworkService/UpdatePromiscuous", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NetworkServiceServer is the server API for NetworkService service.
 // All implementations must embed UnimplementedNetworkServiceServer
 // for forward compatibility
@@ -87,6 +97,7 @@ type NetworkServiceServer interface {
 	Delete(context.Context, *GetNetworksRequest) (*ActionReply, error)
 	UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	UpdateInternet(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
+	UpdatePromiscuous(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	mustEmbedUnimplementedNetworkServiceServer()
 }
 
@@ -108,6 +119,9 @@ func (UnimplementedNetworkServiceServer) UpdateDHCP(context.Context, *UpdateNetw
 }
 func (UnimplementedNetworkServiceServer) UpdateInternet(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateInternet not implemented")
+}
+func (UnimplementedNetworkServiceServer) UpdatePromiscuous(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePromiscuous not implemented")
 }
 func (UnimplementedNetworkServiceServer) mustEmbedUnimplementedNetworkServiceServer() {}
 
@@ -212,6 +226,24 @@ func _NetworkService_UpdateInternet_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NetworkService_UpdatePromiscuous_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNetworkFlagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NetworkServiceServer).UpdatePromiscuous(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/NetworkService/UpdatePromiscuous",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NetworkServiceServer).UpdatePromiscuous(ctx, req.(*UpdateNetworkFlagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NetworkService_ServiceDesc is the grpc.ServiceDesc for NetworkService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -238,6 +270,10 @@ var NetworkService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateInternet",
 			Handler:    _NetworkService_UpdateInternet_Handler,
+		},
+		{
+			MethodName: "UpdatePromiscuous",
+			Handler:    _NetworkService_UpdatePromiscuous_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
