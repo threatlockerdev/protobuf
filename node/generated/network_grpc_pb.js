@@ -128,6 +128,17 @@ var NetworkServiceService = exports.NetworkServiceService = {
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },
+  updatePromiscuous: {
+    path: '/NetworkService/UpdatePromiscuous',
+    requestStream: false,
+    responseStream: false,
+    requestType: network_pb.UpdateNetworkFlagRequest,
+    responseType: util_pb.ActionReply,
+    requestSerialize: serialize_UpdateNetworkFlagRequest,
+    requestDeserialize: deserialize_UpdateNetworkFlagRequest,
+    responseSerialize: serialize_ActionReply,
+    responseDeserialize: deserialize_ActionReply,
+  },
 };
 
 exports.NetworkServiceClient = grpc.makeGenericClientConstructor(NetworkServiceService);

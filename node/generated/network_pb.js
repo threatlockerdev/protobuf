@@ -74,7 +74,8 @@ proto.Network.toObject = function(includeInstance, msg) {
     machineidsList: jspb.Message.getField(msg, 3),
     dhcp: msg.getDhcp(),
     internet: msg.getInternet(),
-    xml: msg.getXml()
+    xml: msg.getXml(),
+    promiscuous: msg.getPromiscuous()
   };
 
   if (includeInstance) {
@@ -134,6 +135,10 @@ proto.Network.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setXml(value);
+      break;
+    case 7:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setPromiscuous(value);
       break;
     default:
       reader.skipField();
@@ -212,6 +217,13 @@ proto.Network.prototype.serializeBinaryToWriter = function (writer) {
   if (f.length > 0) {
     writer.writeString(
       6,
+      f
+    );
+  }
+  f = this.getPromiscuous();
+  if (f) {
+    writer.writeBool(
+      7,
       f
     );
   }
@@ -325,6 +337,23 @@ proto.Network.prototype.getXml = function() {
 /** @param {string} value  */
 proto.Network.prototype.setXml = function(value) {
   jspb.Message.setField(this, 6, value);
+};
+
+
+/**
+ * optional bool promiscuous = 7;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.Network.prototype.getPromiscuous = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldProto3(this, 7, false));
+};
+
+
+/** @param {boolean} value  */
+proto.Network.prototype.setPromiscuous = function(value) {
+  jspb.Message.setField(this, 7, value);
 };
 
 

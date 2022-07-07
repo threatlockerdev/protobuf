@@ -25,6 +25,9 @@ export class Network extends jspb.Message {
   getXml(): string;
   setXml(value: string): void;
 
+  getPromiscuous(): boolean;
+  setPromiscuous(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Network.AsObject;
   static toObject(includeInstance: boolean, msg: Network): Network.AsObject;
@@ -43,6 +46,7 @@ export namespace Network {
     dhcp: boolean,
     internet: boolean,
     xml: string,
+    promiscuous: boolean,
   }
 }
 

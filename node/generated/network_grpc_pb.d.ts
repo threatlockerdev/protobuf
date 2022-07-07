@@ -13,6 +13,7 @@ interface INetworkServiceService extends grpc.ServiceDefinition<grpc.UntypedServ
   delete: grpc.MethodDefinition<network_pb.GetNetworksRequest, util_pb.ActionReply>;
   updateDHCP: grpc.MethodDefinition<network_pb.UpdateNetworkFlagRequest, util_pb.ActionReply>;
   updateInternet: grpc.MethodDefinition<network_pb.UpdateNetworkFlagRequest, util_pb.ActionReply>;
+  updatePromiscuous: grpc.MethodDefinition<network_pb.UpdateNetworkFlagRequest, util_pb.ActionReply>;
 }
 
 export const NetworkServiceService: INetworkServiceService;
@@ -23,6 +24,7 @@ export interface INetworkServiceServer extends grpc.UntypedServiceImplementation
   delete: grpc.handleUnaryCall<network_pb.GetNetworksRequest, util_pb.ActionReply>;
   updateDHCP: grpc.handleUnaryCall<network_pb.UpdateNetworkFlagRequest, util_pb.ActionReply>;
   updateInternet: grpc.handleUnaryCall<network_pb.UpdateNetworkFlagRequest, util_pb.ActionReply>;
+  updatePromiscuous: grpc.handleUnaryCall<network_pb.UpdateNetworkFlagRequest, util_pb.ActionReply>;
 }
 
 export class NetworkServiceClient extends grpc.Client {
@@ -42,4 +44,7 @@ export class NetworkServiceClient extends grpc.Client {
   updateInternet(argument: network_pb.UpdateNetworkFlagRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateInternet(argument: network_pb.UpdateNetworkFlagRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
   updateInternet(argument: network_pb.UpdateNetworkFlagRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  updatePromiscuous(argument: network_pb.UpdateNetworkFlagRequest, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  updatePromiscuous(argument: network_pb.UpdateNetworkFlagRequest, metadataOrOptions: grpc.Metadata | grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
+  updatePromiscuous(argument: network_pb.UpdateNetworkFlagRequest, metadata: grpc.Metadata | null, options: grpc.CallOptions | null, callback: grpc.requestCallback<util_pb.ActionReply>): grpc.ClientUnaryCall;
 }
