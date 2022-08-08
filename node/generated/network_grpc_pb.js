@@ -16,6 +16,17 @@ function deserialize_ActionReply(buffer_arg) {
   return util_pb.ActionReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_BridgeReply(arg) {
+  if (!(arg instanceof network_pb.BridgeReply)) {
+    throw new Error('Expected argument of type BridgeReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_BridgeReply(buffer_arg) {
+  return network_pb.BridgeReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_CreateNetworkReply(arg) {
   if (!(arg instanceof network_pb.CreateNetworkReply)) {
     throw new Error('Expected argument of type CreateNetworkReply');
@@ -36,6 +47,17 @@ function serialize_CreateNetworkRequest(arg) {
 
 function deserialize_CreateNetworkRequest(buffer_arg) {
   return network_pb.CreateNetworkRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_Empty(arg) {
+  if (!(arg instanceof util_pb.Empty)) {
+    throw new Error('Expected argument of type Empty');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_Empty(buffer_arg) {
+  return util_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_GetNetworksReply(arg) {
@@ -105,6 +127,17 @@ var NetworkServiceService = exports.NetworkServiceService = {
     requestDeserialize: deserialize_GetNetworksRequest,
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
+  },
+  getFreeBridgeName: {
+    path: '/NetworkService/GetFreeBridgeName',
+    requestStream: false,
+    responseStream: false,
+    requestType: util_pb.Empty,
+    responseType: network_pb.BridgeReply,
+    requestSerialize: serialize_Empty,
+    requestDeserialize: deserialize_Empty,
+    responseSerialize: serialize_BridgeReply,
+    responseDeserialize: deserialize_BridgeReply,
   },
   updateDHCP: {
     path: '/NetworkService/UpdateDHCP',

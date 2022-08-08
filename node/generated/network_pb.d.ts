@@ -4,6 +4,26 @@
 import * as jspb from "google-protobuf";
 import * as util_pb from "./util_pb";
 
+export class BridgeReply extends jspb.Message {
+  getBridge(): string;
+  setBridge(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): BridgeReply.AsObject;
+  static toObject(includeInstance: boolean, msg: BridgeReply): BridgeReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: BridgeReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): BridgeReply;
+  static deserializeBinaryFromReader(message: BridgeReply, reader: jspb.BinaryReader): BridgeReply;
+}
+
+export namespace BridgeReply {
+  export type AsObject = {
+    bridge: string,
+  }
+}
+
 export class Network extends jspb.Message {
   getId(): string;
   setId(value: string): void;

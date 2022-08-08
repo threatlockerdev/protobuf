@@ -5,3 +5,5 @@ option go_package = "hyperqube-io/protobuf/agent";
 message ActionReply {
   bool ok = 1;
 }
+
+message Empty { }

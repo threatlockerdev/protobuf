@@ -21,6 +21,7 @@ type NetworkServiceClient interface {
 	GetMany(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*GetNetworksReply, error)
 	Create(ctx context.Context, in *CreateNetworkRequest, opts ...grpc.CallOption) (*CreateNetworkReply, error)
 	Delete(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*ActionReply, error)
+	GetFreeBridgeName(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BridgeReply, error)
 	UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateInternet(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdatePromiscuous(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
@@ -61,6 +62,15 @@ func (c *networkServiceClient) Delete(ctx context.Context, in *GetNetworksReques
 	return out, nil
 }
 
+func (c *networkServiceClient) GetFreeBridgeName(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BridgeReply, error) {
+	out := new(BridgeReply)
+	err := c.cc.Invoke(ctx, "/NetworkService/GetFreeBridgeName", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *networkServiceClient) UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error) {
 	out := new(ActionReply)
 	err := c.cc.Invoke(ctx, "/NetworkService/UpdateDHCP", in, out, opts...)
@@ -95,6 +105,7 @@ type NetworkServiceServer interface {
 	GetMany(context.Context, *GetNetworksRequest) (*GetNetworksReply, error)
 	Create(context.Context, *CreateNetworkRequest) (*CreateNetworkReply, error)
 	Delete(context.Context, *GetNetworksRequest) (*ActionReply, error)
+	GetFreeBridgeName(context.Context, *Empty) (*BridgeReply, error)
 	UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	UpdateInternet(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	UpdatePromiscuous(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
@@ -113,6 +124,9 @@ func (UnimplementedNetworkServiceServer) Create(context.Context, *CreateNetworkR
 }
 func (UnimplementedNetworkServiceServer) Delete(context.Context, *GetNetworksRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (UnimplementedNetworkServiceServer) GetFreeBridgeName(context.Context, *Empty) (*BridgeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFreeBridgeName not implemented")
 }
 func (UnimplementedNetworkServiceServer) UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDHCP not implemented")
@@ -190,6 +204,24 @@ func _NetworkService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NetworkService_GetFreeBridgeName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NetworkServiceServer).GetFreeBridgeName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/NetworkService/GetFreeBridgeName",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NetworkServiceServer).GetFreeBridgeName(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _NetworkService_UpdateDHCP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateNetworkFlagRequest)
 	if err := dec(in); err != nil {
@@ -262,6 +294,10 @@ var NetworkService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _NetworkService_Delete_Handler,
+		},
+		{
+			MethodName: "GetFreeBridgeName",
+			Handler:    _NetworkService_GetFreeBridgeName_Handler,
 		},
 		{
 			MethodName: "UpdateDHCP",
