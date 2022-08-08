@@ -4,8 +4,12 @@ option go_package = "hyperqube-io/protobuf/agent";
 
 import "util.proto";
 
-message BridgeReply {
-  string bridge = 1;
+message BridgesRequest {
+  int32 count = 1;
+}
+
+message BridgesReply {
+  repeated string bridges = 1;
 }
 
 message Network {
@@ -44,7 +48,7 @@ service NetworkService {
   rpc GetMany (GetNetworksRequest)   returns (GetNetworksReply) {}
   rpc Create  (CreateNetworkRequest) returns (CreateNetworkReply) {}
   rpc Delete  (GetNetworksRequest)   returns (ActionReply) {}
-  rpc GetFreeBridgeName (Empty) returns (BridgeReply) {}
+  rpc GetFreeBridgeNames (BridgesRequest) returns (BridgesReply) {}
   rpc UpdateDHCP(UpdateNetworkFlagRequest) returns (ActionReply) {}
   rpc UpdateInternet(UpdateNetworkFlagRequest) returns (ActionReply) {}
   rpc UpdatePromiscuous(UpdateNetworkFlagRequest) returns (ActionReply) {}

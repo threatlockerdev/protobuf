@@ -16,15 +16,26 @@ function deserialize_ActionReply(buffer_arg) {
   return util_pb.ActionReply.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
-function serialize_BridgeReply(arg) {
-  if (!(arg instanceof network_pb.BridgeReply)) {
-    throw new Error('Expected argument of type BridgeReply');
+function serialize_BridgesReply(arg) {
+  if (!(arg instanceof network_pb.BridgesReply)) {
+    throw new Error('Expected argument of type BridgesReply');
   }
   return Buffer.from(arg.serializeBinary());
 }
 
-function deserialize_BridgeReply(buffer_arg) {
-  return network_pb.BridgeReply.deserializeBinary(new Uint8Array(buffer_arg));
+function deserialize_BridgesReply(buffer_arg) {
+  return network_pb.BridgesReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_BridgesRequest(arg) {
+  if (!(arg instanceof network_pb.BridgesRequest)) {
+    throw new Error('Expected argument of type BridgesRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_BridgesRequest(buffer_arg) {
+  return network_pb.BridgesRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_CreateNetworkReply(arg) {
@@ -47,17 +58,6 @@ function serialize_CreateNetworkRequest(arg) {
 
 function deserialize_CreateNetworkRequest(buffer_arg) {
   return network_pb.CreateNetworkRequest.deserializeBinary(new Uint8Array(buffer_arg));
-}
-
-function serialize_Empty(arg) {
-  if (!(arg instanceof util_pb.Empty)) {
-    throw new Error('Expected argument of type Empty');
-  }
-  return Buffer.from(arg.serializeBinary());
-}
-
-function deserialize_Empty(buffer_arg) {
-  return util_pb.Empty.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 function serialize_GetNetworksReply(arg) {
@@ -128,16 +128,16 @@ var NetworkServiceService = exports.NetworkServiceService = {
     responseSerialize: serialize_ActionReply,
     responseDeserialize: deserialize_ActionReply,
   },
-  getFreeBridgeName: {
-    path: '/NetworkService/GetFreeBridgeName',
+  getFreeBridgeNames: {
+    path: '/NetworkService/GetFreeBridgeNames',
     requestStream: false,
     responseStream: false,
-    requestType: util_pb.Empty,
-    responseType: network_pb.BridgeReply,
-    requestSerialize: serialize_Empty,
-    requestDeserialize: deserialize_Empty,
-    responseSerialize: serialize_BridgeReply,
-    responseDeserialize: deserialize_BridgeReply,
+    requestType: network_pb.BridgesRequest,
+    responseType: network_pb.BridgesReply,
+    requestSerialize: serialize_BridgesRequest,
+    requestDeserialize: deserialize_BridgesRequest,
+    responseSerialize: serialize_BridgesReply,
+    responseDeserialize: deserialize_BridgesReply,
   },
   updateDHCP: {
     path: '/NetworkService/UpdateDHCP',

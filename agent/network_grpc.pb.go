@@ -21,7 +21,7 @@ type NetworkServiceClient interface {
 	GetMany(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*GetNetworksReply, error)
 	Create(ctx context.Context, in *CreateNetworkRequest, opts ...grpc.CallOption) (*CreateNetworkReply, error)
 	Delete(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*ActionReply, error)
-	GetFreeBridgeName(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BridgeReply, error)
+	GetFreeBridgeNames(ctx context.Context, in *BridgesRequest, opts ...grpc.CallOption) (*BridgesReply, error)
 	UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateInternet(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdatePromiscuous(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
@@ -62,9 +62,9 @@ func (c *networkServiceClient) Delete(ctx context.Context, in *GetNetworksReques
 	return out, nil
 }
 
-func (c *networkServiceClient) GetFreeBridgeName(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*BridgeReply, error) {
-	out := new(BridgeReply)
-	err := c.cc.Invoke(ctx, "/NetworkService/GetFreeBridgeName", in, out, opts...)
+func (c *networkServiceClient) GetFreeBridgeNames(ctx context.Context, in *BridgesRequest, opts ...grpc.CallOption) (*BridgesReply, error) {
+	out := new(BridgesReply)
+	err := c.cc.Invoke(ctx, "/NetworkService/GetFreeBridgeNames", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ type NetworkServiceServer interface {
 	GetMany(context.Context, *GetNetworksRequest) (*GetNetworksReply, error)
 	Create(context.Context, *CreateNetworkRequest) (*CreateNetworkReply, error)
 	Delete(context.Context, *GetNetworksRequest) (*ActionReply, error)
-	GetFreeBridgeName(context.Context, *Empty) (*BridgeReply, error)
+	GetFreeBridgeNames(context.Context, *BridgesRequest) (*BridgesReply, error)
 	UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	UpdateInternet(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	UpdatePromiscuous(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
@@ -125,8 +125,8 @@ func (UnimplementedNetworkServiceServer) Create(context.Context, *CreateNetworkR
 func (UnimplementedNetworkServiceServer) Delete(context.Context, *GetNetworksRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedNetworkServiceServer) GetFreeBridgeName(context.Context, *Empty) (*BridgeReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetFreeBridgeName not implemented")
+func (UnimplementedNetworkServiceServer) GetFreeBridgeNames(context.Context, *BridgesRequest) (*BridgesReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFreeBridgeNames not implemented")
 }
 func (UnimplementedNetworkServiceServer) UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDHCP not implemented")
@@ -204,20 +204,20 @@ func _NetworkService_Delete_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NetworkService_GetFreeBridgeName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+func _NetworkService_GetFreeBridgeNames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BridgesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NetworkServiceServer).GetFreeBridgeName(ctx, in)
+		return srv.(NetworkServiceServer).GetFreeBridgeNames(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/NetworkService/GetFreeBridgeName",
+		FullMethod: "/NetworkService/GetFreeBridgeNames",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NetworkServiceServer).GetFreeBridgeName(ctx, req.(*Empty))
+		return srv.(NetworkServiceServer).GetFreeBridgeNames(ctx, req.(*BridgesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -296,8 +296,8 @@ var NetworkService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _NetworkService_Delete_Handler,
 		},
 		{
-			MethodName: "GetFreeBridgeName",
-			Handler:    _NetworkService_GetFreeBridgeName_Handler,
+			MethodName: "GetFreeBridgeNames",
+			Handler:    _NetworkService_GetFreeBridgeNames_Handler,
 		},
 		{
 			MethodName: "UpdateDHCP",

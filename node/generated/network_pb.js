@@ -10,7 +10,8 @@ var goog = jspb;
 var global = Function('return this')();
 
 var util_pb = require('./util_pb.js');
-goog.exportSymbol('proto.BridgeReply', null, global);
+goog.exportSymbol('proto.BridgesReply', null, global);
+goog.exportSymbol('proto.BridgesRequest', null, global);
 goog.exportSymbol('proto.CreateNetworkReply', null, global);
 goog.exportSymbol('proto.CreateNetworkRequest', null, global);
 goog.exportSymbol('proto.GetNetworksReply', null, global);
@@ -28,12 +29,12 @@ goog.exportSymbol('proto.UpdateNetworkFlagRequest', null, global);
  * @extends {jspb.Message}
  * @constructor
  */
-proto.BridgeReply = function(opt_data) {
+proto.BridgesRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.BridgeReply, jspb.Message);
+goog.inherits(proto.BridgesRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.BridgeReply.displayName = 'proto.BridgeReply';
+  proto.BridgesRequest.displayName = 'proto.BridgesRequest';
 }
 
 
@@ -48,8 +49,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.BridgeReply.prototype.toObject = function(opt_includeInstance) {
-  return proto.BridgeReply.toObject(opt_includeInstance, this);
+proto.BridgesRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.BridgesRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -58,12 +59,12 @@ proto.BridgeReply.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.BridgeReply} msg The msg instance to transform.
+ * @param {!proto.BridgesRequest} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.BridgeReply.toObject = function(includeInstance, msg) {
+proto.BridgesRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    bridge: msg.getBridge()
+    count: msg.getCount()
   };
 
   if (includeInstance) {
@@ -77,23 +78,23 @@ proto.BridgeReply.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.BridgeReply}
+ * @return {!proto.BridgesRequest}
  */
-proto.BridgeReply.deserializeBinary = function(bytes) {
+proto.BridgesRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.BridgeReply;
-  return proto.BridgeReply.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.BridgesRequest;
+  return proto.BridgesRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.BridgeReply} msg The message object to deserialize into.
+ * @param {!proto.BridgesRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.BridgeReply}
+ * @return {!proto.BridgesRequest}
  */
-proto.BridgeReply.deserializeBinaryFromReader = function(msg, reader) {
+proto.BridgesRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -101,8 +102,8 @@ proto.BridgeReply.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setBridge(value);
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setCount(value);
       break;
     default:
       reader.skipField();
@@ -116,10 +117,10 @@ proto.BridgeReply.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.BridgeReply} message
+ * @param {!proto.BridgesRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.BridgeReply.serializeBinaryToWriter = function(message, writer) {
+proto.BridgesRequest.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -128,7 +129,7 @@ proto.BridgeReply.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.BridgeReply.prototype.serializeBinary = function() {
+proto.BridgesRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -140,11 +141,11 @@ proto.BridgeReply.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.BridgeReply.prototype.serializeBinaryToWriter = function (writer) {
+proto.BridgesRequest.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getBridge();
-  if (f.length > 0) {
-    writer.writeString(
+  f = this.getCount();
+  if (f !== 0) {
+    writer.writeInt32(
       1,
       f
     );
@@ -154,25 +155,199 @@ proto.BridgeReply.prototype.serializeBinaryToWriter = function (writer) {
 
 /**
  * Creates a deep clone of this proto. No data is shared with the original.
- * @return {!proto.BridgeReply} The clone.
+ * @return {!proto.BridgesRequest} The clone.
  */
-proto.BridgeReply.prototype.cloneMessage = function() {
-  return /** @type {!proto.BridgeReply} */ (jspb.Message.cloneMessage(this));
+proto.BridgesRequest.prototype.cloneMessage = function() {
+  return /** @type {!proto.BridgesRequest} */ (jspb.Message.cloneMessage(this));
 };
 
 
 /**
- * optional string bridge = 1;
- * @return {string}
+ * optional int32 count = 1;
+ * @return {number}
  */
-proto.BridgeReply.prototype.getBridge = function() {
-  return /** @type {string} */ (jspb.Message.getFieldProto3(this, 1, ""));
+proto.BridgesRequest.prototype.getCount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldProto3(this, 1, 0));
 };
 
 
-/** @param {string} value  */
-proto.BridgeReply.prototype.setBridge = function(value) {
+/** @param {number} value  */
+proto.BridgesRequest.prototype.setCount = function(value) {
   jspb.Message.setField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.BridgesReply = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.BridgesReply.repeatedFields_, null);
+};
+goog.inherits(proto.BridgesReply, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.BridgesReply.displayName = 'proto.BridgesReply';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.BridgesReply.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.BridgesReply.prototype.toObject = function(opt_includeInstance) {
+  return proto.BridgesReply.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.BridgesReply} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.BridgesReply.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    bridgesList: jspb.Message.getField(msg, 1)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.BridgesReply}
+ */
+proto.BridgesReply.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.BridgesReply;
+  return proto.BridgesReply.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.BridgesReply} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.BridgesReply}
+ */
+proto.BridgesReply.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.getBridgesList().push(value);
+      msg.setBridgesList(msg.getBridgesList());
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.BridgesReply} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.BridgesReply.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.BridgesReply.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.BridgesReply.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getBridgesList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * Creates a deep clone of this proto. No data is shared with the original.
+ * @return {!proto.BridgesReply} The clone.
+ */
+proto.BridgesReply.prototype.cloneMessage = function() {
+  return /** @type {!proto.BridgesReply} */ (jspb.Message.cloneMessage(this));
+};
+
+
+/**
+ * repeated string bridges = 1;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<string>}
+ */
+proto.BridgesReply.prototype.getBridgesList = function() {
+  return /** @type {!Array.<string>} */ (jspb.Message.getField(this, 1));
+};
+
+
+/** @param {Array.<string>} value  */
+proto.BridgesReply.prototype.setBridgesList = function(value) {
+  jspb.Message.setField(this, 1, value || []);
+};
+
+
+proto.BridgesReply.prototype.clearBridgesList = function() {
+  jspb.Message.setField(this, 1, []);
 };
 
 

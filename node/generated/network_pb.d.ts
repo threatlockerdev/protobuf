@@ -4,23 +4,45 @@
 import * as jspb from "google-protobuf";
 import * as util_pb from "./util_pb";
 
-export class BridgeReply extends jspb.Message {
-  getBridge(): string;
-  setBridge(value: string): void;
+export class BridgesRequest extends jspb.Message {
+  getCount(): number;
+  setCount(value: number): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): BridgeReply.AsObject;
-  static toObject(includeInstance: boolean, msg: BridgeReply): BridgeReply.AsObject;
+  toObject(includeInstance?: boolean): BridgesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: BridgesRequest): BridgesRequest.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: BridgeReply, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): BridgeReply;
-  static deserializeBinaryFromReader(message: BridgeReply, reader: jspb.BinaryReader): BridgeReply;
+  static serializeBinaryToWriter(message: BridgesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): BridgesRequest;
+  static deserializeBinaryFromReader(message: BridgesRequest, reader: jspb.BinaryReader): BridgesRequest;
 }
 
-export namespace BridgeReply {
+export namespace BridgesRequest {
   export type AsObject = {
-    bridge: string,
+    count: number,
+  }
+}
+
+export class BridgesReply extends jspb.Message {
+  clearBridgesList(): void;
+  getBridgesList(): Array<string>;
+  setBridgesList(value: Array<string>): void;
+  addBridges(value: string, index?: number): string;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): BridgesReply.AsObject;
+  static toObject(includeInstance: boolean, msg: BridgesReply): BridgesReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: BridgesReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): BridgesReply;
+  static deserializeBinaryFromReader(message: BridgesReply, reader: jspb.BinaryReader): BridgesReply;
+}
+
+export namespace BridgesReply {
+  export type AsObject = {
+    bridgesList: Array<string>,
   }
 }
 
