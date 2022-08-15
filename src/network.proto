@@ -12,6 +12,14 @@ message BridgesReply {
   repeated string bridges = 1;
 }
 
+message DHCPPrefixesRequest {
+  int32 count = 1;
+}
+
+message DHCPPrefixesReply {
+  repeated string prefixes = 1;
+}
+
 message Network {
   string id = 1;
   string name = 2;
@@ -49,6 +57,7 @@ service NetworkService {
   rpc Create  (CreateNetworkRequest) returns (CreateNetworkReply) {}
   rpc Delete  (GetNetworksRequest)   returns (ActionReply) {}
   rpc GetFreeBridgeNames (BridgesRequest) returns (BridgesReply) {}
+  rpc GetFreeDHCPPrefixes(DHCPPrefixesRequest) returns (DHCPPrefixesReply) {}
   rpc UpdateDHCP(UpdateNetworkFlagRequest) returns (ActionReply) {}
   rpc UpdateInternet(UpdateNetworkFlagRequest) returns (ActionReply) {}
   rpc UpdatePromiscuous(UpdateNetworkFlagRequest) returns (ActionReply) {}

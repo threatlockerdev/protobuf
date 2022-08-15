@@ -22,6 +22,7 @@ type NetworkServiceClient interface {
 	Create(ctx context.Context, in *CreateNetworkRequest, opts ...grpc.CallOption) (*CreateNetworkReply, error)
 	Delete(ctx context.Context, in *GetNetworksRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	GetFreeBridgeNames(ctx context.Context, in *BridgesRequest, opts ...grpc.CallOption) (*BridgesReply, error)
+	GetFreeDHCPPrefixes(ctx context.Context, in *DHCPPrefixesRequest, opts ...grpc.CallOption) (*DHCPPrefixesReply, error)
 	UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdateInternet(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
 	UpdatePromiscuous(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error)
@@ -71,6 +72,15 @@ func (c *networkServiceClient) GetFreeBridgeNames(ctx context.Context, in *Bridg
 	return out, nil
 }
 
+func (c *networkServiceClient) GetFreeDHCPPrefixes(ctx context.Context, in *DHCPPrefixesRequest, opts ...grpc.CallOption) (*DHCPPrefixesReply, error) {
+	out := new(DHCPPrefixesReply)
+	err := c.cc.Invoke(ctx, "/NetworkService/GetFreeDHCPPrefixes", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *networkServiceClient) UpdateDHCP(ctx context.Context, in *UpdateNetworkFlagRequest, opts ...grpc.CallOption) (*ActionReply, error) {
 	out := new(ActionReply)
 	err := c.cc.Invoke(ctx, "/NetworkService/UpdateDHCP", in, out, opts...)
@@ -106,6 +116,7 @@ type NetworkServiceServer interface {
 	Create(context.Context, *CreateNetworkRequest) (*CreateNetworkReply, error)
 	Delete(context.Context, *GetNetworksRequest) (*ActionReply, error)
 	GetFreeBridgeNames(context.Context, *BridgesRequest) (*BridgesReply, error)
+	GetFreeDHCPPrefixes(context.Context, *DHCPPrefixesRequest) (*DHCPPrefixesReply, error)
 	UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	UpdateInternet(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
 	UpdatePromiscuous(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error)
@@ -127,6 +138,9 @@ func (UnimplementedNetworkServiceServer) Delete(context.Context, *GetNetworksReq
 }
 func (UnimplementedNetworkServiceServer) GetFreeBridgeNames(context.Context, *BridgesRequest) (*BridgesReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFreeBridgeNames not implemented")
+}
+func (UnimplementedNetworkServiceServer) GetFreeDHCPPrefixes(context.Context, *DHCPPrefixesRequest) (*DHCPPrefixesReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFreeDHCPPrefixes not implemented")
 }
 func (UnimplementedNetworkServiceServer) UpdateDHCP(context.Context, *UpdateNetworkFlagRequest) (*ActionReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateDHCP not implemented")
@@ -222,6 +236,24 @@ func _NetworkService_GetFreeBridgeNames_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NetworkService_GetFreeDHCPPrefixes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DHCPPrefixesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NetworkServiceServer).GetFreeDHCPPrefixes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/NetworkService/GetFreeDHCPPrefixes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NetworkServiceServer).GetFreeDHCPPrefixes(ctx, req.(*DHCPPrefixesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _NetworkService_UpdateDHCP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateNetworkFlagRequest)
 	if err := dec(in); err != nil {
@@ -298,6 +330,10 @@ var NetworkService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFreeBridgeNames",
 			Handler:    _NetworkService_GetFreeBridgeNames_Handler,
+		},
+		{
+			MethodName: "GetFreeDHCPPrefixes",
+			Handler:    _NetworkService_GetFreeDHCPPrefixes_Handler,
 		},
 		{
 			MethodName: "UpdateDHCP",

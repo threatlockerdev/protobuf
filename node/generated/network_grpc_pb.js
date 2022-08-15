@@ -60,6 +60,28 @@ function deserialize_CreateNetworkRequest(buffer_arg) {
   return network_pb.CreateNetworkRequest.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_DHCPPrefixesReply(arg) {
+  if (!(arg instanceof network_pb.DHCPPrefixesReply)) {
+    throw new Error('Expected argument of type DHCPPrefixesReply');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_DHCPPrefixesReply(buffer_arg) {
+  return network_pb.DHCPPrefixesReply.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_DHCPPrefixesRequest(arg) {
+  if (!(arg instanceof network_pb.DHCPPrefixesRequest)) {
+    throw new Error('Expected argument of type DHCPPrefixesRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_DHCPPrefixesRequest(buffer_arg) {
+  return network_pb.DHCPPrefixesRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_GetNetworksReply(arg) {
   if (!(arg instanceof network_pb.GetNetworksReply)) {
     throw new Error('Expected argument of type GetNetworksReply');
@@ -138,6 +160,17 @@ var NetworkServiceService = exports.NetworkServiceService = {
     requestDeserialize: deserialize_BridgesRequest,
     responseSerialize: serialize_BridgesReply,
     responseDeserialize: deserialize_BridgesReply,
+  },
+  getFreeDHCPPrefixes: {
+    path: '/NetworkService/GetFreeDHCPPrefixes',
+    requestStream: false,
+    responseStream: false,
+    requestType: network_pb.DHCPPrefixesRequest,
+    responseType: network_pb.DHCPPrefixesReply,
+    requestSerialize: serialize_DHCPPrefixesRequest,
+    requestDeserialize: deserialize_DHCPPrefixesRequest,
+    responseSerialize: serialize_DHCPPrefixesReply,
+    responseDeserialize: deserialize_DHCPPrefixesReply,
   },
   updateDHCP: {
     path: '/NetworkService/UpdateDHCP',

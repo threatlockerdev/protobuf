@@ -46,6 +46,48 @@ export namespace BridgesReply {
   }
 }
 
+export class DHCPPrefixesRequest extends jspb.Message {
+  getCount(): number;
+  setCount(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DHCPPrefixesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: DHCPPrefixesRequest): DHCPPrefixesRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: DHCPPrefixesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DHCPPrefixesRequest;
+  static deserializeBinaryFromReader(message: DHCPPrefixesRequest, reader: jspb.BinaryReader): DHCPPrefixesRequest;
+}
+
+export namespace DHCPPrefixesRequest {
+  export type AsObject = {
+    count: number,
+  }
+}
+
+export class DHCPPrefixesReply extends jspb.Message {
+  clearPrefixesList(): void;
+  getPrefixesList(): Array<string>;
+  setPrefixesList(value: Array<string>): void;
+  addPrefixes(value: string, index?: number): string;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): DHCPPrefixesReply.AsObject;
+  static toObject(includeInstance: boolean, msg: DHCPPrefixesReply): DHCPPrefixesReply.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: DHCPPrefixesReply, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): DHCPPrefixesReply;
+  static deserializeBinaryFromReader(message: DHCPPrefixesReply, reader: jspb.BinaryReader): DHCPPrefixesReply;
+}
+
+export namespace DHCPPrefixesReply {
+  export type AsObject = {
+    prefixesList: Array<string>,
+  }
+}
+
 export class Network extends jspb.Message {
   getId(): string;
   setId(value: string): void;
